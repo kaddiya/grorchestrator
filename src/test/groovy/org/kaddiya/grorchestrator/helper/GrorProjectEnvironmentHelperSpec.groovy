@@ -13,13 +13,15 @@ class GrorProjectEnvironmentHelperSpec extends Specification {
 
     @Shared
     GrorProjectEnvironmentHelper environmentHelper = new GrorProjectEnvironmentHelper();
+    @Shared
+    File grorMasterDirectory
 
     static final String TEST_PROJECT_NAME = "/sample-project"
 
     def "In a blank directory a new gror.json should be created"(){
         given :
             String pathName = System.getProperty("user.dir")+TEST_PROJECT_NAME
-            File grorMasterDirectory = new File(pathName)
+            grorMasterDirectory = new File(pathName)
             grorMasterDirectory.mkdir()
         when  :
            File grorFile =  environmentHelper.createGrorFile(grorMasterDirectory)
@@ -28,4 +30,7 @@ class GrorProjectEnvironmentHelperSpec extends Specification {
     }
 
 
+    def cleanup(){
+        grorMasterDirectory.deleteDir()
+    }
 }

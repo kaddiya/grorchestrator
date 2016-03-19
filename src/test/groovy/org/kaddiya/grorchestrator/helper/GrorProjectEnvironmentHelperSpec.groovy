@@ -17,7 +17,7 @@ class GrorProjectEnvironmentHelperSpec extends Specification {
     @Shared
     File grorMasterDirectory
 
-    static final String TEST_PROJECT_NAME = "/gror-dog-fooding"
+    static final String TEST_PROJECT_NAME = "gror-dog-fooding"
 
     def "In a blank directory a new gror.json should be created"(){
         given :
@@ -53,13 +53,13 @@ class GrorProjectEnvironmentHelperSpec extends Specification {
     }
 
     def createDirectoryFactory(){
-        String pathName = System.getProperty("user.dir")+TEST_PROJECT_NAME
+        String pathName = System.getProperty("user.dir")+File.separator+TEST_PROJECT_NAME
         grorMasterDirectory = new File(pathName)
         grorMasterDirectory.mkdir()
         return grorMasterDirectory
     }
 
     def cleanup(){
-        grorMasterDirectory.deleteDir()
+       // grorMasterDirectory.deleteDir()
     }
 }

@@ -9,5 +9,5 @@ import groovy.transform.Canonical
 @Canonical
 class SystemInfo {
     String name
-    File grorFile
+    String grorFile
 }

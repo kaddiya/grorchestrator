@@ -10,6 +10,7 @@ import org.kaddiya.grorchestrator.Grorchestrator
 import spock.lang.Specification
 
 class GrorchestratorTest extends Specification{
+
     def "someLibraryMethod returns true"() {
         setup:
         Grorchestrator lib = new Grorchestrator()

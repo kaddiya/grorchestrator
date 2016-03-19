@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.kaddiya.grorchestrator.helper.GrorProjectEnvironmentHelperSpec" tests="1" skipped="0" failures="0" errors="0" timestamp="2016-03-19T14:15:51" hostname="Ameyas-MacBook-Pro.local" time="0.031">
-  <properties/>
-  <testcase name="In a blank directory a new gror.json should be created" classname="org.kaddiya.grorchestrator.helper.GrorProjectEnvironmentHelperSpec" time="0.031"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

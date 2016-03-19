@@ -1,6 +1,9 @@
 package org.kaddiya.grorchestrator.helpers
 
 import groovy.transform.CompileStatic
+import org.kaddiya.grorchestrator.models.Component
+import org.kaddiya.grorchestrator.models.GrorProject
+import org.kaddiya.grorchestrator.models.SystemInfo
 
 /**
  * Created by Webonise on 19/03/16.
@@ -8,10 +11,6 @@ import groovy.transform.CompileStatic
 
 @CompileStatic
 class GrorProjectEnvironmentHelper {
-
-     boolean doesGrorFileExistInCurrentPath(String currentPath){
-        System.out.println(currentPath)
-    }
 
 
 
@@ -23,4 +22,10 @@ class GrorProjectEnvironmentHelper {
         assert grorJson.isFile() : "File not created"
         return grorJson
      }
+
+    GrorProject createGrorProject(File masterPath,String systemName){
+        assert  new File(masterPath,"gror.json").exists()
+        new GrorProject(new SystemInfo(systemName),new ArrayList<Component>());
+
+    }
 }

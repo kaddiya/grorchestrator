@@ -41,11 +41,22 @@ class GrorProjectEnvironmentHelperSpec extends Specification {
 
     }
 
+    def "after creating a gror project the grorFile should be written out properly"(){
+        given :
+          File masterDirectory = createDirectoryFactory()
+            environmentHelper.createGrorFile(grorMasterDirectory)
+            GrorProject project = environmentHelper.createGrorProject(masterDirectory,TEST_PROJECT_NAME)
+        when:
+            File updatedGrorJsonFile = environmentHelper.serialiseGrorProject(project,masterDirectory)
+        then:
+            assert updatedGrorJsonFile
+    }
+
     def createDirectoryFactory(){
         String pathName = System.getProperty("user.dir")+TEST_PROJECT_NAME
         grorMasterDirectory = new File(pathName)
         grorMasterDirectory.mkdir()
-        return pathName
+        return grorMasterDirectory
     }
 
     def cleanup(){

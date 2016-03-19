@@ -1,11 +1,13 @@
 package org.kaddiya.grorchestrator.models
 
-import groovy.transform.Immutable
+import groovy.transform.Canonical
+
 
 /**
  * Created by Webonise on 19/03/16.
  */
-@Immutable
+@Canonical
 class SystemInfo {
     String name
+    File grorFile
 }

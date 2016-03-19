@@ -24,8 +24,12 @@ class GrorProjectEnvironmentHelper {
      }
 
     GrorProject createGrorProject(File masterPath,String systemName){
-        assert  new File(masterPath,"gror.json").exists()
-        new GrorProject(new SystemInfo(systemName),new ArrayList<Component>());
+        File grorFile =  new File(masterPath,"gror.json")
+        assert  grorFile.exists() : "Gror json wasnt created"
+        new GrorProject(new SystemInfo(systemName,grorFile),new ArrayList<Component>());
+    }
 
+    File serialiseGrorProject(GrorProject project,File grorMasterDirectory){
+        return project.systemInfo.grorFile
     }
 }

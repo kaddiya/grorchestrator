@@ -4,3 +4,4 @@
 *.iws
 .idea/*
 .idea/libraries
+build/

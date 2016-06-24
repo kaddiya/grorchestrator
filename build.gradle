@@ -32,4 +32,6 @@ dependencies {
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
     compile 'org.slf4j:slf4j-simple:1.6.1'
     compile 'org.slf4j:slf4j-api:1.6.1'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.5'
+
 }

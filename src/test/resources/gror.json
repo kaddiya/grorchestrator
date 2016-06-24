@@ -4,10 +4,9 @@
   },
   "components": [
     {
-      "name": "redis-cache",
       "instances": [
         {
-          "instanceName": "redis.proof.com",
+          "name": "redis.proof.com",
           "portMapping": {
             "6379": 6379
           },
@@ -22,16 +21,15 @@
           },
           "tag": "latest",
           "hostsMapping": {
-
           }
         }
-      ]
+      ],
+      "name": "redis-cache"
     },
     {
-      "name": "mysql-db",
       "instances": [
         {
-          "instanceName": "db.proof.com",
+          "name": "db.proof.com",
           "portMapping": {
             "3306": 3306
           },
@@ -46,17 +44,15 @@
           },
           "tag": "staging-2",
           "hostsMapping": {
-
           }
         }
-      ]
-
+      ],
+      "name": "mysql-db"
     },
     {
-      "name": "api-server",
       "instances": [
         {
-          "instanceName": "api.proof.com",
+          "name": "api.proof.com",
           "portMapping": {
             "8080": 8080
           },
@@ -76,20 +72,19 @@
             "redis.proof.com": "52.23.179.239"
           }
         }
-      ]
+      ],
+      "name": "api-server"
     },
     {
-      "name": "frontend",
       "instances": [
         {
-          "instanceName": "static.proof.com",
+          "name": "static.proof.com",
           "portMapping": {
             "80": 80
           },
           "volumeMapping": {
-
           },
-          "imageName": "proofadmin\/proof-static-frontend",
+          "imageName": "proofadmin\/proof-service-api",
           "host": {
             "alias": "static-vm-1",
             "ip": "52.23.179.239",
@@ -100,7 +95,8 @@
             "api.proof.com": "52.23.179.239"
           }
         }
-      ]
+      ],
+      "name": "frontend"
     }
   ]
 }

@@ -1,0 +1,102 @@
+{
+  "systemInfo": {
+    "name": "demo"
+  },
+  "components": [
+    {
+      "instances": [
+        {
+          "name": "redis.proof.com",
+          "portMapping": {
+            "6379": 6379
+          },
+          "volumeMapping": {
+            "\/home\/deploy\/cache-data": "\/data"
+          },
+          "imageName": "redis",
+          "host": {
+            "alias": "redis-vm-1",
+            "ip": "52.23.179.239",
+            "dockerPort": 2376
+          },
+          "tag": "latest",
+          "hostsMapping": {
+          }
+        }
+      ],
+      "name": "redis-cache"
+    },
+    {
+      "instances": [
+        {
+          "name": "db.proof.com",
+          "portMapping": {
+            "3306": 3306
+          },
+          "volumeMapping": {
+            "\/home\/deploy\/db-data\/data-files": "\/var\/lib\/mysql"
+          },
+          "imageName": "proofadmin\/proof-mysql-db",
+          "host": {
+            "alias": "mysql-vm-1",
+            "ip": "52.23.179.239",
+            "dockerPort": 2376
+          },
+          "tag": "staging-2",
+          "hostsMapping": {
+          }
+        }
+      ],
+      "name": "mysql-db"
+    },
+    {
+      "instances": [
+        {
+          "name": "api.proof.com",
+          "portMapping": {
+            "8080": 8080
+          },
+          "volumeMapping": {
+            "\/home\/ubuntu\/api-data\/proof-data-sets": "\/root\/Proof-Data-Sets",
+            "\/home\/ubuntu\/api-data\/logs": "\/opt\/appData\/proof-service-api\/logs\/"
+          },
+          "imageName": "proofadmin\/proof-service-api",
+          "host": {
+            "alias": "api-vm-1",
+            "ip": "52.23.179.239",
+            "dockerPort": 2376
+          },
+          "tag": "latest",
+          "hostsMapping": {
+            "db.proof.com": "52.23.179.239",
+            "redis.proof.com": "52.23.179.239"
+          }
+        }
+      ],
+      "name": "api-server"
+    },
+    {
+      "instances": [
+        {
+          "name": "static.proof.com",
+          "portMapping": {
+            "80": 80
+          },
+          "volumeMapping": {
+          },
+          "imageName": "proofadmin\/proof-service-api",
+          "host": {
+            "alias": "static-vm-1",
+            "ip": "52.23.179.239",
+            "dockerPort": 2376
+          },
+          "tag": "latest",
+          "hostsMapping": {
+            "api.proof.com": "52.23.179.239"
+          }
+        }
+      ],
+      "name": "frontend"
+    }
+  ]
+}

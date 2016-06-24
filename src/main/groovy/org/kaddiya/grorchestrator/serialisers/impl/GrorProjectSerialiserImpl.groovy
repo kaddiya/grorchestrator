@@ -2,7 +2,7 @@ package org.kaddiya.grorchestrator.serialisers.impl
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import groovy.transform.CompileStatic
-import org.kaddiya.grorchestrator.models.GrorProject
+import org.kaddiya.grorchestrator.models.core.GrorProject
 import org.kaddiya.grorchestrator.serialisers.GrorProjectSerialiser
 
 /**

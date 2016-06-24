@@ -1,7 +1,11 @@
 package org.kaddiya.grorchestrator.serialisers.impl
 
 import groovy.util.logging.Log
-import org.kaddiya.grorchestrator.models.*
+import org.kaddiya.grorchestrator.models.core.Component
+import org.kaddiya.grorchestrator.models.core.GrorProject
+import org.kaddiya.grorchestrator.models.core.Host
+import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.core.SystemInfo
 import org.kaddiya.grorchestrator.serialisers.GrorProjectSerialiser
 import spock.lang.Shared
 import spock.lang.Specification

@@ -1,6 +1,6 @@
 package org.kaddiya.grorchestrator.serialisers;
 
-import org.kaddiya.grorchestrator.models.GrorProject;
+import org.kaddiya.grorchestrator.models.core.GrorProject;
 
 import java.io.File;
 

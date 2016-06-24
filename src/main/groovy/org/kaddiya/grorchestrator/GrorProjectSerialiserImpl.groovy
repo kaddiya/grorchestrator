@@ -1,4 +1,4 @@
-package org.kaddiya.grorchestrator.serialisers.impl
+package org.kaddiya.grorchestrator
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import groovy.transform.CompileStatic

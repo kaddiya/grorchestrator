@@ -1,6 +1,7 @@
-package org.kaddiya.grorchestrator.serialisers.impl
+package org.kaddiya.grorchestrator.serialisers
 
 import groovy.util.logging.Log
+import org.kaddiya.grorchestrator.GrorProjectSerialiserImpl
 import org.kaddiya.grorchestrator.models.core.Component
 import org.kaddiya.grorchestrator.models.core.GrorProject
 import org.kaddiya.grorchestrator.models.core.Host

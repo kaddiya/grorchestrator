@@ -10,4 +10,6 @@ import java.io.File;
 public interface GrorProjectSerialiser {
 
     public GrorProject constructGrorProject(File name);
+
+    public void prepareEnvironmentVariables(GrorProject project);
 }

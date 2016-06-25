@@ -22,7 +22,7 @@
           "imageName": "redis",
           "host": {
             "alias": "redis-vm-1",
-            "ip": "52.23.179.239",
+            "ip": "127.0.0.1",
             "dockerPort": 2376
           },
           "tag": "latest",
@@ -45,7 +45,7 @@
           "imageName": "proofadmin\/proof-mysql-db",
           "host": {
             "alias": "mysql-vm-1",
-            "ip": "52.23.179.239",
+            "ip": "127.0.0.1",
             "dockerPort": 2376
           },
           "tag": "staging-2",
@@ -69,13 +69,13 @@
           "imageName": "proofadmin\/proof-service-api",
           "host": {
             "alias": "api-vm-1",
-            "ip": "52.23.179.239",
+            "ip": "127.0.0.1",
             "dockerPort": 2376
           },
           "tag": "latest",
           "hostsMapping": {
-            "db.proof.com": "52.23.179.239",
-            "redis.proof.com": "52.23.179.239"
+            "db.proof.com": "127.0.0.1",
+            "redis.proof.com": "127.0.0.1"
           }
         }
       ],
@@ -93,12 +93,12 @@
           "imageName": "proofadmin\/proof-service-api",
           "host": {
             "alias": "static-vm-1",
-            "ip": "52.23.179.239",
+            "ip": "127.0.0.1",
             "dockerPort": 2376
           },
           "tag": "latest",
           "hostsMapping": {
-            "api.proof.com": "52.23.179.239"
+            "api.proof.com": "127.0.0.1"
           }
         }
       ],

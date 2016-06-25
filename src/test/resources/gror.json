@@ -5,7 +5,7 @@
   "dockerHubAuthCreds":{
     "username": "username",
     "password": "password",
-    "auth" : "",
+    "auth" : "auth",
     "email":"email@example.com"
   },
   "components": [

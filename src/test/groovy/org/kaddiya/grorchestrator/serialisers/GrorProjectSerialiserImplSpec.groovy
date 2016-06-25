@@ -113,15 +113,33 @@ class GrorProjectSerialiserImplSpec extends Specification {
         GrorProject project = serialiser.constructGrorProject(file)
         System.setProperty("registry.username","username")
         System.setProperty("registry.passowrd","password")
-        System.setProperty("registry.auth","")
+        System.setProperty("registry.auth","auth")
         System.setProperty("registry.email","email@example.com")
         when:
         serialiser.prepareEnvironmentVariables(project)
         then:
         assert  System.getProperty("registry.username") == "username" : "username not properly set"
         assert  System.getProperty("registry.passowrd") == "password" :"password not prperly set"
-        assert  System.getProperty("registry.auth") == ""  : "auth not properly set"
+        assert  System.getProperty("registry.auth") == "auth"  : "auth not properly set"
         assert  System.getProperty("registry.email") == "email@example.com" :"email not properly set"
+    }
+
+    def "prepareEnvironmentVariables should override the proper environment variables after reading from a file not having the credentials and having the env values set"(){
+        given:
+        URL url = getClass().getClassLoader().getResource("gror.json")
+        File file = new File(url.toURI())
+        GrorProject project = serialiser.constructGrorProject(file)
+        System.setProperty("registry.username","overidden-username")
+        System.setProperty("registry.passowrd","overidden-password")
+        System.setProperty("registry.auth","overidden-auth")
+        System.setProperty("registry.email","overidden-email@example.com")
+        when:
+        serialiser.prepareEnvironmentVariables(project)
+        then:
+        assert  System.getProperty("registry.username") == "overidden-username" : "username not properly overriden"
+        assert  System.getProperty("registry.passowrd") == "overidden-password" :"password not properly overriden"
+        assert  System.getProperty("registry.auth") == "overidden-auth"  : "auth not properly overriden"
+        assert  System.getProperty("registry.email") == "overidden-email@example.com" :"email not properly overriden"
     }
 
     def getDummyFullGrorProject() {

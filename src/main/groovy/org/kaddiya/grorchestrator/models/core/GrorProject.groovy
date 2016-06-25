@@ -8,5 +8,6 @@ import groovy.transform.Canonical
 @Canonical
 class GrorProject {
     SystemInfo systemInfo
+    DockerHubAuth dockerHubAuthCreds
     List<Component> components
 }

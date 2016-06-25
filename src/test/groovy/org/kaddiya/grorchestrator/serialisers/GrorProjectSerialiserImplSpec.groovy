@@ -3,6 +3,7 @@ package org.kaddiya.grorchestrator.serialisers
 import groovy.util.logging.Log
 import org.kaddiya.grorchestrator.GrorProjectSerialiserImpl
 import org.kaddiya.grorchestrator.models.core.Component
+import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 import org.kaddiya.grorchestrator.models.core.GrorProject
 import org.kaddiya.grorchestrator.models.core.Host
 import org.kaddiya.grorchestrator.models.core.Instance
@@ -54,6 +55,7 @@ class GrorProjectSerialiserImplSpec extends Specification {
 
     def getDummyGrorProject() {
         SystemInfo info = new SystemInfo("demo")
+        DockerHubAuth  dockerHubAuth = new DockerHubAuth("username","password","","email@example.com")
         List<Host> hosts = Arrays.asList(
                 new Host("52.23.179.239", "redis-vm-1", 2376),
                 new Host("52.23.179.239", "mysql-vm-1", 2376),
@@ -95,7 +97,7 @@ class GrorProjectSerialiserImplSpec extends Specification {
 
                 ))
         )
-        GrorProject project = new GrorProject(info, components)
+        GrorProject project = new GrorProject(info,dockerHubAuth,components)
         return project
     }
 }

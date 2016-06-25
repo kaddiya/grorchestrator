@@ -2,6 +2,12 @@
   "systemInfo": {
     "name": "demo"
   },
+  "dockerHubAuthCreds":{
+    "username": "username",
+    "password": "password",
+    "auth" : "",
+    "email":"email@example.com"
+  },
   "components": [
     {
       "instances": [

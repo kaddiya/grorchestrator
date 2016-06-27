@@ -45,7 +45,7 @@ class GrorProjectSerialiserImpl implements GrorProjectSerialiser {
 
     void checkAndSetSystemProperty(String propertyName,String propertyValue){
 
-        if(!propertyValue){
+        if(!(propertyValue || System.getProperty(propertyName)) ){
             throw  new IllegalArgumentException("please set the value for $propertyName in the gror file or pass in the value via command line")
         }
         if(!System.getProperty(propertyName)){

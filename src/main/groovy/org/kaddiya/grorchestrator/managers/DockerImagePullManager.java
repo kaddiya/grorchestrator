@@ -7,5 +7,5 @@ import org.kaddiya.grorchestrator.models.core.Instance;
  */
 public interface DockerImagePullManager {
 
-    public void pullImage();
+    public String pullImage();
 }

@@ -12,29 +12,24 @@ import spock.lang.Specification
 class DockerImagePullManagerImplSpec extends Specification {
 
     @Shared
-    DockerRemoteApiManager imagePullManager
+    DockerImagePullManager imagePullManager
 
-
-
-    def "constructUrl should return a proper URL for pulling an image"(){
+    def "pullImage should pull the image"(){
         given:
-        Instance instance = new Instance("sample-instance-1","repo/sample-service","sample-tag",
-                new Host("127.0.0.1","localhost",2376),
+        Instance instance = new Instance("sample-instance-1","sample-repo-name/sample-image-name","sample-tag",
+                new Host("127.0.0.1","127.0.0.1",2376),
                 [:],[:],[:])
 
-        when:
         imagePullManager = new DockerImagePullManagerImpl(instance)
-
+        imagePullManager.client.post >> {
+            return "Pulling from sample-repo-name/sample-image-name"
+        }
+        when:
+        String response = imagePullManager.pullImage()
         then:
-        assert  imagePullManager.apiUrl == "http://127.0.0.1:2376/images/create?fromImage=repo/sample-service:sample-tag"
+        assert  response.contains("Pulling from sample-repo-name/sample-image-name")
+
+
     }
 
-
-
-    def cleanup(){
-        System.setProperty("registry.username","")
-        System.setProperty("registry.password","")
-        System.setProperty("registry.auth","")
-        System.setProperty("registry.email","")
-    }
 }

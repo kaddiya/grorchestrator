@@ -1,6 +1,8 @@
 package org.kaddiya.grorchestrator.managers.impl
 
 import groovy.transform.CompileStatic
+import groovyx.net.http.HTTPBuilder
+import groovyx.net.http.RESTClient
 import org.kaddiya.grorchestrator.helpers.DockerAuthCredentialsBuilder
 import org.kaddiya.grorchestrator.managers.DockerImagePullManager
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
@@ -14,22 +16,25 @@ import org.kaddiya.grorchestrator.models.core.Instance
 class DockerImagePullManagerImpl extends DockerRemoteAPI implements DockerImagePullManager {
 
     String authHeaderKey = "X-Registry-Auth"
+    final DockerAuthCredentialsBuilder builder
+    final HTTPBuilder client
 
     public DockerImagePullManagerImpl(Instance instance){
         super(instance)
-        this.apiUrl = getBaseUrl()+"/images/create?fromImage=$instance.imageName:$instance.tag"
-        headers = new HashMap<>()
+        this.builder =  new DockerAuthCredentialsBuilder()
+        this.client = new HTTPBuilder(this.baseUrl)
 
-        DockerAuthCredentialsBuilder builder =  new DockerAuthCredentialsBuilder()
-        String base64EncodedCreds = builder.getbase64EncodedValueForCredentials()
-        headers.put(authHeaderKey,base64EncodedCreds)
   }
 
     @Override
-    void pullImage() {
-        String base64EncodedDockerCreds = headers.get(authHeaderKey)
-        String headerString  = "$authHeaderKey:$base64EncodedDockerCreds"
-        "curl -X POST -H $headerString $apiUrl".execute()
-
+    String pullImage() {
+        def response = client.post(
+                path : "/images/create",
+                headers: ["X-Registry-Auth":builder.getbase64EncodedValueForCredentials()],
+                query:[
+                        'fromImage': "$instance.imageName:$instance.tag"
+                ]
+        )
+        response
     }
 }

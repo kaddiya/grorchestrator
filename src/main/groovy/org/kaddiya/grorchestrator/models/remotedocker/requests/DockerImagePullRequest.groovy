@@ -7,4 +7,5 @@ import groovy.transform.Immutable
  */
 @Immutable
 class DockerImagePullRequest {
+
 }

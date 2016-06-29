@@ -13,9 +13,9 @@ abstract class DockerRemoteAPI implements DockerRemoteApiManager {
 
     public DockerRemoteAPI(Instance instance){
         this.instance = instance
+        //construct the baseURL
         this.baseUrl = "http://$instance.host.ip:$instance.host.dockerPort"
     }
-
 
 
 }

@@ -5,4 +5,5 @@ package org.kaddiya.grorchestrator.managers
  */
 trait DockerRemoteApiManager {
     String apiUrl;
+    Map<String,String> headers;
 }

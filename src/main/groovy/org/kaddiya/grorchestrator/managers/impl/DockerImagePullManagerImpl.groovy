@@ -1,8 +1,10 @@
 package org.kaddiya.grorchestrator.managers.impl
 
 import groovy.transform.CompileStatic
+import org.kaddiya.grorchestrator.helpers.DockerAuthCredentialsBuilder
 import org.kaddiya.grorchestrator.managers.DockerImagePullManager
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
+import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 import org.kaddiya.grorchestrator.models.core.Instance
 
 /**
@@ -17,8 +19,11 @@ class DockerImagePullManagerImpl extends DockerRemoteAPI implements DockerImageP
         super(instance)
         this.apiUrl = getBaseUrl()+"/images/create?fromImage=$instance.imageName:$instance.tag"
         headers = new HashMap<>()
-        headers.put(authHeaderKey,"")
-    }
+
+        DockerAuthCredentialsBuilder builder =  new DockerAuthCredentialsBuilder()
+        String base64EncodedCreds = builder.getbase64EncodedValueForCredentials()
+        headers.put(authHeaderKey,base64EncodedCreds)
+  }
 
     @Override
     void pullImage() {

@@ -15,6 +15,7 @@ class DockerImagePullManagerImplSpec extends Specification {
     DockerRemoteApiManager imagePullManager
 
 
+
     def "constructUrl should return a proper URL for pulling an image"(){
         given:
         Instance instance = new Instance("sample-instance-1","repo/sample-service","sample-tag",
@@ -29,18 +30,11 @@ class DockerImagePullManagerImplSpec extends Specification {
     }
 
 
-    def "pullImage should pull the image"(){
-        given:
-        Instance instance = new Instance("sample-instance-1","proofadmin/proof-static-frontend","testing-34",
-                new Host("test-proof.weboapps.com","test-proof.weboapps.com",2376),
-                [:],[:],[:])
 
-        imagePullManager = new DockerImagePullManagerImpl(instance)
-        when:
-        (imagePullManager as DockerImagePullManager).pullImage()
-        then:
-        assert  true
-
-
+    def cleanup(){
+        System.setProperty("registry.username","")
+        System.setProperty("registry.password","")
+        System.setProperty("registry.auth","")
+        System.setProperty("registry.email","")
     }
 }

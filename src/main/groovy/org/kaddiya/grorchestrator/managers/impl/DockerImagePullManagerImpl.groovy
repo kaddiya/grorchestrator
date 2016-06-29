@@ -17,8 +17,7 @@ class DockerImagePullManagerImpl extends DockerRemoteAPI implements DockerImageP
         super(instance)
         this.apiUrl = getBaseUrl()+"/images/create?fromImage=$instance.imageName:$instance.tag"
         headers = new HashMap<>()
-        headers.put(authHeaderKey,"eyJ1c2VybmFtZSI6InByb29mYWRtaW4iLCJwYXNzd29yZCI6IjE1MjkuVmllbm5hLjE2ODMiLCAiYXV0aCI6IiIsImVtYWlsIjoiZGV2ZWxvcGVyc0BnZXQtcHJvb2YuY29tIn0=")
-        //this.headers =  Collections.unmodifiableMap(["X-Registry-Auth" :"])
+        headers.put(authHeaderKey,"")
     }
 
     @Override

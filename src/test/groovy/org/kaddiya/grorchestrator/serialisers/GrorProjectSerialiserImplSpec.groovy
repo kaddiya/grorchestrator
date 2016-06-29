@@ -142,6 +142,12 @@ class GrorProjectSerialiserImplSpec extends Specification {
         assert  System.getProperty("registry.email") == "overidden-email@example.com" :"email not properly overriden"
     }
 
+    def cleanup(){
+        System.setProperty("registry.username","")
+        System.setProperty("registry.password","")
+        System.setProperty("registry.auth","")
+        System.setProperty("registry.email","")
+    }
     def getDummyFullGrorProject() {
         SystemInfo info = new SystemInfo("demo")
         DockerHubAuth  dockerHubAuth = new DockerHubAuth("username","password","auth","email@example.com")

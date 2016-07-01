@@ -20,14 +20,6 @@ class GrorProjectSerialiserImpl implements GrorProjectSerialiser {
         if (!name.exists())
             throw new IllegalStateException("File $name doesnt exist")
 
-        /*
-              the following just yeilds lazy maps for nested components
-        def slurper = new JsonSlurper()
-        def projectMap = slurper.parseText(name.text)
-        def grorProject = new GrorProject(projectMap)
-        */
-        //Jackson works like a charm
-
         ObjectMapper mapper = new ObjectMapper();
         GrorProject grorProject = mapper.readValue(name.text, GrorProject.class);
         return grorProject;

@@ -63,7 +63,7 @@ class GrorProjectSerialiserImplSpec extends Specification {
         assert actualProject == expectedProject: "Something went wrong in the parsing"
 
     }
-    def "prepareEnvironmentVariables should set proper environment variables through the gror.json"(){
+    /*def "prepareEnvironmentVariables should set proper environment variables through the gror.json"(){
         given:
         URL url = getClass().getClassLoader().getResource("gror.json")
         File file = new File(url.toURI())
@@ -138,7 +138,7 @@ class GrorProjectSerialiserImplSpec extends Specification {
         assert  System.getProperty("registry.passowrd") == "overidden-password" :"password not properly overriden"
         assert  System.getProperty("registry.auth") == "overidden-auth"  : "auth not properly overriden"
         assert  System.getProperty("registry.email") == "overidden-email@example.com" :"email not properly overriden"
-    }
+    }*/
 
     def cleanup(){
         System.setProperty("registry.username","")

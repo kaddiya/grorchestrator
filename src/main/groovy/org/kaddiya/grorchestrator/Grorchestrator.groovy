@@ -29,7 +29,6 @@ class Grorchestrator {
 
           assert grorFile : "gror file not found"
           GrorProject project = serialiser.constructGrorProject(grorFile)
-          serialiser.prepareEnvironmentVariables(project)
           assert project : "project cant be constructed"
 
 

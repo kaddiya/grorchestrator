@@ -6,7 +6,6 @@ import org.kaddiya.grorchestrator.managers.impl.DockerImagePullManagerImpl
 import org.kaddiya.grorchestrator.models.core.Component
 import org.kaddiya.grorchestrator.models.core.GrorProject
 import org.kaddiya.grorchestrator.models.core.Instance
-import org.kaddiya.grorchestrator.models.remotedocker.SupportedActions
 import org.kaddiya.grorchestrator.serialisers.GrorProjectSerialiser
 import org.kaddiya.grorchestrator.serialisers.GrorProjectSerialiserImpl
 

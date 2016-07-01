@@ -2,11 +2,9 @@ package org.kaddiya.grorchestrator.managers.impl
 
 import groovy.transform.CompileStatic
 import groovyx.net.http.HTTPBuilder
-import groovyx.net.http.RESTClient
 import org.kaddiya.grorchestrator.helpers.DockerAuthCredentialsBuilder
 import org.kaddiya.grorchestrator.managers.DockerImagePullManager
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
-import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 import org.kaddiya.grorchestrator.models.core.Instance
 
 /**

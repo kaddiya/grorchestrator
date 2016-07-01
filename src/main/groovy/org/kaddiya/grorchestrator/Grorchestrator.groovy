@@ -20,15 +20,14 @@ import javax.inject.Inject
 class Grorchestrator {
 
     final static String DEFAULT_GROR_FILE_NAME = "gror.json"
-
-
+    
     public static void main(String[] args) {
 
         Injector grorchestratorInjector = Guice.createInjector(new GrorchestratorModule(
                 new SerialiserModule(),new DockerRemoteAPIModule()
         ))
         GrorProjectSerialiser serialiser = grorchestratorInjector.getInstance(GrorProjectSerialiser)
-        //DockerImagePullManager pullManager = grorchestratorInjector.getInstance(DockerImagePullManager)
+
         DockerImagePullManagerFactory factory = grorchestratorInjector.getInstance(DockerImagePullManagerFactory)
 
         String tag = "latest"
@@ -63,8 +62,6 @@ class Grorchestrator {
         assert  requestedInstance.size() == 1 : "Non Singular value for instance passed"
 
         Instance instanceToPull = requestedInstance[0]
-
-//        DockerImagePullManager pullManager = new DockerImagePullManagerImpl(instanceToPull);
 
         DockerImagePullManager pullManager =  factory.create(instanceToPull)
 

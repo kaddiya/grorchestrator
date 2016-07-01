@@ -2,7 +2,6 @@
   "systemInfo": {
     "name": "demo"
   },
-  "dockerHubAuthCreds":{},
   "components": [
     {
       "instances": [

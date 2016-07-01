@@ -1,4 +1,4 @@
-package org.kaddiya.grorchestrator
+package org.kaddiya.grorchestrator.serialisers
 
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -35,15 +35,11 @@ class GrorProjectSerialiserImpl implements GrorProjectSerialiser {
     }
 
     void prepareEnvironmentVariables(GrorProject project) {
-        DockerHubAuth creds = project.getDockerHubAuthCreds()
 
-        checkAndSetSystemProperty("registry.username",creds.username)
-        checkAndSetSystemProperty("registry.password",creds.password)
-        checkAndSetSystemProperty("registry.auth",creds.auth)
-        checkAndSetSystemProperty("registry.email",creds.email)
     }
 
     void checkAndSetSystemProperty(String propertyName,String propertyValue){
+/*
 
         if(!(propertyValue || System.getProperty(propertyName)) ){
             throw  new IllegalArgumentException("please set the value for $propertyName in the gror file or pass in the value via command line")
@@ -52,6 +48,7 @@ class GrorProjectSerialiserImpl implements GrorProjectSerialiser {
             System.setProperty(propertyName,propertyValue)
         }
 
+*/
 
     }
 }

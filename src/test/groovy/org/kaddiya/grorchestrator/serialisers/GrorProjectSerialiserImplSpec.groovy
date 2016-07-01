@@ -1,14 +1,12 @@
 package org.kaddiya.grorchestrator.serialisers
 
 import groovy.util.logging.Log
-import org.kaddiya.grorchestrator.GrorProjectSerialiserImpl
 import org.kaddiya.grorchestrator.models.core.Component
 import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 import org.kaddiya.grorchestrator.models.core.GrorProject
 import org.kaddiya.grorchestrator.models.core.Host
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.core.SystemInfo
-import org.kaddiya.grorchestrator.serialisers.GrorProjectSerialiser
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -192,13 +190,12 @@ class GrorProjectSerialiserImplSpec extends Specification {
 
                 ))
         )
-        GrorProject project = new GrorProject(info,dockerHubAuth,components)
+        GrorProject project = new GrorProject(info,components)
         return project
     }
 
     def getDummyEmptyCredsGrorProject() {
         SystemInfo info = new SystemInfo("demo")
-        DockerHubAuth  dockerHubAuth = new DockerHubAuth()
         List<Host> hosts = Arrays.asList(
                 new Host("127.0.0.1", "redis-vm-1", 2376),
                 new Host("127.0.0.1", "mysql-vm-1", 2376),
@@ -240,7 +237,7 @@ class GrorProjectSerialiserImplSpec extends Specification {
 
                 ))
         )
-        GrorProject project = new GrorProject(info,dockerHubAuth,components)
+        GrorProject project = new GrorProject(info,components)
         return project
     }
 }

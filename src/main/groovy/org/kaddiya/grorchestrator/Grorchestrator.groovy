@@ -3,8 +3,10 @@ package org.kaddiya.grorchestrator
 import com.google.inject.Guice
 import com.google.inject.Injector
 import groovy.transform.CompileStatic
+import org.kaddiya.grorchestrator.guice.DockerRemoteAPIModule
 import org.kaddiya.grorchestrator.guice.GrorchestratorModule
 import org.kaddiya.grorchestrator.guice.SerialiserModule
+import org.kaddiya.grorchestrator.guice.factory.DockerImagePullManagerFactory
 import org.kaddiya.grorchestrator.managers.DockerImagePullManager
 import org.kaddiya.grorchestrator.managers.impl.DockerImagePullManagerImpl
 import org.kaddiya.grorchestrator.models.core.Component
@@ -12,17 +14,22 @@ import org.kaddiya.grorchestrator.models.core.GrorProject
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.serialisers.GrorProjectSerialiser
 
+import javax.inject.Inject
+
 @CompileStatic
 class Grorchestrator {
 
     final static String DEFAULT_GROR_FILE_NAME = "gror.json"
 
+
     public static void main(String[] args) {
 
         Injector grorchestratorInjector = Guice.createInjector(new GrorchestratorModule(
-                new SerialiserModule()
+                new SerialiserModule(),new DockerRemoteAPIModule()
         ))
         GrorProjectSerialiser serialiser = grorchestratorInjector.getInstance(GrorProjectSerialiser)
+        //DockerImagePullManager pullManager = grorchestratorInjector.getInstance(DockerImagePullManager)
+        DockerImagePullManagerFactory factory = grorchestratorInjector.getInstance(DockerImagePullManagerFactory)
 
         String tag = "latest"
 
@@ -57,7 +64,9 @@ class Grorchestrator {
 
         Instance instanceToPull = requestedInstance[0]
 
-        DockerImagePullManager pullManager = new DockerImagePullManagerImpl(instanceToPull);
+//        DockerImagePullManager pullManager = new DockerImagePullManagerImpl(instanceToPull);
+
+        DockerImagePullManager pullManager =  factory.create(instanceToPull)
 
         pullManager.pullImage(instanceToPull.imageName,tag)
 

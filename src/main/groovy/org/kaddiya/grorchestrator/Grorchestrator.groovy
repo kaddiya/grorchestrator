@@ -14,7 +14,7 @@ import org.kaddiya.grorchestrator.serialisers.GrorProjectSerialiserImpl
 class Grorchestrator {
 
     final static GrorProjectSerialiser serialiser = new GrorProjectSerialiserImpl()
-    final String DEFAULT_GROR_FILE_NAME = "gror.json"
+    final static String DEFAULT_GROR_FILE_NAME = "gror.json"
 
     public static void main(String[] args) {
         assert args.size() == 3 : "incorrect number of arguments."
@@ -24,12 +24,13 @@ class Grorchestrator {
         String tag = args[2]
 
         File grorFile = new File(System.getProperty("user.dir")).listFiles().find{File it ->
-            it.name.equals("gror.json")
+            it.name.equals(DEFAULT_GROR_FILE_NAME)
         }
 
-          assert grorFile : "gror file not found"
-          GrorProject project = serialiser.constructGrorProject(grorFile)
-          assert project : "project cant be constructed"
+
+        assert grorFile : "$DEFAULT_GROR_FILE_NAME file not found"
+        GrorProject project = serialiser.constructGrorProject(grorFile)
+        assert project : "project cant be constructed"
 
 
         List<Instance> requestedInstance = project.components.collectNested {Component it ->
@@ -42,11 +43,10 @@ class Grorchestrator {
         assert  requestedInstance.size() == 1 : "Non Singular value for instance passed"
 
         Instance instanceToPull = requestedInstance[0]
-        instanceToPull.tag = tag
 
         DockerImagePullManager pullManager = new DockerImagePullManagerImpl(instanceToPull);
 
-        pullManager.pullImage()
+        pullManager.pullImage(instanceToPull.imageName,tag)
 
         println("finished pulling the images")
 

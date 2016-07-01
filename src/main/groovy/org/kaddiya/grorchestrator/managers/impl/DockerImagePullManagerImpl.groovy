@@ -27,12 +27,14 @@ class DockerImagePullManagerImpl extends DockerRemoteAPI implements DockerImageP
   }
 
     @Override
-    String pullImage() {
+    String pullImage(String imageName,String tag) {
+        if(!tag)
+            tag = "latesttag"
         def response = client.post(
                 path : "/images/create",
                 headers: ["X-Registry-Auth":builder.getbase64EncodedValueForCredentials()],
                 query:[
-                        'fromImage': "$instance.imageName:$instance.tag"
+                        'fromImage': "$imageName:$tag"
                 ]
         )
         response

@@ -16,21 +16,24 @@ import org.kaddiya.grorchestrator.models.core.Instance
 class DockerImagePullManagerImpl extends DockerRemoteAPI implements DockerImagePullManager {
 
     String authHeaderKey = "X-Registry-Auth"
-    final DockerAuthCredentialsBuilder builder
+
+    @Inject
+    DockerAuthCredentialsBuilder builder
+
+
     final HTTPBuilder client
 
     @Inject
     public DockerImagePullManagerImpl(@Assisted Instance instance){
         super(instance)
-        this.builder =  new DockerAuthCredentialsBuilder()
-        this.client = new HTTPBuilder(this.baseUrl)
+        this.client = new HTTPBuilder(baseUrl)
 
   }
 
     @Override
     String pullImage(String imageName,String tag) {
         if(!tag)
-            tag = "latesttag"
+            tag = "latest"
         def response = client.post(
                 path : "/images/create",
                 headers: ["X-Registry-Auth":builder.getbase64EncodedValueForCredentials()],

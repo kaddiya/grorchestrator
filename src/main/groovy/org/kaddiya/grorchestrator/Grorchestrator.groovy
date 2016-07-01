@@ -5,6 +5,7 @@ import com.google.inject.Injector
 import groovy.transform.CompileStatic
 import org.kaddiya.grorchestrator.guice.DockerRemoteAPIModule
 import org.kaddiya.grorchestrator.guice.GrorchestratorModule
+import org.kaddiya.grorchestrator.guice.HelperModule
 import org.kaddiya.grorchestrator.guice.SerialiserModule
 import org.kaddiya.grorchestrator.guice.factory.DockerImagePullManagerFactory
 import org.kaddiya.grorchestrator.managers.DockerImagePullManager
@@ -21,20 +22,22 @@ class Grorchestrator {
     public static void main(String[] args) {
 
         Injector grorchestratorInjector = Guice.createInjector(new GrorchestratorModule(
-                new SerialiserModule(),new DockerRemoteAPIModule()
+                new SerialiserModule(),new DockerRemoteAPIModule(),new HelperModule()
+
         ))
+
         GrorProjectSerialiser serialiser = grorchestratorInjector.getInstance(GrorProjectSerialiser)
 
         DockerImagePullManagerFactory factory = grorchestratorInjector.getInstance(DockerImagePullManagerFactory)
 
-        String tag = "latest"
+        String tag
 
         assert args.size() >= 2 : "incorrect number of arguments."
 
         String action = args[0]
         String instance = args[1]
 
-        //if the tag is passed then update or set it to latest
+        //if the tag is passed then update or let it be default
         if(args.size() > 2){
             tag = args[2]
         }

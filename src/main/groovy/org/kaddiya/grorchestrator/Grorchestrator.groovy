@@ -8,19 +8,16 @@ import org.kaddiya.grorchestrator.guice.GrorchestratorModule
 import org.kaddiya.grorchestrator.guice.SerialiserModule
 import org.kaddiya.grorchestrator.guice.factory.DockerImagePullManagerFactory
 import org.kaddiya.grorchestrator.managers.DockerImagePullManager
-import org.kaddiya.grorchestrator.managers.impl.DockerImagePullManagerImpl
 import org.kaddiya.grorchestrator.models.core.Component
 import org.kaddiya.grorchestrator.models.core.GrorProject
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.serialisers.GrorProjectSerialiser
 
-import javax.inject.Inject
-
 @CompileStatic
 class Grorchestrator {
 
     final static String DEFAULT_GROR_FILE_NAME = "gror.json"
-    
+
     public static void main(String[] args) {
 
         Injector grorchestratorInjector = Guice.createInjector(new GrorchestratorModule(

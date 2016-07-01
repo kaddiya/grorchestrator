@@ -1,8 +1,10 @@
-package org.kaddiya.grorchestrator.serialisers.impl
+package org.kaddiya.grorchestrator.serialisers
 
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import groovy.transform.CompileStatic
-import org.kaddiya.grorchestrator.models.GrorProject
+import org.kaddiya.grorchestrator.models.core.DockerHubAuth
+import org.kaddiya.grorchestrator.models.core.GrorProject
 import org.kaddiya.grorchestrator.serialisers.GrorProjectSerialiser
 
 /**
@@ -31,5 +33,6 @@ class GrorProjectSerialiserImpl implements GrorProjectSerialiser {
         return grorProject;
 
     }
+
 
 }

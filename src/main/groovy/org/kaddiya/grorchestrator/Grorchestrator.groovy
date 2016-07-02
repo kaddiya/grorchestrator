@@ -9,7 +9,6 @@ import org.kaddiya.grorchestrator.guice.HelperModule
 import org.kaddiya.grorchestrator.guice.SerialiserModule
 import org.kaddiya.grorchestrator.guice.factory.DockerImagePullManagerFactory
 import org.kaddiya.grorchestrator.helpers.InstanceFinder
-import org.kaddiya.grorchestrator.helpers.InstanceFinderImpl
 import org.kaddiya.grorchestrator.managers.DockerImagePullManager
 import org.kaddiya.grorchestrator.models.core.GrorProject
 import org.kaddiya.grorchestrator.models.core.Instance
@@ -31,6 +30,7 @@ class Grorchestrator {
         GrorProjectSerialiser serialiser = grorchestratorInjector.getInstance(GrorProjectSerialiser)
 
         DockerImagePullManagerFactory factory = grorchestratorInjector.getInstance(DockerImagePullManagerFactory)
+
 
         InstanceFinder instanceFinderImpl = grorchestratorInjector.getInstance(InstanceFinder)
 
@@ -55,6 +55,8 @@ class Grorchestrator {
         GrorProject project = serialiser.constructGrorProject(grorFile)
         assert project : "project cant be constructed"
 
+        Instance requestedInstance =  instanceFinderImpl.getInstanceToInteractWith(project,instanceName)
+
 
         switch (action){
             case SupportedActions.PULL_IMAGE.toString():
@@ -68,8 +70,6 @@ class Grorchestrator {
             break
 
         }
-
-
 
     }
 

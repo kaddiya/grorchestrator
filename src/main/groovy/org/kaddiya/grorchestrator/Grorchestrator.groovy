@@ -12,6 +12,7 @@ import org.kaddiya.grorchestrator.helpers.InstanceFinder
 import org.kaddiya.grorchestrator.managers.DockerImagePullManager
 import org.kaddiya.grorchestrator.models.core.GrorProject
 import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.remotedocker.SupportedActions
 import org.kaddiya.grorchestrator.serialisers.GrorProjectSerialiser
 
 @CompileStatic
@@ -54,11 +55,18 @@ class Grorchestrator {
         GrorProject project = serialiser.constructGrorProject(grorFile)
         assert project : "project cant be constructed"
         Instance requestedInstance = instanceFinderImpl.getInstanceToInteractWith(project,instanceName)
-
         DockerImagePullManager pullManager =  factory.create(requestedInstance)
 
-        pullManager.pullImage(requestedInstance.imageName,tag)
-        println("finished pulling the images")
+        switch (action){
+            case SupportedActions.PULL_IMAGE.name():
+                pullManager.pullImage(requestedInstance.imageName,tag)
+                println("finished pulling the images")
+            break
+            default:
+                throw new IllegalArgumentException("Unsupported Actions")
+            break
+        }
+
 
 
 

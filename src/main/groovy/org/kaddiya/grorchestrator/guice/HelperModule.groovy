@@ -3,7 +3,8 @@ package org.kaddiya.grorchestrator.guice
 import com.google.inject.AbstractModule
 import org.kaddiya.grorchestrator.helpers.DockerAuthCredentialsBuilder
 import org.kaddiya.grorchestrator.helpers.InstanceFinder
-import org.kaddiya.grorchestrator.helpers.InstanceFinderImpl
+import org.kaddiya.grorchestrator.helpers.impl.InstanceFinderImpl
+
 
 /**
  * Created by Webonise on 01/07/16.

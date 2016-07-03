@@ -20,5 +20,6 @@ class InstanceFinderImpl  implements  InstanceFinder{
         if(requestedInstance.size() > 1){
             throw new IllegalArgumentException("Multiple instances with the same name detected")
         }
+        return requestedInstance.get(0)
     }
 }

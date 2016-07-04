@@ -7,6 +7,7 @@ import groovyx.net.http.HTTPBuilder
 import org.kaddiya.grorchestrator.managers.DockerContainerCreator
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerCreationResponse
 
 import static groovyx.net.http.ContentType.JSON
 
@@ -32,16 +33,16 @@ class DockerContainerCreatorImpl extends DockerRemoteAPI implements DockerContai
 
         def value = imageName + ":" + tag
 
-        def response = client.post(
+        DockerContainerCreationResponse response = client.post(
                 requestContentType: JSON,
                 path: "/containers/create",
                 query: [
-                        'name': "some-name" //this has to be changed to a UUID name.After deployment this has to be renamed
+                        'name': "some-name-1" //this has to be changed to a UUID name.After deployment this has to be renamed
                 ],
                 body: ['Image': value]
 
-        )
-        println(response)
+        ) as DockerContainerCreationResponse
+        println(response.Id)
         response
     }
 }

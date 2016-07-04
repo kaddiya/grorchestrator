@@ -17,8 +17,11 @@ class InstanceFinderImpl  implements  InstanceFinder{
             }
         }.grep({it!=null})
 
+        if(requestedInstance.size() < 1){
+            throw new IllegalArgumentException("No instances with  $instanceName detected")
+        }
         if(requestedInstance.size() > 1){
-            throw new IllegalArgumentException("Multiple instances with the same name detected")
+            throw new IllegalArgumentException("Multiple instances with $instanceName detected")
         }
         return requestedInstance.get(0)
     }

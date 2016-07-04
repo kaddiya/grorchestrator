@@ -68,6 +68,10 @@ class Grorchestrator {
                 pullManager.pullImage(requestedInstance.imageName,tag)
                 println("finished pulling the images")
             break
+            case SupportedActions.CREATE_CONTAINER.name():
+                dockerContainerCreator.createContainer(requestedInstance.imageName,tag)
+                println("finished creating the container")
+                break
             default:
                 throw new IllegalArgumentException("Unsupported Actions")
             break

@@ -8,31 +8,31 @@ import spock.lang.Specification
 /**
  * Created by Webonise on 04/07/16.
  */
-class InstanceFinderImplSpec  extends  Specification{
+class InstanceFinderImplSpec extends Specification {
 
     @Shared
     InstanceFinder fixture = new InstanceFinderImpl()
 
-    def  "getInstanceToInteractWith should throw an IAE when it encounters no matching instances"(){
+    def "getInstanceToInteractWith should throw an IAE when it encounters no matching instances"() {
         given:
         GrorProject project = getDummyGrorProject()
-       String instanceName = "non-existing-instance"
+        String instanceName = "non-existing-instance"
         when:
-        fixture.getInstanceToInteractWith(project,instanceName)
+        fixture.getInstanceToInteractWith(project, instanceName)
         then:
-        IllegalArgumentException iae  = thrown()
+        IllegalArgumentException iae = thrown()
         iae.message.contains("No instances with  $instanceName detected")
 
     }
 
-    def  "getInstanceToInteractWith should throw an IAE when it encounters multiple matching instances"(){
+    def "getInstanceToInteractWith should throw an IAE when it encounters multiple matching instances"() {
         given:
         GrorProject project = getDummyGrorProjectWithDuplicateInstances()
         String instanceName = "redis.proof.com"
         when:
-        fixture.getInstanceToInteractWith(project,instanceName)
+        fixture.getInstanceToInteractWith(project, instanceName)
         then:
-        IllegalArgumentException iae  = thrown()
+        IllegalArgumentException iae = thrown()
         iae.message.contains("Multiple instances with $instanceName detected")
 
     }
@@ -55,7 +55,7 @@ class InstanceFinderImplSpec  extends  Specification{
 
                 ))
         )
-        GrorProject project = new GrorProject(info,components)
+        GrorProject project = new GrorProject(info, components)
         return project
     }
 
@@ -82,7 +82,7 @@ class InstanceFinderImplSpec  extends  Specification{
 
                 ))
         )
-        GrorProject project = new GrorProject(info,components)
+        GrorProject project = new GrorProject(info, components)
         return project
     }
 }

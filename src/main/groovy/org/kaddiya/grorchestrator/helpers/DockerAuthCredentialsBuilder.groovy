@@ -10,16 +10,16 @@ import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 @CompileStatic
 class DockerAuthCredentialsBuilder {
 
-    DockerHubAuth constructDockerHubAuthenticationCredentials(){
+    DockerHubAuth constructDockerHubAuthenticationCredentials() {
         assert System.getProperty("registry.username")
         assert System.getProperty("registry.password")
         assert System.getProperty("registry.email")
-        assert System.getProperty("registry.auth")!= null
-        
-        return new DockerHubAuth(System.getProperty("registry.username"),System.getProperty("registry.password"),System.getProperty("registry.auth"),System.getProperty("registry.email"))
+        assert System.getProperty("registry.auth") != null
+
+        return new DockerHubAuth(System.getProperty("registry.username"), System.getProperty("registry.password"), System.getProperty("registry.auth"), System.getProperty("registry.email"))
     }
 
-    String getbase64EncodedValueForCredentials(){
+    String getbase64EncodedValueForCredentials() {
         return Base64.encoder.encodeToString(new JsonBuilder(constructDockerHubAuthenticationCredentials()).toString().bytes)
     }
 

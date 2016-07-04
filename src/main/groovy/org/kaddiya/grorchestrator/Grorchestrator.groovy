@@ -25,7 +25,7 @@ class Grorchestrator {
     public static void main(String[] args) {
 
         Injector grorchestratorInjector = Guice.createInjector(new GrorchestratorModule(
-                new SerialiserModule(),new DockerRemoteAPIModule(),new HelperModule()
+                new SerialiserModule(), new DockerRemoteAPIModule(), new HelperModule()
 
         ))
 
@@ -39,45 +39,43 @@ class Grorchestrator {
 
         String tag
 
-        assert args.size() >= 2 : "incorrect number of arguments."
+        assert args.size() >= 2: "incorrect number of arguments."
 
         String action = args[0]
         String instanceName = args[1]
 
         //if the tag is passed then update or let it be default
-        if(args.size() > 2){
+        if (args.size() > 2) {
             tag = args[2]
         }
 
 
-        File grorFile = new File(System.getProperty("user.dir")).listFiles().find{File it ->
+        File grorFile = new File(System.getProperty("user.dir")).listFiles().find { File it ->
             it.name.equals(DEFAULT_GROR_FILE_NAME)
         }
 
-        assert grorFile : "$DEFAULT_GROR_FILE_NAME file not found"
+        assert grorFile: "$DEFAULT_GROR_FILE_NAME file not found"
         GrorProject project = serialiser.constructGrorProject(grorFile)
-        assert project : "project cant be constructed"
-        Instance requestedInstance = instanceFinderImpl.getInstanceToInteractWith(project,instanceName)
-        DockerImagePullManager pullManager =  dockerImagePullManagerFactory.create(requestedInstance)
-        DockerContainerCreator dockerContainerCreator =  dockerContainerCreatorFactory.create(requestedInstance)
+        assert project: "project cant be constructed"
+        Instance requestedInstance = instanceFinderImpl.getInstanceToInteractWith(project, instanceName)
+        DockerImagePullManager pullManager = dockerImagePullManagerFactory.create(requestedInstance)
+        DockerContainerCreator dockerContainerCreator = dockerContainerCreatorFactory.create(requestedInstance)
 
         assert dockerContainerCreator
 
-        switch (action){
+        switch (action) {
             case SupportedActions.PULL_IMAGE.name():
-                pullManager.pullImage(requestedInstance.imageName,tag)
+                pullManager.pullImage(requestedInstance.imageName, tag)
                 println("finished pulling the images")
-            break
+                break
             case SupportedActions.CREATE_CONTAINER.name():
-                dockerContainerCreator.createContainer(requestedInstance.imageName,tag)
+                dockerContainerCreator.createContainer(requestedInstance.imageName, tag)
                 println("finished creating the container")
                 break
             default:
                 throw new IllegalArgumentException("Unsupported Actions")
-            break
+                break
         }
-
-
 
 
     }

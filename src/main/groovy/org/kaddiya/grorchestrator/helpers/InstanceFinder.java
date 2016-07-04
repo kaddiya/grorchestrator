@@ -8,5 +8,5 @@ import org.kaddiya.grorchestrator.models.core.Instance;
  */
 public interface InstanceFinder {
 
-    Instance getInstanceToInteractWith(GrorProject project,String instanceName);
+    Instance getInstanceToInteractWith(GrorProject project, String instanceName);
 }

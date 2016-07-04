@@ -5,5 +5,5 @@ package org.kaddiya.grorchestrator.managers;
  */
 public interface DockerContainerCreator {
 
-    public void createContainer(String instanceName,String tag);
+    public void createContainer(String instanceName, String tag);
 }

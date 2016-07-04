@@ -24,20 +24,20 @@ class DockerImagePullManagerImpl extends DockerRemoteAPI implements DockerImageP
     final HTTPBuilder client
 
     @Inject
-    public DockerImagePullManagerImpl(@Assisted Instance instance){
+    public DockerImagePullManagerImpl(@Assisted Instance instance) {
         super(instance)
         this.client = new HTTPBuilder(baseUrl)
 
-  }
+    }
 
     @Override
-    String pullImage(String imageName,String tag) {
-        if(!tag)
+    String pullImage(String imageName, String tag) {
+        if (!tag)
             tag = "latest"
         def response = client.post(
-                path : "/images/create",
-                headers: ["X-Registry-Auth":builder.getbase64EncodedValueForCredentials()],
-                query:[
+                path: "/images/create",
+                headers: ["X-Registry-Auth": builder.getbase64EncodedValueForCredentials()],
+                query: [
                         'fromImage': "$imageName:$tag"
                 ]
         )

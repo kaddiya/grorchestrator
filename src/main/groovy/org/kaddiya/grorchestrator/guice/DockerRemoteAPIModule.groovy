@@ -14,7 +14,7 @@ import org.kaddiya.grorchestrator.managers.impl.DockerImagePullManagerImpl
  * Created by Webonise on 01/07/16.
  */
 @CompileStatic
-class DockerRemoteAPIModule extends  AbstractModule {
+class DockerRemoteAPIModule extends AbstractModule {
 
     @Override
     protected void configure() {
@@ -22,7 +22,7 @@ class DockerRemoteAPIModule extends  AbstractModule {
                 .implement(DockerImagePullManager.class, DockerImagePullManagerImpl.class)
                 .build(DockerImagePullManagerFactory.class));
         this.install(new FactoryModuleBuilder()
-                .implement(DockerContainerCreator.class,DockerContainerCreatorImpl.class)
+                .implement(DockerContainerCreator.class, DockerContainerCreatorImpl.class)
                 .build(DockerContainerCreatorFactory))
     }
 }

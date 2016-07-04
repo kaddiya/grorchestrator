@@ -30,7 +30,6 @@ class InstanceFinderImplSpec  extends  Specification{
 
     }
 
-    @Ignore
     def  "getInstanceToInteractWith should throw an IAE when it encounters multiple matching instances"(){
         given:
         GrorProject project = getDummyGrorProjectWithDuplicateInstances()
@@ -39,7 +38,7 @@ class InstanceFinderImplSpec  extends  Specification{
         fixture.getInstanceToInteractWith(project,instanceName)
         then:
         IllegalArgumentException iae  = thrown()
-        iae.message.contains("Mutiple instances with  $instanceName detected")
+        iae.message.contains("Multiple instances with $instanceName detected")
 
     }
 

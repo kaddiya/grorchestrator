@@ -7,8 +7,10 @@ import org.kaddiya.grorchestrator.guice.DockerRemoteAPIModule
 import org.kaddiya.grorchestrator.guice.GrorchestratorModule
 import org.kaddiya.grorchestrator.guice.HelperModule
 import org.kaddiya.grorchestrator.guice.SerialiserModule
+import org.kaddiya.grorchestrator.guice.factory.DockerContainerCreatorFactory
 import org.kaddiya.grorchestrator.guice.factory.DockerImagePullManagerFactory
 import org.kaddiya.grorchestrator.helpers.InstanceFinder
+import org.kaddiya.grorchestrator.managers.DockerContainerCreator
 import org.kaddiya.grorchestrator.managers.DockerImagePullManager
 import org.kaddiya.grorchestrator.models.core.GrorProject
 import org.kaddiya.grorchestrator.models.core.Instance
@@ -29,7 +31,8 @@ class Grorchestrator {
 
         GrorProjectSerialiser serialiser = grorchestratorInjector.getInstance(GrorProjectSerialiser)
 
-        DockerImagePullManagerFactory factory = grorchestratorInjector.getInstance(DockerImagePullManagerFactory)
+        DockerImagePullManagerFactory dockerImagePullManagerFactory = grorchestratorInjector.getInstance(DockerImagePullManagerFactory)
+        DockerContainerCreatorFactory dockerContainerCreatorFactory = grorchestratorInjector.getInstance(DockerContainerCreatorFactory)
 
         InstanceFinder instanceFinderImpl = grorchestratorInjector.getInstance(InstanceFinder)
 
@@ -55,7 +58,10 @@ class Grorchestrator {
         GrorProject project = serialiser.constructGrorProject(grorFile)
         assert project : "project cant be constructed"
         Instance requestedInstance = instanceFinderImpl.getInstanceToInteractWith(project,instanceName)
-        DockerImagePullManager pullManager =  factory.create(requestedInstance)
+        DockerImagePullManager pullManager =  dockerImagePullManagerFactory.create(requestedInstance)
+        DockerContainerCreator dockerContainerCreator =  dockerContainerCreatorFactory.create(requestedInstance)
+
+        assert dockerContainerCreator
 
         switch (action){
             case SupportedActions.PULL_IMAGE.name():

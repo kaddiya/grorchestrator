@@ -39,6 +39,4 @@ dependencies {
     compile group: 'com.google.inject.extensions', name: 'guice-assistedinject', version: '4.0'
 
 
-
-
 }

@@ -135,15 +135,16 @@ class GrorProjectSerialiserImplSpec extends Specification {
         assert  System.getProperty("registry.email") == "overidden-email@example.com" :"email not properly overriden"
     }*/
 
-    def cleanup(){
-        System.setProperty("registry.username","")
-        System.setProperty("registry.password","")
-        System.setProperty("registry.auth","")
-        System.setProperty("registry.email","")
+    def cleanup() {
+        System.setProperty("registry.username", "")
+        System.setProperty("registry.password", "")
+        System.setProperty("registry.auth", "")
+        System.setProperty("registry.email", "")
     }
+
     def getDummyFullGrorProject() {
         SystemInfo info = new SystemInfo("demo")
-        DockerHubAuth  dockerHubAuth = new DockerHubAuth("username","password","auth","email@example.com")
+        DockerHubAuth dockerHubAuth = new DockerHubAuth("username", "password", "auth", "email@example.com")
         List<Host> hosts = Arrays.asList(
                 new Host("127.0.0.1", "redis-vm-1", 2376),
                 new Host("127.0.0.1", "mysql-vm-1", 2376),
@@ -185,7 +186,7 @@ class GrorProjectSerialiserImplSpec extends Specification {
 
                 ))
         )
-        GrorProject project = new GrorProject(info,components)
+        GrorProject project = new GrorProject(info, components)
         return project
     }
 
@@ -232,7 +233,7 @@ class GrorProjectSerialiserImplSpec extends Specification {
 
                 ))
         )
-        GrorProject project = new GrorProject(info,components)
+        GrorProject project = new GrorProject(info, components)
         return project
     }
 }

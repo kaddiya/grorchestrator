@@ -16,11 +16,11 @@ class DockerImagePullManagerImplSpec extends Specification {
     DockerImagePullManager imagePullManager
 
     @Ignore
-    def "pullImage should pull the image"(){
+    def "pullImage should pull the image"() {
         given:
-        Instance instance = new Instance("sample-instance-1","sample-repo-name/sample-image-name","sample-tag",
-                new Host("127.0.0.1","127.0.0.1",2376),
-                [:],[:],[:])
+        Instance instance = new Instance("sample-instance-1", "sample-repo-name/sample-image-name", "sample-tag",
+                new Host("127.0.0.1", "127.0.0.1", 2376),
+                [:], [:], [:])
 
         imagePullManager = new DockerImagePullManagerImpl(instance)
         imagePullManager.client.post >> {
@@ -29,7 +29,7 @@ class DockerImagePullManagerImplSpec extends Specification {
         when:
         String response = imagePullManager.pullImage()
         then:
-        assert  response.contains("Pulling from sample-repo-name/sample-image-name")
+        assert response.contains("Pulling from sample-repo-name/sample-image-name")
 
 
     }

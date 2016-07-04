@@ -13,7 +13,7 @@ class GrorchestratorModule extends AbstractModule {
     GrorchestratorModule() {
     }
 
-    GrorchestratorModule(Module ... modules) {
+    GrorchestratorModule(Module... modules) {
         super()
         this.modules = modules
     }
@@ -22,6 +22,6 @@ class GrorchestratorModule extends AbstractModule {
     @Override
     protected void configure() {
         def grorModule = this
-        this.modules.each {module -> grorModule.install(module)}
+        this.modules.each { module -> grorModule.install(module) }
     }
 }

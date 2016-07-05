@@ -8,9 +8,11 @@ import org.kaddiya.grorchestrator.guice.GrorchestratorModule
 import org.kaddiya.grorchestrator.guice.HelperModule
 import org.kaddiya.grorchestrator.guice.SerialiserModule
 import org.kaddiya.grorchestrator.guice.factory.DockerContainerCreatorFactory
+import org.kaddiya.grorchestrator.guice.factory.DockerContainerStarterFactory
 import org.kaddiya.grorchestrator.guice.factory.DockerImagePullManagerFactory
 import org.kaddiya.grorchestrator.helpers.InstanceFinder
 import org.kaddiya.grorchestrator.managers.DockerContainerCreator
+import org.kaddiya.grorchestrator.managers.DockerContainerStarter
 import org.kaddiya.grorchestrator.managers.DockerImagePullManager
 import org.kaddiya.grorchestrator.models.core.GrorProject
 import org.kaddiya.grorchestrator.models.core.Instance
@@ -33,7 +35,7 @@ class Grorchestrator {
 
         DockerImagePullManagerFactory dockerImagePullManagerFactory = grorchestratorInjector.getInstance(DockerImagePullManagerFactory)
         DockerContainerCreatorFactory dockerContainerCreatorFactory = grorchestratorInjector.getInstance(DockerContainerCreatorFactory)
-
+        DockerContainerStarterFactory dockerContainerStarterFactory = grorchestratorInjector.getInstance(DockerContainerStarterFactory)
         InstanceFinder instanceFinderImpl = grorchestratorInjector.getInstance(InstanceFinder)
 
 
@@ -60,7 +62,7 @@ class Grorchestrator {
         Instance requestedInstance = instanceFinderImpl.getInstanceToInteractWith(project, instanceName)
         DockerImagePullManager pullManager = dockerImagePullManagerFactory.create(requestedInstance)
         DockerContainerCreator dockerContainerCreator = dockerContainerCreatorFactory.create(requestedInstance)
-
+        DockerContainerStarter dockerContainerStarter = dockerContainerStarterFactory.create(requestedInstance)
         assert dockerContainerCreator
 
         switch (action) {
@@ -70,6 +72,10 @@ class Grorchestrator {
                 break
             case SupportedActions.CREATE_CONTAINER.name():
                 dockerContainerCreator.createContainer(requestedInstance.imageName, tag)
+                println("finished creating the container")
+                break
+            case SupportedActions.START_CONTAINER.name():
+                dockerContainerStarter.startContainer(requestedInstance)
                 println("finished creating the container")
                 break
             default:

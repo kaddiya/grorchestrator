@@ -5,5 +5,5 @@ package org.kaddiya.grorchestrator.managers;
  */
 public interface DockerImagePullManager {
 
-    public String pullImage(String imageName, String tag);
+    public String pullImage();
 }

@@ -3,7 +3,7 @@ package org.kaddiya.grorchestrator.managers.impl
 import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
 import groovy.transform.CompileStatic
-import groovyx.net.http.HTTPBuilder
+import org.apache.commons.lang.RandomStringUtils
 import org.kaddiya.grorchestrator.managers.DockerContainerCreator
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
@@ -17,32 +17,31 @@ import static groovyx.net.http.ContentType.JSON
 @CompileStatic
 class DockerContainerCreatorImpl extends DockerRemoteAPI implements DockerContainerCreator {
 
-    final HTTPBuilder client
-
     @Inject
     public DockerContainerCreatorImpl(@Assisted Instance instance) {
         super(instance)
-        this.client = new HTTPBuilder(baseUrl)
-
     }
 
     @Override
-    void createContainer(String imageName, String tag) {
-        if (!tag)
-            tag = "latest"
+    DockerContainerCreationResponse createContainer() {
 
-        def value = imageName + ":" + tag
+        def value = this.instance.imageName + ":" + this.instance.tag
 
-        DockerContainerCreationResponse response = client.post(
+        String charset = (('A'..'Z') + ('0'..'9')).join("")
+        Integer length = 9
+        String randomContainerName = RandomStringUtils.random(length, charset.toCharArray())
+
+        println("creating a new instance with name $randomContainerName")
+
+        DockerContainerCreationResponse response = this.client.post(
                 requestContentType: JSON,
                 path: "/containers/create",
                 query: [
-                        'name': "some-name-1" //this has to be changed to a UUID name.After deployment this has to be renamed
+                        'name': randomContainerName //this has to be changed to a UUID name.After deployment this has to be renamed
                 ],
                 body: ['Image': value]
 
         ) as DockerContainerCreationResponse
-        println(response.Id)
         response
     }
 }

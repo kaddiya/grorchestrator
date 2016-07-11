@@ -66,9 +66,8 @@ class Grorchestrator {
         }
 
         DockerImagePullManager pullManager = dockerImagePullManagerFactory.create(requestedInstance)
-        //      DockerContainerCreator dockerContainerCreator = dockerContainerCreatorFactory.create(requestedInstance)
         DockerContainerRunnerManager dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance)
-        // assert dockerContainerCreator
+
 
         switch (action) {
             case SupportedActions.PULL_IMAGE.name():

@@ -26,34 +26,8 @@ class DockerContainerRunnerManagerImpl extends DockerRemoteAPI implements Docker
 
     @Override
     void runContainer() {
-
-        //     this.createContainer()
-
         println(containerCreator.createContainer())
     }
-
-/*    //TODO : this has to be moved to the DockerContainerCreatorImpl class and called.
-
-    DockerContainerCreationResponse createContainer() {
-        def value = this.instance.imageName + ":" + this.instance.tag
-
-        String charset = (('A'..'Z') + ('0'..'9')).join("")
-        Integer length = 9
-        String randomString = RandomStringUtils.random(length, charset.toCharArray())
-
-        println("creating a new instance with name $randomString")
-        DockerContainerCreationResponse response = client.post(
-                requestContentType: JSON,
-                path: "/containers/create",
-                query: [
-                        'name': randomString
-                ],
-                body: ['Image': value]
-
-        ) as DockerContainerCreationResponse
-        response
-    }*/
-
 
 }
 

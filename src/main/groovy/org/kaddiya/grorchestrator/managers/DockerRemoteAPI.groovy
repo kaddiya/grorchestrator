@@ -1,5 +1,6 @@
 package org.kaddiya.grorchestrator.managers
 
+import groovyx.net.http.HTTPBuilder
 import org.kaddiya.grorchestrator.models.core.Instance
 
 /**
@@ -13,10 +14,13 @@ abstract class DockerRemoteAPI {
 
     final String apiUrl;
 
+    final HTTPBuilder client;
+
     public DockerRemoteAPI(Instance instance) {
         this.instance = instance
         //construct the baseURL
         this.baseUrl = "http://$instance.host.ip:$instance.host.dockerPort"
+        this.client = new HTTPBuilder(baseUrl)
     }
 
 

@@ -4,7 +4,7 @@ import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
 import groovy.transform.CompileStatic
 import groovyx.net.http.HTTPBuilder
-import org.kaddiya.grorchestrator.managers.DockerContainerCreator
+import org.kaddiya.grorchestrator.managers.DockerContainerRunnerManager
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerCreationResponse
@@ -12,30 +12,25 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerC
 import static groovyx.net.http.ContentType.JSON
 
 /**
- * Created by Webonise on 05/07/16.
+ * Created by Webonise on 11/07/16.
  */
 @CompileStatic
-class DockerContainerCreatorImpl extends DockerRemoteAPI implements DockerContainerCreator {
-
-    final HTTPBuilder client
+class DockerContainerRunnerManagerImpl extends DockerRemoteAPI implements DockerContainerRunnerManager {
 
     @Inject
-    public DockerContainerCreatorImpl(@Assisted Instance instance) {
+    DockerContainerRunnerManagerImpl(@Assisted Instance instance) {
         super(instance)
-
 
     }
 
     @Override
-    void createContainer() {
-        String tag
-        if (!instance.tag)
-            tag = "latest"
-        else{
-            tag = instance.tag
-        }
+    void runContainer() {
+        println(this.createContainer())
+    }
 
-        def value = this.instance.imageName + ":" + tag
+    DockerContainerCreationResponse createContainer(){
+
+        def value = this.instance.imageName + ":" + this.instance.tag
 
         DockerContainerCreationResponse response = client.post(
                 requestContentType: JSON,

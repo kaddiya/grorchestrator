@@ -3,7 +3,6 @@ package org.kaddiya.grorchestrator.managers.impl
 import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
 import groovy.transform.CompileStatic
-import groovyx.net.http.HTTPBuilder
 import org.kaddiya.grorchestrator.helpers.DockerAuthCredentialsBuilder
 import org.kaddiya.grorchestrator.managers.DockerImagePullManager
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
@@ -24,7 +23,7 @@ class DockerImagePullManagerImpl extends DockerRemoteAPI implements DockerImageP
     @Inject
     public DockerImagePullManagerImpl(@Assisted Instance instance) {
         super(instance)
-     }
+    }
 
     @Override
     String pullImage() {

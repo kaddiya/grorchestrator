@@ -9,8 +9,8 @@ import org.kaddiya.grorchestrator.guice.factory.DockerImagePullManagerFactory
 import org.kaddiya.grorchestrator.managers.DockerContainerCreator
 import org.kaddiya.grorchestrator.managers.DockerContainerRunnerManager
 import org.kaddiya.grorchestrator.managers.DockerImagePullManager
-import org.kaddiya.grorchestrator.managers.impl.DockerContainerRunnerManagerImpl
 import org.kaddiya.grorchestrator.managers.impl.DockerContainerCreatorImpl
+import org.kaddiya.grorchestrator.managers.impl.DockerContainerRunnerManagerImpl
 import org.kaddiya.grorchestrator.managers.impl.DockerImagePullManagerImpl
 
 /**

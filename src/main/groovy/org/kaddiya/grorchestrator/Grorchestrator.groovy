@@ -11,7 +11,6 @@ import org.kaddiya.grorchestrator.guice.factory.DockerContainerCreatorFactory
 import org.kaddiya.grorchestrator.guice.factory.DockerContainerRunnerFactory
 import org.kaddiya.grorchestrator.guice.factory.DockerImagePullManagerFactory
 import org.kaddiya.grorchestrator.helpers.InstanceFinder
-import org.kaddiya.grorchestrator.managers.DockerContainerCreator
 import org.kaddiya.grorchestrator.managers.DockerContainerRunnerManager
 import org.kaddiya.grorchestrator.managers.DockerImagePullManager
 import org.kaddiya.grorchestrator.models.core.GrorProject
@@ -60,26 +59,21 @@ class Grorchestrator {
         GrorProject project = serialiser.constructGrorProject(grorFile)
         assert project: "project cant be constructed"
         Instance requestedInstance = instanceFinderImpl.getInstanceToInteractWith(project, instanceName)
-        if(tag){
+        if (tag) {
             requestedInstance.tag = tag
-        }
-        else{
+        } else {
             requestedInstance.tag = "latest"
         }
 
         DockerImagePullManager pullManager = dockerImagePullManagerFactory.create(requestedInstance)
-        DockerContainerCreator dockerContainerCreator = dockerContainerCreatorFactory.create(requestedInstance)
+        //      DockerContainerCreator dockerContainerCreator = dockerContainerCreatorFactory.create(requestedInstance)
         DockerContainerRunnerManager dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance)
-        assert dockerContainerCreator
+        // assert dockerContainerCreator
 
         switch (action) {
             case SupportedActions.PULL_IMAGE.name():
                 pullManager.pullImage()
                 println("finished pulling the images")
-                break
-            case SupportedActions.CREATE_CONTAINER.name():
-                dockerContainerCreator.createContainer()
-                println("finished creating the container")
                 break
             case SupportedActions.RUN_CONTAINER.name():
                 dockerContainerRunnerManager.runContainer();

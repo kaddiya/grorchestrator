@@ -61,18 +61,13 @@ class Grorchestrator {
         assert project: "project cant be constructed"
         Instance requestedInstance = instanceFinderImpl.getInstanceToInteractWith(project, instanceName)
         DockerImagePullManager pullManager = dockerImagePullManagerFactory.create(requestedInstance)
-        DockerContainerCreator dockerContainerCreator = dockerContainerCreatorFactory.create(requestedInstance)
         DockerContainerStarter dockerContainerStarter = dockerContainerStarterFactory.create(requestedInstance)
-        assert dockerContainerCreator
+
 
         switch (action) {
             case SupportedActions.PULL_IMAGE.name():
                 pullManager.pullImage(requestedInstance.imageName, tag)
                 println("finished pulling the images")
-                break
-            case SupportedActions.CREATE_CONTAINER.name():
-                dockerContainerCreator.createContainer(requestedInstance.imageName, tag)
-                println("finished creating the container")
                 break
             case SupportedActions.START_CONTAINER.name():
                 dockerContainerStarter.startContainer(requestedInstance)

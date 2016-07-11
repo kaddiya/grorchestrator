@@ -7,9 +7,6 @@ import groovyx.net.http.HTTPBuilder
 import org.kaddiya.grorchestrator.managers.DockerContainerCreator
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
-import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerCreationResponse
-
-import static groovyx.net.http.ContentType.JSON
 
 /**
  * Created by Webonise on 05/07/16.
@@ -28,21 +25,6 @@ class DockerContainerCreatorImpl extends DockerRemoteAPI implements DockerContai
 
     @Override
     void createContainer(String imageName, String tag) {
-        if (!tag)
-            tag = "latest"
 
-        def value = imageName + ":" + tag
-
-        DockerContainerCreationResponse response = client.post(
-                requestContentType: JSON,
-                path: "/containers/create",
-                query: [
-                        'name': "some-name-1" //this has to be changed to a UUID name.After deployment this has to be renamed
-                ],
-                body: ['Image': value]
-
-        ) as DockerContainerCreationResponse
-        println(response.Id)
-        response
     }
 }

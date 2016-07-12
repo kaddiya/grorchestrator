@@ -2,8 +2,6 @@ package org.kaddiya.grorchestrator.managers.impl
 
 import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
-import groovy.transform.CompileStatic
-import org.apache.commons.lang.RandomStringUtils
 import org.kaddiya.grorchestrator.managers.DockerContainerCreator
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
@@ -14,7 +12,7 @@ import static groovyx.net.http.ContentType.JSON
 /**
  * Created by Webonise on 05/07/16.
  */
-@CompileStatic
+//@CompileStatic
 class DockerContainerCreatorImpl extends DockerRemoteAPI implements DockerContainerCreator {
 
     @Inject
@@ -25,23 +23,22 @@ class DockerContainerCreatorImpl extends DockerRemoteAPI implements DockerContai
     @Override
     DockerContainerCreationResponse createContainer() {
 
-        def value = this.instance.imageName + ":" + this.instance.tag
+        def value = this.instance.imageName
 
-        String charset = (('A'..'Z') + ('0'..'9')).join("")
-        Integer length = 9
-        String randomContainerName = RandomStringUtils.random(length, charset.toCharArray())
+        println("creating a new instance with name $instance.name")
 
-        println("creating a new instance with name $randomContainerName")
+        tryCatchClosure {
+            DockerContainerCreationResponse response
+            response = this.client.post(
+                    requestContentType: JSON,
+                    path: "/containers/create",
+                    query: [
+                            'name': instance.name
+                    ],
+                    body: ['Image': value]
 
-        DockerContainerCreationResponse response = this.client.post(
-                requestContentType: JSON,
-                path: "/containers/create",
-                query: [
-                        'name': randomContainerName //this has to be changed to a UUID name.After deployment this has to be renamed
-                ],
-                body: ['Image': value]
-
-        ) as DockerContainerCreationResponse
-        response
+            ) as DockerContainerCreationResponse
+            response
+        }
     }
 }

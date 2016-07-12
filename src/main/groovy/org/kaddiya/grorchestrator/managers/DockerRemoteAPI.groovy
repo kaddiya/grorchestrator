@@ -1,6 +1,7 @@
 package org.kaddiya.grorchestrator.managers
 
 import groovyx.net.http.HTTPBuilder
+import groovyx.net.http.HttpResponseException
 import org.kaddiya.grorchestrator.models.core.Instance
 
 /**
@@ -21,6 +22,20 @@ abstract class DockerRemoteAPI {
         //construct the baseURL
         this.baseUrl = "http://$instance.host.ip:$instance.host.dockerPort"
         this.client = new HTTPBuilder(baseUrl)
+    }
+
+    def tryCatchClosure(Closure closure) {
+        try {
+            closure()
+        } catch (HttpResponseException e) {
+            if (e.statusCode == 404) {
+                println("$instance.name not found locally.Please pull the image and then try again")
+            }
+            if (e.statusCode == 409) {
+                println("Container with name $instance.name is already running.Please terminate this to proceed further ")
+            }
+        }
+
     }
 
 

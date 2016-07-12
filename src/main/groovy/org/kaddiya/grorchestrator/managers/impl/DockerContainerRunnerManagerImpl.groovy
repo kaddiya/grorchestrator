@@ -32,10 +32,12 @@ class DockerContainerRunnerManagerImpl extends DockerRemoteAPI implements Docker
         DockerContainerCreationResponse containerCreationResponse = containerCreator.createContainer()
         String path = "/containers/$containerCreationResponse.Id/start"
 
-        println(this.client.post(
-                requestContentType: JSON,
-                path: path
-        ))
+        tryCatchClosure {
+            this.client.post(
+                    requestContentType: JSON,
+                    path: path
+            )
+        }
     }
 
 

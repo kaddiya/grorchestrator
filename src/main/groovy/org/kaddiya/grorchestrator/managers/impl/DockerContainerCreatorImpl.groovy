@@ -12,7 +12,6 @@ import static groovyx.net.http.ContentType.JSON
 /**
  * Created by Webonise on 05/07/16.
  */
-//@CompileStatic
 class DockerContainerCreatorImpl extends DockerRemoteAPI implements DockerContainerCreator {
 
     @Inject
@@ -25,9 +24,9 @@ class DockerContainerCreatorImpl extends DockerRemoteAPI implements DockerContai
 
         def value = this.instance.imageName
 
-        println("creating a new instance with name $instance.name")
+        println("creating a new container for $instance.name with image $instance.imageName:$instance.tag")
 
-        tryCatchClosure {
+        this.tryCatchClosure {
             DockerContainerCreationResponse response
             response = this.client.post(
                     requestContentType: JSON,

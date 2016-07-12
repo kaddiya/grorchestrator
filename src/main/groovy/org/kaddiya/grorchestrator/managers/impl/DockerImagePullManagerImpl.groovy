@@ -3,7 +3,6 @@ package org.kaddiya.grorchestrator.managers.impl
 import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
 import groovy.transform.CompileStatic
-import groovyx.net.http.HttpResponseException
 import org.kaddiya.grorchestrator.helpers.DockerAuthCredentialsBuilder
 import org.kaddiya.grorchestrator.managers.DockerImagePullManager
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
@@ -28,9 +27,8 @@ class DockerImagePullManagerImpl extends DockerRemoteAPI implements DockerImageP
 
     @Override
     String pullImage() {
-        def response
-        try {
-            response = client.post(
+        def response = this.tryCatchClosure {
+            client.post(
                     path: "/images/create",
                     headers: ["X-Registry-Auth": builder.getbase64EncodedValueForCredentials()],
                     query: [
@@ -38,14 +36,7 @@ class DockerImagePullManagerImpl extends DockerRemoteAPI implements DockerImageP
                     ]
             )
         }
-        catch (HttpResponseException e) {
-            if (e.statusCode == 404) {
-                println("$instance.name not found.Please ensure that the image actually exists")
-            }
-            if (e.statusCode == 409) {
-                println("Container with name $instance.name is already running.Please terminate this to proceed further ")
-            }
-        }
+
         response
     }
 }

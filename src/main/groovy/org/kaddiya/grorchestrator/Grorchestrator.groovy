@@ -7,10 +7,11 @@ import org.kaddiya.grorchestrator.guice.DockerRemoteAPIModule
 import org.kaddiya.grorchestrator.guice.GrorchestratorModule
 import org.kaddiya.grorchestrator.guice.HelperModule
 import org.kaddiya.grorchestrator.guice.SerialiserModule
-import org.kaddiya.grorchestrator.guice.factory.DockerContainerCreatorFactory
+import org.kaddiya.grorchestrator.guice.factory.DockerContainerKillManagerFactory
 import org.kaddiya.grorchestrator.guice.factory.DockerContainerRunnerFactory
 import org.kaddiya.grorchestrator.guice.factory.DockerImagePullManagerFactory
 import org.kaddiya.grorchestrator.helpers.InstanceFinder
+import org.kaddiya.grorchestrator.managers.DockerContainerKillManager
 import org.kaddiya.grorchestrator.managers.DockerContainerRunnerManager
 import org.kaddiya.grorchestrator.managers.DockerImagePullManager
 import org.kaddiya.grorchestrator.models.core.GrorProject
@@ -33,8 +34,8 @@ class Grorchestrator {
         GrorProjectSerialiser serialiser = grorchestratorInjector.getInstance(GrorProjectSerialiser)
 
         DockerImagePullManagerFactory dockerImagePullManagerFactory = grorchestratorInjector.getInstance(DockerImagePullManagerFactory)
-        DockerContainerCreatorFactory dockerContainerCreatorFactory = grorchestratorInjector.getInstance(DockerContainerCreatorFactory)
         DockerContainerRunnerFactory dockerContainerRunnerFactory = grorchestratorInjector.getInstance(DockerContainerRunnerFactory)
+        DockerContainerKillManagerFactory dockerContainerKillManagerFactory = grorchestratorInjector.getInstance(DockerContainerKillManagerFactory)
         InstanceFinder instanceFinderImpl = grorchestratorInjector.getInstance(InstanceFinder)
 
 
@@ -67,7 +68,7 @@ class Grorchestrator {
 
         DockerImagePullManager pullManager = dockerImagePullManagerFactory.create(requestedInstance)
         DockerContainerRunnerManager dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance)
-
+        DockerContainerKillManager dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance)
 
         switch (action) {
             case SupportedActions.PULL_IMAGE.name():
@@ -77,6 +78,10 @@ class Grorchestrator {
             case SupportedActions.RUN_CONTAINER.name():
                 dockerContainerRunnerManager.runContainer();
                 println("finished running the container")
+                break
+            case SupportedActions.KILL_CONTAINER.name():
+                dockerContainerKillManager.killContainer();
+                println("finished killing the container")
                 break
             default:
                 throw new IllegalArgumentException("Unsupported Actions")

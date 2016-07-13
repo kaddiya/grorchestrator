@@ -30,6 +30,9 @@ class DockerContainerRunnerManagerImpl extends DockerRemoteAPI implements Docker
     @Override
     void runContainer() {
         DockerContainerCreationResponse containerCreationResponse = containerCreator.createContainer()
+        if(!containerCreationResponse){
+            throw new IllegalStateException("Something has gone wrong in the creating the container")
+        }
         String path = "/containers/$containerCreationResponse.Id/start"
 
         tryCatchClosure {

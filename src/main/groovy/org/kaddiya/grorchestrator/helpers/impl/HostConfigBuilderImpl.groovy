@@ -16,6 +16,8 @@ class HostConfigBuilderImpl implements  HostConfigBuilder{
         //config.binds = getBinds(instance)
        // config.Links = getLinks(instance)
         config.PortBindings = getPortBindings(instance)
+        config.extraHosts = getExtraHostsMapping(instance)
+
         return config
     }
 
@@ -37,7 +39,7 @@ class HostConfigBuilderImpl implements  HostConfigBuilder{
 
     List<String> getExtraHostsMapping(Instance instance){
         instance.hostsMapping.collect {k,v->
-            "["+k+":"+v+"]"
+            k+":"+v
         }
     }
 }

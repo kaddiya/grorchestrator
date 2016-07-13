@@ -5,6 +5,7 @@ import net.sf.json.util.JSONBuilder
 import org.kaddiya.grorchestrator.helpers.impl.DockerContainerCreationRequestBuilderImpl
 import org.kaddiya.grorchestrator.models.core.Host
 import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.remotedocker.requests.HostConfig
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -35,6 +36,18 @@ class DockerConatinerCreationRequestBuilderImplSpec extends Specification {
         then:
         assert "{\"/home/deploy/cache-data-1\":{},\"/home/deploy/cache-data-2\":{}}" == (JsonOutput.toJson(result))
     }
+
+    def "getHostConfig should return a proper volume mapping as expected by the Docker remote api"(){
+        given:
+        Instance instance = getDummyInstance()
+        when:
+        HostConfig result = fixture.getHostConfig(instance)
+        then:
+        assert result.binds.size() == 2
+
+        assert result.binds.get(0) == "/home/deploy/cache-data-1:/data"
+    }
+
 
     Instance getDummyInstance(){
         return new Instance("redis.proof.com", "redis", "latest",

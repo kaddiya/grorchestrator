@@ -21,7 +21,6 @@ class DockerContainerCreationRequestBuilderImpl implements  DockerContainerCreat
         request.exposedPorts = getPortMappingsFromInstance(instance)
         request.volumes = getMountBindings(instance)
         request.hostConfig = getHostConfig(instance)
-
         return  request
     }
 
@@ -43,6 +42,22 @@ class DockerContainerCreationRequestBuilderImpl implements  DockerContainerCreat
 
     @Override
     HostConfig getHostConfig(Instance instance) {
-        return null
+        HostConfig config = new HostConfig()
+        config.binds = getBinds(instance)
+        config.links = getLinks(instance)
+        return config
     }
+
+    
+    List<String>getBinds(Instance instance){
+     return Arrays.asList(instance.volumeMapping.inspect().replaceAll("\\[","").replaceAll("\\]","").replaceAll("\\\'","").split(","))
+    }
+
+    List<String>getLinks (Instance instance){
+        return Arrays.asList("")
+    }
+
+
 }
+
+

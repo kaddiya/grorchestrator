@@ -17,5 +17,4 @@ public interface DockerContainerCreationRequestBuilder {
 
     public Map<String,Object> getVolumes(Instance instance);
 
-    HostConfig getHostConfig(Instance p);
 }

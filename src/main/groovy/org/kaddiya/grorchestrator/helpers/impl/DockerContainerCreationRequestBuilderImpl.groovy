@@ -20,7 +20,7 @@ class DockerContainerCreationRequestBuilderImpl implements  DockerContainerCreat
         request.image = instance.imageName+":"+instance.tag
         request.exposedPorts = getPortMappingsFromInstance(instance)
         request.volumes = getVolumes(instance)
-        request.hostConfig = getHostConfig(instance)
+
         return  request
     }
 
@@ -40,31 +40,9 @@ class DockerContainerCreationRequestBuilderImpl implements  DockerContainerCreat
         return  result
     }
 
-    @Override
-    HostConfig getHostConfig(Instance instance) {
-        HostConfig config = new HostConfig()
-      //  config.binds = getBinds(instance)
-        config.Links = getLinks(instance)
-       // config.portBindings = getPortBindings(instance)
-        return config
-    }
 
 
-    List<String>getBinds(Instance instance){
-     return Arrays.asList(instance.volumeMapping.inspect().replaceAll("\\[","").replaceAll("\\]","").replaceAll("\\\'","").split(","))
-    }
 
-    List<String>getLinks (Instance instance){
-        return Arrays.asList("")
-    }
-
-    Map<String,Map<String,String>> getPortBindings(Instance instance){
-        //m sure there is a fancier way to do this using getPortMappingsFromInstance()
-      instance.portMapping.collectEntries {k,v->
-            return [k+"/tcp",Arrays.asList(Collections.unmodifiableMap("HostPort":v.toString()))]
-        } as Map<String, Map<String, String>>
-
-    }
 
 
 }

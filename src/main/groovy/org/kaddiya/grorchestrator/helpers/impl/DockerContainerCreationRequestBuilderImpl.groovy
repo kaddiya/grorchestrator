@@ -28,4 +28,12 @@ class DockerContainerCreationRequestBuilderImpl implements  DockerContainerCreat
         } as Map<String, Object>
         return  result
     }
+
+    @Override
+    Map<String, Object> getMountBindings(Instance instance) {
+        Map<String,Object> result = instance.volumeMapping.collectEntries {k,v->
+            return [k,new Object()]
+        } as Map<String, Object>
+        return  result
+    }
 }

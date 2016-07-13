@@ -23,13 +23,23 @@ class DockerConatinerCreationRequestBuilderImplSpec extends Specification {
         when:
         Map<String,Object>result = fixture.getPortMappingsFromInstance(instance)
         then:
-        assert "{\"6379/tcp\":{}}" ==(JsonOutput.toJson(result))
+        assert "{\"6379/tcp\":{}}" == (JsonOutput.toJson(result))
+    }
+
+    def "getMountBindings should return a proper volume mapping as expected by the Docker remote api"(){
+        given:
+        Instance instance = getDummyInstance()
+        when:
+        Map<String,Object>result = fixture.getMountBindings(instance)
+        println(result.toMapString())
+        then:
+        assert "{\"/home/deploy/cache-data-1\":{},\"/home/deploy/cache-data-2\":{}}" == (JsonOutput.toJson(result))
     }
 
     Instance getDummyInstance(){
         return new Instance("redis.proof.com", "redis", "latest",
                 new Host("127.0.0.1", "redis-vm-1", 2376),
-                Collections.unmodifiableMap(["/home/deploy/cache-data": "/data"]), Collections.unmodifiableMap([6379: 6379]) as Map<Integer, Integer>,
+                Collections.unmodifiableMap(["/home/deploy/cache-data-1": "/data","/home/deploy/cache-data-2": "/data"]), Collections.unmodifiableMap([6379: 6379]) as Map<Integer, Integer>,
                 Collections.unmodifiableMap([:])
         )
     }

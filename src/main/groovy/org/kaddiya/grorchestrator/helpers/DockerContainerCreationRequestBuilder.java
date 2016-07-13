@@ -2,7 +2,6 @@ package org.kaddiya.grorchestrator.helpers;
 
 import org.kaddiya.grorchestrator.models.core.Instance;
 import org.kaddiya.grorchestrator.models.remotedocker.requests.DockerContainerCreationRequest;
-import org.kaddiya.grorchestrator.models.remotedocker.requests.HostConfig;
 
 import java.util.Map;
 

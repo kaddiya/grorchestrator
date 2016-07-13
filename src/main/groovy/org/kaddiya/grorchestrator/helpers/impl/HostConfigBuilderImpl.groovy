@@ -14,8 +14,8 @@ class HostConfigBuilderImpl implements  HostConfigBuilder{
     HostConfig constructHostConfig(Instance instance) {
         HostConfig config = new HostConfig()
         //config.binds = getBinds(instance)
-        //config.Links = getLinks(instance)
-        // config.portBindings = getPortBindings(instance)
+       // config.Links = getLinks(instance)
+        config.PortBindings = getPortBindings(instance)
         return config
     }
 
@@ -33,5 +33,11 @@ class HostConfigBuilderImpl implements  HostConfigBuilder{
             return [k+"/tcp",Arrays.asList(Collections.unmodifiableMap("HostPort":v.toString()))]
         } as Map<String, Map<String, String>>
 
+    }
+
+    List<String> getExtraHostsMapping(Instance instance){
+        instance.hostsMapping.collect {k,v->
+            "["+k+":"+v+"]"
+        }
     }
 }

@@ -1,11 +1,9 @@
 package org.kaddiya.grorchestrator.helpers
 
 import groovy.json.JsonOutput
-import net.sf.json.util.JSONBuilder
 import org.kaddiya.grorchestrator.helpers.impl.DockerContainerCreationRequestBuilderImpl
 import org.kaddiya.grorchestrator.models.core.Host
 import org.kaddiya.grorchestrator.models.core.Instance
-import org.kaddiya.grorchestrator.models.remotedocker.requests.HostConfig
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -35,27 +33,6 @@ class DockerConatinerCreationRequestBuilderImplSpec extends Specification {
         println(result.toMapString())
         then:
         assert "{\"/home/deploy/cache-data-1\":{},\"/home/deploy/cache-data-2\":{}}" == (JsonOutput.toJson(result))
-    }
-
-    def "getBinds should return a proper PortBindings object as expected by the Docker remote api"(){
-        given:
-        Instance instance = getDummyInstance()
-        when:
-        List<String> result = (fixture as DockerContainerCreationRequestBuilderImpl ).getBinds(instance)
-        then:
-        assert result.size() == 2
-
-        assert result.get(0) == "/home/deploy/cache-data-1:/data"
-    }
-
-    def "getPortBindings should return a proper volume mapping as expected by the Docker remote api"(){
-        given:
-        Instance instance = getDummyInstance()
-        when:
-        Map<String,Map<String,String>> result = (fixture as DockerContainerCreationRequestBuilderImpl).getPortBindings(instance)
-        println(JsonOutput.toJson(result))
-        then:
-        assert "{\"22/tcp\":[{\"HostPort\":\"11022\"}]}" == JsonOutput.toJson(result)
     }
 
 

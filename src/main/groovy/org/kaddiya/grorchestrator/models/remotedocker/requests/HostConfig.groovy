@@ -7,8 +7,8 @@ import groovy.transform.Canonical
  */
 @Canonical
 class HostConfig {
-    List<String> binds
-    List<String> links
-    Map<String,Map<String,String>> portBindings
-    Map<String,String> extraHosts
+    List<String> Binds
+    List<String> Links
+    Map<String,Map<String,String>> PortBindings
+    Map<String,String> ExtraHosts
 }

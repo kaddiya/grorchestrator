@@ -43,8 +43,9 @@ class DockerContainerCreationRequestBuilderImpl implements  DockerContainerCreat
     @Override
     HostConfig getHostConfig(Instance instance) {
         HostConfig config = new HostConfig()
-        config.binds = getBinds(instance)
-        config.links = getLinks(instance)
+      //  config.binds = getBinds(instance)
+        config.Links = getLinks(instance)
+       // config.portBindings = getPortBindings(instance)
         return config
     }
 
@@ -58,8 +59,9 @@ class DockerContainerCreationRequestBuilderImpl implements  DockerContainerCreat
     }
 
     Map<String,Map<String,String>> getPortBindings(Instance instance){
+        //m sure there is a fancier way to do this using getPortMappingsFromInstance()
       instance.portMapping.collectEntries {k,v->
-            return [k+"/tcp",Collections.unmodifiableMap("HostPort":v.toString())]
+            return [k+"/tcp",Arrays.asList(Collections.unmodifiableMap("HostPort":v.toString()))]
         } as Map<String, Map<String, String>>
 
     }

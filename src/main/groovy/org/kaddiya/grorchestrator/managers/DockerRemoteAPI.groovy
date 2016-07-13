@@ -37,5 +37,6 @@ abstract class DockerRemoteAPI {
                 throw new IllegalStateException("Container with name $instance.name is already running.Please terminate this to proceed further")
             }
         }
+
     }
 }

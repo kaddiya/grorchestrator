@@ -31,6 +31,7 @@ class DockerContainerCreatorImpl extends DockerRemoteAPI implements DockerContai
         DockerContainerCreationRequest request =  containerCreationRequestBuilder.getContainerCreationRequest(this.instance)
         println("creating a new container for $instance.name with image $request.Image")
 
+        println(request.toString())
         this.tryCatchClosure {
             DockerContainerCreationResponse response
             response = this.client.post(

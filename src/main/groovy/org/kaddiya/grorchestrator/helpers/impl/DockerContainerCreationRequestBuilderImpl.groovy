@@ -14,6 +14,9 @@ class DockerContainerCreationRequestBuilderImpl implements  DockerContainerCreat
     DockerContainerCreationRequest getContainerCreationRequest(Instance instance) {
         DockerContainerCreationRequest request = new DockerContainerCreationRequest()
         request.Image = instance.imageName+":"+instance.tag
+        request.ExposedPorts = Collections.unmodifiableMap(["8080/tcp":new Object(),"9090/tcp":new Object()])
         return  request
     }
+
+
 }

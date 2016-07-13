@@ -7,10 +7,10 @@ import groovy.transform.Canonical
  */
 @Canonical
 class DockerContainerCreationRequest {
-    String Image
-    List<String>Binds
-    List<String>Links
-    Map<String,Object>Volumes
-    Map<String,Object>ExposedPorts
+    String image
+    Map<String,Object>volumes
+    Map<String,Object>exposedPorts
+    HostConfig hostConfig
+
 
 }

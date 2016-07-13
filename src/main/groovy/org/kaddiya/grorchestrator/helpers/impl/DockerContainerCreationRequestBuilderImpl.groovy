@@ -4,6 +4,7 @@ import groovy.transform.CompileStatic
 import org.kaddiya.grorchestrator.helpers.DockerContainerCreationRequestBuilder
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.requests.DockerContainerCreationRequest
+import org.kaddiya.grorchestrator.models.remotedocker.requests.HostConfig
 
 import java.util.stream.Collectors
 
@@ -16,8 +17,11 @@ class DockerContainerCreationRequestBuilderImpl implements  DockerContainerCreat
     @Override
     DockerContainerCreationRequest getContainerCreationRequest(Instance instance) {
         DockerContainerCreationRequest request = new DockerContainerCreationRequest()
-        request.Image = instance.imageName+":"+instance.tag
-        request.ExposedPorts = Collections.unmodifiableMap(["8080/tcp":new Object(),"9090/tcp":new Object()])
+        request.image = instance.imageName+":"+instance.tag
+        request.exposedPorts = getPortMappingsFromInstance(instance)
+        request.volumes = getMountBindings(instance)
+        request.hostConfig = getHostConfig(instance)
+
         return  request
     }
 
@@ -35,5 +39,10 @@ class DockerContainerCreationRequestBuilderImpl implements  DockerContainerCreat
             return [k,new Object()]
         } as Map<String, Object>
         return  result
+    }
+
+    @Override
+    HostConfig getHostConfig(Instance instance) {
+        return null
     }
 }

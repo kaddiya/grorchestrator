@@ -2,6 +2,7 @@ package org.kaddiya.grorchestrator.managers.impl
 
 import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
+import org.kaddiya.grorchestrator.helpers.DockerContainerCreationRequestBuilder
 import org.kaddiya.grorchestrator.managers.DockerContainerCreator
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
@@ -15,19 +16,20 @@ import static groovyx.net.http.ContentType.JSON
  */
 class DockerContainerCreatorImpl extends DockerRemoteAPI implements DockerContainerCreator {
 
+    final DockerContainerCreationRequestBuilder containerCreationRequestBuilder;
     @Inject
-    public DockerContainerCreatorImpl(@Assisted Instance instance) {
+    public DockerContainerCreatorImpl(@Assisted Instance instance,DockerContainerCreationRequestBuilder containerCreationRequestBuilder) {
         super(instance)
+        this.containerCreationRequestBuilder = containerCreationRequestBuilder
     }
 
     @Override
     DockerContainerCreationResponse createContainer() {
 
-        def value = this.instance.imageName + ":" + this.instance.tag
 
-        DockerContainerCreationRequest request = new DockerContainerCreationRequest();
-        request.Image = value
-        println("creating a new container for $instance.name with image $value")
+
+        DockerContainerCreationRequest request =  containerCreationRequestBuilder.getContainerCreationRequest(this.instance)
+        println("creating a new container for $instance.name with image $request.Image")
 
         this.tryCatchClosure {
             DockerContainerCreationResponse response

@@ -58,6 +58,9 @@ class DockerContainerCreationRequestBuilderImpl implements  DockerContainerCreat
     }
 
     Map<String,Map<String,String>> getPortBindings(Instance instance){
+      instance.portMapping.collectEntries {k,v->
+            return [k+"/tcp",Collections.unmodifiableMap("HostPort":v.toString())]
+        } as Map<String, Map<String, String>>
 
     }
 

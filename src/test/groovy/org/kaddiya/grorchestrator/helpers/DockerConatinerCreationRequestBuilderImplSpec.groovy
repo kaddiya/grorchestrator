@@ -52,18 +52,17 @@ class DockerConatinerCreationRequestBuilderImplSpec extends Specification {
         given:
         Instance instance = getDummyInstance()
         when:
-        HostConfig result = fixture.getHostConfig(instance)
+        Map<String,Map<String,String>> result = (fixture as DockerContainerCreationRequestBuilderImpl).getPortBindings(instance)
+        println(JsonOutput.toJson(result))
         then:
-        assert result.binds.size() == 2
-
-        assert result.binds.get(0) == "/home/deploy/cache-data-1:/data"
+        assert "{\"22/tcp\":[{\"HostPort\":\"11022\"}]}" == JsonOutput.toJson(result)
     }
 
 
     Instance getDummyInstance(){
         return new Instance("redis.proof.com", "redis", "latest",
                 new Host("127.0.0.1", "redis-vm-1", 2376),
-                Collections.unmodifiableMap(["/home/deploy/cache-data-1": "/data","/home/deploy/cache-data-2": "/data"]), Collections.unmodifiableMap([6379: 6379]) as Map<Integer, Integer>,
+                Collections.unmodifiableMap(["/home/deploy/cache-data-1": "/data","/home/deploy/cache-data-2": "/data"]), Collections.unmodifiableMap([22: 11022]) as Map<Integer, Integer>,
                 Collections.unmodifiableMap([:])
         )
     }

@@ -9,37 +9,39 @@ import org.kaddiya.grorchestrator.models.remotedocker.requests.HostConfig
  * Created by Webonise on 13/07/16.
  */
 @CompileStatic
-class HostConfigBuilderImpl implements  HostConfigBuilder{
+class HostConfigBuilderImpl implements HostConfigBuilder {
 
     HostConfig constructHostConfig(Instance instance) {
         HostConfig config = new HostConfig()
         config.binds = getBinds(instance)
-       // config.Links = getLinks(instance)
+        // config.Links = getLinks(instance)
         config.PortBindings = getPortBindings(instance)
         config.extraHosts = getExtraHostsMapping(instance)
 
         return config
     }
 
-    List<String>getBinds(Instance instance){
-        return Arrays.asList(instance.volumeMapping.inspect().replaceAll("\\[","").replaceAll("\\]","").replaceAll("\\\'","").split(","))
+    List<String> getBinds(Instance instance) {
+        return instance.volumeMapping.collect { k, v ->
+            (k + ":" + v).toString()
+        }
     }
 
-    List<String>getLinks (Instance instance){
+    List<String> getLinks(Instance instance) {
         return Arrays.asList("")
     }
 
-    Map<String,Map<String,String>> getPortBindings(Instance instance){
+    Map<String, Map<String, String>> getPortBindings(Instance instance) {
         //m sure there is a fancier way to do this using getPortMappingsFromInstance()
-        instance.portMapping.collectEntries {k,v->
-            return [k+"/tcp",Arrays.asList(Collections.unmodifiableMap("HostPort":v.toString()))]
+        instance.portMapping.collectEntries { k, v ->
+            return [k + "/tcp", Arrays.asList(Collections.unmodifiableMap("HostPort": v.toString()))]
         } as Map<String, Map<String, String>>
 
     }
 
-    List<String> getExtraHostsMapping(Instance instance){
-        instance.hostsMapping.collect {k,v->
-            k+":"+v
+    List<String> getExtraHostsMapping(Instance instance) {
+        instance.hostsMapping.collect { k, v ->
+            k + ":" + v
         }
     }
 }

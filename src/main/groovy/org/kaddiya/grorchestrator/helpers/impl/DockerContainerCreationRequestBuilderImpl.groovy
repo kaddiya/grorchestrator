@@ -9,7 +9,7 @@ import org.kaddiya.grorchestrator.models.remotedocker.requests.DockerContainerCr
  * Created by Webonise on 13/07/16.
  */
 @CompileStatic
-class DockerContainerCreationRequestBuilderImpl implements  DockerContainerCreationRequestBuilder {
+class DockerContainerCreationRequestBuilderImpl implements DockerContainerCreationRequestBuilder {
 
     @Override
     DockerContainerCreationRequest getContainerCreationRequest(Instance instance) {

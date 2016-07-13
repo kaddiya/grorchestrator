@@ -2,6 +2,7 @@ package org.kaddiya.grorchestrator.managers.impl
 
 import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
+import groovy.json.JsonOutput
 import groovy.transform.CompileStatic
 import org.kaddiya.grorchestrator.guice.factory.DockerContainerCreatorFactory
 import org.kaddiya.grorchestrator.helpers.HostConfigBuilder
@@ -24,7 +25,8 @@ class DockerContainerRunnerManagerImpl extends DockerRemoteAPI implements Docker
     final HostConfigBuilder hostConfigBuilder
 
     @Inject
-    DockerContainerRunnerManagerImpl(@Assisted Instance instance, DockerContainerCreatorFactory creatorFactory,HostConfigBuilder hostConfigBuilder) {
+    DockerContainerRunnerManagerImpl(
+            @Assisted Instance instance, DockerContainerCreatorFactory creatorFactory, HostConfigBuilder hostConfigBuilder) {
         super(instance)
         containerCreator = creatorFactory.create(this.instance)
         this.hostConfigBuilder = hostConfigBuilder
@@ -33,17 +35,18 @@ class DockerContainerRunnerManagerImpl extends DockerRemoteAPI implements Docker
     @Override
     void runContainer() {
         DockerContainerCreationResponse containerCreationResponse = containerCreator.createContainer()
-        if(!containerCreationResponse){
+        if (!containerCreationResponse) {
             throw new IllegalStateException("Something has gone wrong in the creating the container")
         }
         String path = "/containers/$containerCreationResponse.Id/start"
 
         HostConfig config = hostConfigBuilder.constructHostConfig(instance)
+        println(JsonOutput.toJson(config))
         tryCatchClosure {
             this.client.post(
                     requestContentType: JSON,
                     path: path,
-                    body:config
+                    body: config
             )
         }
     }

@@ -19,7 +19,7 @@ class DockerContainerCreationRequestBuilderImpl implements  DockerContainerCreat
         DockerContainerCreationRequest request = new DockerContainerCreationRequest()
         request.image = instance.imageName+":"+instance.tag
         request.exposedPorts = getPortMappingsFromInstance(instance)
-        request.volumes = getMountBindings(instance)
+        request.volumes = getVolumes(instance)
         request.hostConfig = getHostConfig(instance)
         return  request
     }
@@ -33,7 +33,7 @@ class DockerContainerCreationRequestBuilderImpl implements  DockerContainerCreat
     }
 
     @Override
-    Map<String, Object> getMountBindings(Instance instance) {
+    Map<String, Object> getVolumes(Instance instance) {
         Map<String,Object> result = instance.volumeMapping.collectEntries {k,v->
             return [k,new Object()]
         } as Map<String, Object>
@@ -48,13 +48,17 @@ class DockerContainerCreationRequestBuilderImpl implements  DockerContainerCreat
         return config
     }
 
-    
+
     List<String>getBinds(Instance instance){
      return Arrays.asList(instance.volumeMapping.inspect().replaceAll("\\[","").replaceAll("\\]","").replaceAll("\\\'","").split(","))
     }
 
     List<String>getLinks (Instance instance){
         return Arrays.asList("")
+    }
+
+    Map<String,Map<String,String>> getPortBindings(Instance instance){
+
     }
 
 

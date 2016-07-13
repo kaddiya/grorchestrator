@@ -15,7 +15,7 @@ public interface DockerContainerCreationRequestBuilder {
 
     public Map<String,Object> getPortMappingsFromInstance(Instance instance);
 
-    public Map<String,Object> getMountBindings(Instance instance);
+    public Map<String,Object> getVolumes(Instance instance);
 
     HostConfig getHostConfig(Instance p);
 }

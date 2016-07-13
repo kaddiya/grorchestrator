@@ -27,17 +27,28 @@ class DockerConatinerCreationRequestBuilderImplSpec extends Specification {
         assert "{\"6379/tcp\":{}}" == (JsonOutput.toJson(result))
     }
 
-    def "getMountBindings should return a proper volume mapping as expected by the Docker remote api"(){
+    def "getVolumes should return a proper volume mapping as expected by the Docker remote api"(){
         given:
         Instance instance = getDummyInstance()
         when:
-        Map<String,Object>result = fixture.getMountBindings(instance)
+        Map<String,Object>result = fixture.getVolumes(instance)
         println(result.toMapString())
         then:
         assert "{\"/home/deploy/cache-data-1\":{},\"/home/deploy/cache-data-2\":{}}" == (JsonOutput.toJson(result))
     }
 
-    def "getHostConfig should return a proper volume mapping as expected by the Docker remote api"(){
+    def "getBinds should return a proper PortBindings object as expected by the Docker remote api"(){
+        given:
+        Instance instance = getDummyInstance()
+        when:
+        List<String> result = (fixture as DockerContainerCreationRequestBuilderImpl ).getBinds(instance)
+        then:
+        assert result.size() == 2
+
+        assert result.get(0) == "/home/deploy/cache-data-1:/data"
+    }
+
+    def "getPortBindings should return a proper volume mapping as expected by the Docker remote api"(){
         given:
         Instance instance = getDummyInstance()
         when:

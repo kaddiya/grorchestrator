@@ -5,6 +5,8 @@ import org.kaddiya.grorchestrator.helpers.DockerContainerCreationRequestBuilder
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.requests.DockerContainerCreationRequest
 
+import java.util.stream.Collectors
+
 /**
  * Created by Webonise on 13/07/16.
  */
@@ -21,6 +23,9 @@ class DockerContainerCreationRequestBuilderImpl implements  DockerContainerCreat
 
     @Override
     Map<String, Object> getPortMappingsFromInstance(Instance instance) {
-        return null
+       Map<String,Object> result = instance.portMapping.collectEntries {k,v->
+            return [k+"/tcp",new Object()]
+        } as Map<String, Object>
+        return  result
     }
 }

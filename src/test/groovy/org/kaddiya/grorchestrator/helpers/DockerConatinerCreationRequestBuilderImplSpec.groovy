@@ -1,5 +1,7 @@
 package org.kaddiya.grorchestrator.helpers
 
+import groovy.json.JsonOutput
+import net.sf.json.util.JSONBuilder
 import org.kaddiya.grorchestrator.helpers.impl.DockerContainerCreationRequestBuilderImpl
 import org.kaddiya.grorchestrator.models.core.Host
 import org.kaddiya.grorchestrator.models.core.Instance
@@ -21,7 +23,7 @@ class DockerConatinerCreationRequestBuilderImplSpec extends Specification {
         when:
         Map<String,Object>result = fixture.getPortMappingsFromInstance(instance)
         then:
-        assert  true
+        assert "{\"6379/tcp\":{}}" ==(JsonOutput.toJson(result))
     }
 
     Instance getDummyInstance(){

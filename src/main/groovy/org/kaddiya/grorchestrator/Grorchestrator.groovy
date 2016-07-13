@@ -73,15 +73,15 @@ class Grorchestrator {
         switch (action) {
             case SupportedActions.PULL_IMAGE.name():
                 pullManager.pullImage()
-                println("finished pulling the images")
+                println("finished pulling the image for $requestedInstance.imageName:$requestedInstance.tag ")
                 break
             case SupportedActions.RUN_CONTAINER.name():
                 dockerContainerRunnerManager.runContainer();
-                println("finished running the container")
+                println("finished running the container $requestedInstance.imageName:$requestedInstance.tag ")
                 break
             case SupportedActions.KILL_CONTAINER.name():
                 dockerContainerKillManager.killContainer();
-                println("finished killing the container")
+                println("finished killing the container $requestedInstance.imageName:$requestedInstance.tag ")
                 break
             default:
                 throw new IllegalArgumentException("Unsupported Actions")

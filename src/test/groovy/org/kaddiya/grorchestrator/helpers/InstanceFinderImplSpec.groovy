@@ -21,7 +21,7 @@ class InstanceFinderImplSpec extends Specification {
         fixture.getInstanceToInteractWith(project, instanceName)
         then:
         IllegalArgumentException iae = thrown()
-        iae.message.contains("No instances with  $instanceName detected")
+        iae.message.contains("No instances with $instanceName detected")
 
     }
 

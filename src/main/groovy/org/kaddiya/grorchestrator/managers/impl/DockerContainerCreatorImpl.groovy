@@ -18,8 +18,10 @@ import static groovyx.net.http.ContentType.JSON
 class DockerContainerCreatorImpl extends DockerRemoteAPI implements DockerContainerCreator {
 
     final DockerContainerCreationRequestBuilder containerCreationRequestBuilder;
+
     @Inject
-    public DockerContainerCreatorImpl(@Assisted Instance instance,DockerContainerCreationRequestBuilder containerCreationRequestBuilder) {
+    public DockerContainerCreatorImpl(
+            @Assisted Instance instance, DockerContainerCreationRequestBuilder containerCreationRequestBuilder) {
         super(instance)
         this.containerCreationRequestBuilder = containerCreationRequestBuilder
     }
@@ -28,8 +30,7 @@ class DockerContainerCreatorImpl extends DockerRemoteAPI implements DockerContai
     DockerContainerCreationResponse createContainer() {
 
 
-
-        DockerContainerCreationRequest request =  containerCreationRequestBuilder.getContainerCreationRequest(this.instance)
+        DockerContainerCreationRequest request = containerCreationRequestBuilder.getContainerCreationRequest(this.instance)
         println("creating a new container for $instance.name with image $request.image")
 
         println(JsonOutput.toJson(request))

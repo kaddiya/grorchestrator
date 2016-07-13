@@ -8,8 +8,8 @@ import groovy.transform.Canonical
 @Canonical
 class DockerContainerCreationRequest {
     String image
-    Map<String,Object>volumes
-    Map<String,Object>exposedPorts
+    Map<String, Object> volumes
+    Map<String, Object> exposedPorts
     HostConfig hostConfig
 
 

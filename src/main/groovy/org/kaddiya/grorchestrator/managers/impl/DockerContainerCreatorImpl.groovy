@@ -25,7 +25,7 @@ class DockerContainerCreatorImpl extends DockerRemoteAPI implements DockerContai
 
         def value = this.instance.imageName
 
-        println("creating a new instance with name $instance.name")
+        println("creating a new instance for $instance.name with image $instance.imageName:$instance.tag")
 
         tryCatchClosure {
             DockerContainerCreationResponse response

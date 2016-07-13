@@ -29,10 +29,12 @@ abstract class DockerRemoteAPI {
             closure()
         } catch (HttpResponseException e) {
             if (e.statusCode == 404) {
-                println("$instance.name not found locally.Please pull the image and then try again")
+                println("image $instance.imageName:$instance.tag for $instance.name not found locally.Please pull the image and then try again")
+                throw new IllegalStateException("image $instance.imageName:$instance.tag for $instance.name not found locally.Please pull the image and then try again")
             }
             if (e.statusCode == 409) {
                 println("Container with name $instance.name is already running.Please terminate this to proceed further ")
+                throw new IllegalStateException("Container with name $instance.name is already running.Please terminate this to proceed further")
             }
         }
 

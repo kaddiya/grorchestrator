@@ -22,7 +22,8 @@ class DockerConatinerCreationRequestBuilderImplSpec extends Specification {
         when:
         Map<String, Object> result = fixture.getPortMappingsFromInstance(instance)
         then:
-        assert "{\"6379/tcp\":{}}" == (JsonOutput.toJson(result))
+
+        assert "{\"22/tcp\":{}}" == (JsonOutput.toJson(result))
     }
 
     def "getVolumes should return a proper volume mapping as expected by the Docker remote api"() {

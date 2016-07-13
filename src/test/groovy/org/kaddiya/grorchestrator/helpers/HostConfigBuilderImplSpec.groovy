@@ -23,7 +23,6 @@ class HostConfigBuilderImplSpec extends Specification {
         then:
         assert result.size() == 2
         assert result.get(0) == "1:2"
-        assert result.toListString() == "[\"1:2\",\"3:4\"]"
     }
 
     def "getPortBindings should return a proper volume mapping as expected by the Docker remote api"() {
@@ -44,8 +43,8 @@ class HostConfigBuilderImplSpec extends Specification {
 
         then:
         assert result.size() == 2
-        assert result.get(0) == "[some.hostname-1.on.container:ip.for.host-1]"
-        assert result.get(1) == "[some.hostname-2.on.container:ip.for.host-2]"
+        assert result.get(0) == "some.hostname-1.on.container:ip.for.host-1"
+        assert result.get(1) == "some.hostname-2.on.container:ip.for.host-2"
     }
 
 

@@ -2,6 +2,7 @@ package org.kaddiya.grorchestrator.managers
 
 import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.HttpResponseException
+import groovyx.net.http.RESTClient
 import org.kaddiya.grorchestrator.models.core.Instance
 
 /**
@@ -17,11 +18,16 @@ abstract class DockerRemoteAPI {
 
     final HTTPBuilder client;
 
+    final RESTClient restClient;
+
     public DockerRemoteAPI(Instance instance) {
         this.instance = instance
         //construct the baseURL
         this.baseUrl = "http://$instance.host.ip:$instance.host.dockerPort"
+        //need to deprecate the HTTPBUILEr
         this.client = new HTTPBuilder(baseUrl)
+
+        this.restClient = new RESTClient(baseUrl)
     }
 
     def tryCatchClosure(Closure closure) {

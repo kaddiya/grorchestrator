@@ -3,18 +3,9 @@ package org.kaddiya.grorchestrator.guice
 import com.google.inject.AbstractModule
 import com.google.inject.assistedinject.FactoryModuleBuilder
 import groovy.transform.CompileStatic
-import org.kaddiya.grorchestrator.guice.factory.DockerContainerCreatorFactory
-import org.kaddiya.grorchestrator.guice.factory.DockerContainerKillManagerFactory
-import org.kaddiya.grorchestrator.guice.factory.DockerContainerRunnerFactory
-import org.kaddiya.grorchestrator.guice.factory.DockerImagePullManagerFactory
-import org.kaddiya.grorchestrator.managers.DockerContainerCreator
-import org.kaddiya.grorchestrator.managers.DockerContainerKillManager
-import org.kaddiya.grorchestrator.managers.DockerContainerRunnerManager
-import org.kaddiya.grorchestrator.managers.DockerImagePullManager
-import org.kaddiya.grorchestrator.managers.impl.DockerContainerCreatorImpl
-import org.kaddiya.grorchestrator.managers.impl.DockerContainerKillManagerImpl
-import org.kaddiya.grorchestrator.managers.impl.DockerContainerRunnerManagerImpl
-import org.kaddiya.grorchestrator.managers.impl.DockerImagePullManagerImpl
+import org.kaddiya.grorchestrator.guice.factory.*
+import org.kaddiya.grorchestrator.managers.*
+import org.kaddiya.grorchestrator.managers.impl.*
 
 /**
  * Created by Webonise on 01/07/16.
@@ -36,5 +27,9 @@ class DockerRemoteAPIModule extends AbstractModule {
         this.install(new FactoryModuleBuilder()
                 .implement(DockerContainerKillManager.class, DockerContainerKillManagerImpl.class)
                 .build(DockerContainerKillManagerFactory))
+        this.install(new FactoryModuleBuilder()
+                .implement(DockerContainerRemoveManager.class, DockerContainerRemoveManagerImpl.class)
+                .build(DockerContainerRemoveMangerFactory))
+
     }
 }

@@ -75,15 +75,15 @@ class Grorchestrator {
         DockerContainerRemoveManager removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance)
 
         switch (action) {
-            case SupportedActions.PULL_IMAGE.name():
+            case SupportedActions.PULL.name():
                 pullManager.pullImage()
                 println("finished pulling the image for $requestedInstance.imageName:$requestedInstance.tag ")
                 break
-            case SupportedActions.RUN_CONTAINER.name():
+            case SupportedActions.RUN.name():
                 dockerContainerRunnerManager.runContainer();
                 println("finished running the container $requestedInstance.imageName:$requestedInstance.tag ")
                 break
-            case SupportedActions.KILL_CONTAINER.name():
+            case SupportedActions.KILL.name():
                 dockerContainerKillManager.killContainer();
                 println("finished killing the container $requestedInstance.imageName:$requestedInstance.tag ")
                 break

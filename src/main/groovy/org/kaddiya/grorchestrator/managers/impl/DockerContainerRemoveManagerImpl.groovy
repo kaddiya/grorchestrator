@@ -24,11 +24,9 @@ class DockerContainerRemoveManagerImpl extends DockerRemoteAPI implements Docker
 
     @Override
     void removeContainer() {
-        def url = "http://" + this.instance.host.ip + ":" + this.instance.host.dockerPort
-        RESTClient new_client = new RESTClient(url)
         println("deleting the instance with $instance.name")
         this.tryCatchClosure {
-            new_client.delete(path: "/containers/$instance.name")
+            this.restClient.delete(path: "/containers/$instance.name")
         }
     }
 }

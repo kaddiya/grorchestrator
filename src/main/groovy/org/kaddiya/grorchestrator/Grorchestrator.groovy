@@ -87,10 +87,6 @@ class Grorchestrator {
                 dockerContainerKillManager.killContainer();
                 println("finished killing the container $requestedInstance.imageName:$requestedInstance.tag ")
                 break
-            case SupportedActions.REMOVE.name():
-                removeManager.removeContainer();
-                println("finished removing the container $requestedInstance.name")
-                break
             default:
                 throw new IllegalArgumentException("Unsupported Actions")
                 break

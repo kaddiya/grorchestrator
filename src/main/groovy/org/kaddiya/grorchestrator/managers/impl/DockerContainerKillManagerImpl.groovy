@@ -21,7 +21,8 @@ class DockerContainerKillManagerImpl extends DockerRemoteAPI implements DockerCo
     final DockerContainerRemoveManager containerRemoveManager;
 
     @Inject
-    DockerContainerKillManagerImpl(@Assisted Instance instance,DockerContainerRemoveMangerFactory containerRemoveMangerFactory) {
+    DockerContainerKillManagerImpl(
+            @Assisted Instance instance, DockerContainerRemoveMangerFactory containerRemoveMangerFactory) {
         super(instance)
         this.containerRemoveManager = containerRemoveMangerFactory.create(instance)
     }
@@ -30,9 +31,7 @@ class DockerContainerKillManagerImpl extends DockerRemoteAPI implements DockerCo
     void killContainer() {
         println("going to kill the container $instance.name")
         tryCatchClosure {
-            this.client.post(
-                    path: "/containers/$instance.name/kill"
-            )
+            this.restClient.post(path: "/containers/$instance.name/kill")
         }
         println("finished killing the container.Now going to remove the name $instance.name")
         containerRemoveManager.removeContainer()

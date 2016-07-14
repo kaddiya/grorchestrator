@@ -8,10 +8,12 @@ import org.kaddiya.grorchestrator.guice.GrorchestratorModule
 import org.kaddiya.grorchestrator.guice.HelperModule
 import org.kaddiya.grorchestrator.guice.SerialiserModule
 import org.kaddiya.grorchestrator.guice.factory.DockerContainerKillManagerFactory
+import org.kaddiya.grorchestrator.guice.factory.DockerContainerRemoveMangerFactory
 import org.kaddiya.grorchestrator.guice.factory.DockerContainerRunnerFactory
 import org.kaddiya.grorchestrator.guice.factory.DockerImagePullManagerFactory
 import org.kaddiya.grorchestrator.helpers.InstanceFinder
 import org.kaddiya.grorchestrator.managers.DockerContainerKillManager
+import org.kaddiya.grorchestrator.managers.DockerContainerRemoveManager
 import org.kaddiya.grorchestrator.managers.DockerContainerRunnerManager
 import org.kaddiya.grorchestrator.managers.DockerImagePullManager
 import org.kaddiya.grorchestrator.models.core.GrorProject
@@ -36,6 +38,7 @@ class Grorchestrator {
         DockerImagePullManagerFactory dockerImagePullManagerFactory = grorchestratorInjector.getInstance(DockerImagePullManagerFactory)
         DockerContainerRunnerFactory dockerContainerRunnerFactory = grorchestratorInjector.getInstance(DockerContainerRunnerFactory)
         DockerContainerKillManagerFactory dockerContainerKillManagerFactory = grorchestratorInjector.getInstance(DockerContainerKillManagerFactory)
+        DockerContainerRemoveMangerFactory dockerContainerRemoveManagerFactory = grorchestratorInjector.getInstance(DockerContainerRemoveMangerFactory)
         InstanceFinder instanceFinderImpl = grorchestratorInjector.getInstance(InstanceFinder)
 
 
@@ -69,6 +72,7 @@ class Grorchestrator {
         DockerImagePullManager pullManager = dockerImagePullManagerFactory.create(requestedInstance)
         DockerContainerRunnerManager dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance)
         DockerContainerKillManager dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance)
+        DockerContainerRemoveManager removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance)
 
         switch (action) {
             case SupportedActions.PULL_IMAGE.name():
@@ -81,6 +85,10 @@ class Grorchestrator {
                 break
             case SupportedActions.KILL_CONTAINER.name():
                 dockerContainerKillManager.killContainer();
+                println("finished killing the container $requestedInstance.imageName:$requestedInstance.tag ")
+                break
+            case SupportedActions.REMOVE.name():
+                removeManager.removeContainer();
                 println("finished killing the container $requestedInstance.imageName:$requestedInstance.tag ")
                 break
             default:

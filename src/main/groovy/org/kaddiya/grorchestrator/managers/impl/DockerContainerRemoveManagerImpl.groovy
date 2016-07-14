@@ -3,13 +3,9 @@ package org.kaddiya.grorchestrator.managers.impl
 import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
 import groovy.transform.CompileStatic
-import groovyx.net.http.Method
-import net.sf.json.JSON
 import org.kaddiya.grorchestrator.managers.DockerContainerRemoveManager
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
-import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerCreationResponse
-import groovyx.net.http.RESTClient
 
 /**
  * Created by Webonise on 14/07/16.

@@ -158,8 +158,8 @@ class GrorProjectSerialiserImplSpec extends Specification {
                                 new Host("127.0.0.1", "api-vm-1", 2376),
                                 Collections.unmodifiableMap(["/home/ubuntu/api-data/proof-data-sets": "/root/Proof-Data-Sets",
                                                              "/home/ubuntu/api-data/logs"           : "/opt/appData/proof-service-api/logs/"]), Collections.unmodifiableMap([8080: 8080]) as Map<Integer, Integer>,
-                                Collections.unmodifiableMap(["db.proof.com": "127.0.0.1", "redis.proof.com": "127.0.0.1"]
-                                )
+                                Collections.unmodifiableMap(["db.proof.com": "127.0.0.1", "redis.proof.com": "127.0.0.1"]),
+                                Collections.unmodifiableMap(["key-1": "value-1", "key-2": "value-2","key-3":"value-3"])
                         )
 
                 ))
@@ -183,8 +183,10 @@ class GrorProjectSerialiserImplSpec extends Specification {
                                 new Host("127.0.0.1", "api-vm-1", 2376),
                                 Collections.unmodifiableMap(["/home/ubuntu/api-data/proof-data-sets": "/root/Proof-Data-Sets",
                                                              "/home/ubuntu/api-data/logs"           : "/opt/appData/proof-service-api/logs/"]), Collections.unmodifiableMap([8080: 8080]) as Map<Integer, Integer>,
-                                Collections.unmodifiableMap(["db.proof.com": "127.0.0.1", "redis.proof.com": "127.0.0.1"]
-                                )
+                                Collections.unmodifiableMap(["db.proof.com": "127.0.0.1", "redis.proof.com": "127.0.0.1"],
+
+                                ),
+                                Collections.unmodifiableMap(["key-1": "value-1", "key-2": "value-2","key-3":"value-3"])
                         )
 
                 ))

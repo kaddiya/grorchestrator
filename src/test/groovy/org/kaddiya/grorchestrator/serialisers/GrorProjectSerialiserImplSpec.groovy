@@ -152,36 +152,14 @@ class GrorProjectSerialiserImplSpec extends Specification {
                 new Host("127.0.0.1", "frontend-vm-1", 2376)
         )
         List<Component> components = Arrays.asList(
-                new Component("redis-cache", Arrays.asList(
-                        new Instance("redis.proof.com", "redis", "latest",
-                                new Host("127.0.0.1", "redis-vm-1", 2376),
-                                Collections.unmodifiableMap(["/home/deploy/cache-data": "/data"]), Collections.unmodifiableMap([6379: 6379]) as Map<Integer, Integer>,
-                                Collections.unmodifiableMap([:])
-                        )
 
-                )),
-                new Component("mysql-db", Arrays.asList(
-                        new Instance("db.proof.com", "proofadmin/proof-mysql-db", "staging-2",
-                                new Host("127.0.0.1", "mysql-vm-1", 2376),
-                                Collections.unmodifiableMap(["/home/deploy/db-data/data-files": "/var/lib/mysql"]), Collections.unmodifiableMap([3306: 3306]) as Map<Integer, Integer>,
-                                Collections.unmodifiableMap([:])
-                        )
-
-                )),
                 new Component("api-server", Arrays.asList(
                         new Instance("api.proof.com", "proofadmin/proof-service-api", "latest",
                                 new Host("127.0.0.1", "api-vm-1", 2376),
                                 Collections.unmodifiableMap(["/home/ubuntu/api-data/proof-data-sets": "/root/Proof-Data-Sets",
                                                              "/home/ubuntu/api-data/logs"           : "/opt/appData/proof-service-api/logs/"]), Collections.unmodifiableMap([8080: 8080]) as Map<Integer, Integer>,
-                                Collections.unmodifiableMap(["db.proof.com": "127.0.0.1", "redis.proof.com": "127.0.0.1"])
-                        )
-
-                )),
-                new Component("frontend", Arrays.asList(
-                        new Instance("static.proof.com", "proofadmin/proof-service-api", "latest",
-                                new Host("127.0.0.1", "static-vm-1", 2376),
-                                Collections.unmodifiableMap([:]), Collections.unmodifiableMap([80: 80]) as Map<Integer, Integer>,
-                                Collections.unmodifiableMap(["api.proof.com": "127.0.0.1"])
+                                Collections.unmodifiableMap(["db.proof.com": "127.0.0.1", "redis.proof.com": "127.0.0.1"]
+                                )
                         )
 
                 ))
@@ -199,36 +177,14 @@ class GrorProjectSerialiserImplSpec extends Specification {
                 new Host("127.0.0.1", "frontend-vm-1", 2376)
         )
         List<Component> components = Arrays.asList(
-                new Component("redis-cache", Arrays.asList(
-                        new Instance("redis.proof.com", "redis", "latest",
-                                new Host("127.0.0.1", "redis-vm-1", 2376),
-                                Collections.unmodifiableMap(["/home/deploy/cache-data": "/data"]), Collections.unmodifiableMap([6379: 6379]) as Map<Integer, Integer>,
-                                Collections.unmodifiableMap([:])
-                        )
 
-                )),
-                new Component("mysql-db", Arrays.asList(
-                        new Instance("db.proof.com", "proofadmin/proof-mysql-db", "staging-2",
-                                new Host("127.0.0.1", "mysql-vm-1", 2376),
-                                Collections.unmodifiableMap(["/home/deploy/db-data/data-files": "/var/lib/mysql"]), Collections.unmodifiableMap([3306: 3306]) as Map<Integer, Integer>,
-                                Collections.unmodifiableMap([:])
-                        )
-
-                )),
                 new Component("api-server", Arrays.asList(
                         new Instance("api.proof.com", "proofadmin/proof-service-api", "latest",
                                 new Host("127.0.0.1", "api-vm-1", 2376),
                                 Collections.unmodifiableMap(["/home/ubuntu/api-data/proof-data-sets": "/root/Proof-Data-Sets",
                                                              "/home/ubuntu/api-data/logs"           : "/opt/appData/proof-service-api/logs/"]), Collections.unmodifiableMap([8080: 8080]) as Map<Integer, Integer>,
-                                Collections.unmodifiableMap(["db.proof.com": "127.0.0.1", "redis.proof.com": "127.0.0.1"])
-                        )
-
-                )),
-                new Component("frontend", Arrays.asList(
-                        new Instance("static.proof.com", "proofadmin/proof-service-api", "latest",
-                                new Host("127.0.0.1", "static-vm-1", 2376),
-                                Collections.unmodifiableMap([:]), Collections.unmodifiableMap([80: 80]) as Map<Integer, Integer>,
-                                Collections.unmodifiableMap(["api.proof.com": "127.0.0.1"])
+                                Collections.unmodifiableMap(["db.proof.com": "127.0.0.1", "redis.proof.com": "127.0.0.1"]
+                                )
                         )
 
                 ))

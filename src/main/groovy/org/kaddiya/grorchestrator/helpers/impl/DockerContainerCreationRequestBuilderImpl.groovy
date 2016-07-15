@@ -24,7 +24,7 @@ class DockerContainerCreationRequestBuilderImpl implements DockerContainerCreati
     @Override
     Map<String, Object> getPortMappingsFromInstance(Instance instance) {
         Map<String, Object> result = instance.portMapping.collectEntries { k, v ->
-            return [k + "/tcp", new Object()]
+            return [v + "/tcp", new Object()]
         } as Map<String, Object>
         return result
     }
@@ -32,7 +32,7 @@ class DockerContainerCreationRequestBuilderImpl implements DockerContainerCreati
     @Override
     Map<String, Object> getVolumes(Instance instance) {
         Map<String, Object> result = instance.volumeMapping.collectEntries { k, v ->
-            return [k, new Object()]
+            return [v, new Object()]
         } as Map<String, Object>
         return result
     }

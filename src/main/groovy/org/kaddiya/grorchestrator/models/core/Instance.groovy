@@ -14,4 +14,5 @@ class Instance {
     Map<String, String> volumeMapping
     Map<Integer, Integer> portMapping
     Map<String, String> hostsMapping
+    Map<String,String>envVars
 }

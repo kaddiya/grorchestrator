@@ -34,7 +34,7 @@ class HostConfigBuilderImpl implements HostConfigBuilder {
     Map<String, Map<String, String>> getPortBindings(Instance instance) {
         //m sure there is a fancier way to do this using getPortMappingsFromInstance()
         instance.portMapping.collectEntries { k, v ->
-            return [k + "/tcp", Arrays.asList(Collections.unmodifiableMap("HostPort": v.toString()))]
+            return [v + "/tcp", Arrays.asList(Collections.unmodifiableMap("HostPort": k.toString()))]
         } as Map<String, Map<String, String>>
 
     }

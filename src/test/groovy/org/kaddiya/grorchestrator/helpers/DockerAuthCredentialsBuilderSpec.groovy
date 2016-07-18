@@ -31,11 +31,11 @@ class DockerAuthCredentialsBuilderSpec extends Specification {
 
     def "getbase64EncodedValueForCredentials should return a proper base64 encoded String"() {
         given:
-        builder = new DockerAuthCredentialsBuilder()
+        builder = new DockerAuthCredentialsBuilder(new EnvironmentVarsResolver())
         when:
         String result = builder.getbase64EncodedValueForCredentials()
         then:
-        assert result == "eyJwYXNzd29yZCI6InBhc3N3b3JkIiwidXNlcm5hbWUiOiJ1c2VybmFtZSIsImVtYWlsIjoiZXhhbXBsZUBlbWFpbC5jb20iLCJhdXRoIjoiIn0="
+        assert result == "eyJwYXNzd29yZCI6InBhc3N3b3JkIiwidXNlcm5hbWUiOiJ1c2VybmFtZSIsImF1dGgiOiIiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwuY29tIn0="
     }
 
     def cleanup() {

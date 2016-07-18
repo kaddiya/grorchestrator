@@ -51,8 +51,8 @@ class DockerConatinerCreationRequestBuilderImplSpec extends Specification {
                 new Host("127.0.0.1", "redis-vm-1", 2376),
                 Collections.unmodifiableMap(["/home/deploy/cache-data-1": "/data-1", "/home/deploy/cache-data-2": "/data-2"]), Collections.unmodifiableMap([10222: 22]) as Map<Integer, Integer>,
                 Collections.unmodifiableMap([:]),
-                Collections.unmodifiableMap(["env":"test","number":"3"]
-        ))
+                Collections.unmodifiableMap(["env": "test", "number": "3"]
+                ))
     }
 
 }

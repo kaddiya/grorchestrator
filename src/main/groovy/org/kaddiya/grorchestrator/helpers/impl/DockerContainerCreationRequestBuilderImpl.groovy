@@ -17,7 +17,7 @@ class DockerContainerCreationRequestBuilderImpl implements DockerContainerCreati
         request.image = instance.imageName + ":" + instance.tag
         request.exposedPorts = getPortMappingsFromInstance(instance)
         request.volumes = getVolumes(instance)
-        request.env=getEnvironmentMappings(instance)
+        request.env = getEnvironmentMappings(instance)
         return request
     }
 
@@ -37,11 +37,11 @@ class DockerContainerCreationRequestBuilderImpl implements DockerContainerCreati
         return result
     }
 
-    List<String> getEnvironmentMappings(Instance instance){
-        if(instance.envMap){
-            List<String> result = instance.envMap.collect {k,v-> k+"="+v}
+    List<String> getEnvironmentMappings(Instance instance) {
+        if (instance.envMap) {
+            List<String> result = instance.envMap.collect { k, v -> k + "=" + v }
             return result
-        }else{
+        } else {
             return Arrays.asList("")
         }
     }

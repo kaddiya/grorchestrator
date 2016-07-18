@@ -44,7 +44,7 @@ class DockerContainerRunnerManagerImpl extends DockerRemoteAPI implements Docker
             this.restClient.post(
                     path: path,
                     body: config,
-                    requestContentType: JSON )
+                    requestContentType: JSON)
         }
     }
 

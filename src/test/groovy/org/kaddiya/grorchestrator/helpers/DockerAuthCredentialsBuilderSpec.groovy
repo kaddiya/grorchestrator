@@ -13,10 +13,10 @@ class DockerAuthCredentialsBuilderSpec extends Specification {
     DockerAuthCredentialsBuilder builder
 
     def setup() {
-        System.setProperty("registry.username", "username")
-        System.setProperty("registry.password", "password")
-        System.setProperty("registry.auth", "")
-        System.setProperty("registry.email", "example@email.com")
+        System.setProperty("registry_username", "username")
+        System.setProperty("registry_password", "password")
+        System.setProperty("registry_auth", "")
+        System.setProperty("registry_email", "example@email.com")
     }
 
     def "constructDockerHubAuthenticationCredentials should return a proper DockerHubAuth model"() {
@@ -39,9 +39,9 @@ class DockerAuthCredentialsBuilderSpec extends Specification {
     }
 
     def cleanup() {
-        System.setProperty("registry.username", "")
-        System.setProperty("registry.password", "")
-        System.setProperty("registry.auth", "")
-        System.setProperty("registry.email", "")
+        System.setProperty("registry_username", "")
+        System.setProperty("registry_password", "")
+        System.setProperty("registry_auth", "")
+        System.setProperty("registry_email", "")
     }
 }

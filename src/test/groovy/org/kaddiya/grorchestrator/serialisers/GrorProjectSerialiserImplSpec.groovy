@@ -136,10 +136,10 @@ class GrorProjectSerialiserImplSpec extends Specification {
     }*/
 
     def cleanup() {
-        System.setProperty("registry.username", "")
-        System.setProperty("registry.password", "")
-        System.setProperty("registry.auth", "")
-        System.setProperty("registry.email", "")
+        System.setProperty("registry_username", "")
+        System.setProperty("registry_password", "")
+        System.setProperty("registry_auth", "")
+        System.setProperty("registry_email", "")
     }
 
     def getDummyFullGrorProject() {

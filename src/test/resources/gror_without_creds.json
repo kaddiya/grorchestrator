@@ -25,7 +25,7 @@
             "db.proof.com": "127.0.0.1",
             "redis.proof.com": "127.0.0.1"
           },
-          "envVars": {
+          "envMap": {
             "key-1": "value-1",
             "key-2": "value-2",
             "key-3": "value-3"

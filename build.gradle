@@ -11,6 +11,8 @@
 apply plugin: 'groovy'
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'application'
+mainClassName = "org.kaddiya.grorchestrator.Grorchestrator"
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Use 'jcenter' for resolving your dependencies.

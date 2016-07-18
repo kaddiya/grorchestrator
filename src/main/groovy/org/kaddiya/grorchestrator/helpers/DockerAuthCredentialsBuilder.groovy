@@ -11,9 +11,9 @@ import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 class DockerAuthCredentialsBuilder {
 
     DockerHubAuth constructDockerHubAuthenticationCredentials() {
-        assert System.getProperty("registry.username")
-        assert System.getProperty("registry.password")
-        assert System.getProperty("registry.email")
+        assert System.getProperty("registry.username") : "Did not find value set for the registry username"
+        assert System.getProperty("registry.password") : "Did not find value set for the registry password"
+        assert System.getProperty("registry.email")    : "Did not find value set for the registry email"
         assert System.getProperty("registry.auth") != null
 
         return new DockerHubAuth(System.getProperty("registry.username"), System.getProperty("registry.password"), System.getProperty("registry.auth"), System.getProperty("registry.email"))

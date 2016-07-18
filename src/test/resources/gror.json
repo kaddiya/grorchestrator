@@ -6,52 +6,6 @@
     {
       "instances": [
         {
-          "name": "redis.proof.com",
-          "portMapping": {
-            "6379": 6379
-          },
-          "volumeMapping": {
-            "\/home\/deploy\/cache-data": "\/data"
-          },
-          "imageName": "redis",
-          "host": {
-            "alias": "redis-vm-1",
-            "ip": "127.0.0.1",
-            "dockerPort": 2376
-          },
-          "tag": "latest",
-          "hostsMapping": {
-          }
-        }
-      ],
-      "name": "redis-cache"
-    },
-    {
-      "instances": [
-        {
-          "name": "db.proof.com",
-          "portMapping": {
-            "3306": 3306
-          },
-          "volumeMapping": {
-            "\/home\/deploy\/db-data\/data-files": "\/var\/lib\/mysql"
-          },
-          "imageName": "proofadmin\/proof-mysql-db",
-          "host": {
-            "alias": "mysql-vm-1",
-            "ip": "127.0.0.1",
-            "dockerPort": 2376
-          },
-          "tag": "staging-2",
-          "hostsMapping": {
-          }
-        }
-      ],
-      "name": "mysql-db"
-    },
-    {
-      "instances": [
-        {
           "name": "api.proof.com",
           "portMapping": {
             "8080": 8080
@@ -70,33 +24,15 @@
           "hostsMapping": {
             "db.proof.com": "127.0.0.1",
             "redis.proof.com": "127.0.0.1"
+          },
+          "envVars": {
+            "key-1": "value-1",
+            "key-2": "value-2",
+            "key-3": "value-3"
           }
         }
       ],
       "name": "api-server"
-    },
-    {
-      "instances": [
-        {
-          "name": "static.proof.com",
-          "portMapping": {
-            "80": 80
-          },
-          "volumeMapping": {
-          },
-          "imageName": "proofadmin\/proof-service-api",
-          "host": {
-            "alias": "static-vm-1",
-            "ip": "127.0.0.1",
-            "dockerPort": 2376
-          },
-          "tag": "latest",
-          "hostsMapping": {
-            "api.proof.com": "127.0.0.1"
-          }
-        }
-      ],
-      "name": "frontend"
     }
   ]
 }

@@ -17,8 +17,15 @@ class GrorProjectSerialiserImpl implements GrorProjectSerialiser {
         if (!name.exists())
             throw new IllegalStateException("File $name doesnt exist")
 
+        GrorProject grorProject
         ObjectMapper mapper = new ObjectMapper();
-        GrorProject grorProject = mapper.readValue(name.text, GrorProject.class);
+        try {
+             grorProject = mapper.readValue(name.text, GrorProject.class);
+        }catch (Exception e){
+            println("Invalid gror file format.please correct the format")
+            throw new IllegalStateException(e.getMessage())
+        }
+
         return grorProject;
 
     }

@@ -74,7 +74,7 @@ class Grorchestrator {
         DockerContainerKillManager dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance)
         DockerContainerRemoveManager removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance)
 
-        switch (action) {
+        switch (action.toUpperCase()) {
             case SupportedActions.PULL.name():
                 pullManager.pullImage()
                 println("finished pulling the image for $requestedInstance.imageName:$requestedInstance.tag ")

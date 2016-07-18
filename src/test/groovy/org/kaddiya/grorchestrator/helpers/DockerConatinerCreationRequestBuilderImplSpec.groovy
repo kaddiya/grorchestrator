@@ -36,13 +36,23 @@ class DockerConatinerCreationRequestBuilderImplSpec extends Specification {
         assert "{\"/data-1\":{},\"/data-2\":{}}" == (JsonOutput.toJson(result))
     }
 
+    def "getEnvironmentMappings should return a proper list of environment variables and values as expected by the Docker remote api"() {
+        given:
+        Instance instance = getDummyInstance()
+        when:
+        List<String> result = (fixture as DockerContainerCreationRequestBuilderImpl).getEnvironmentMappings(instance)
+        then:
+        assert "[env=test, number=3]" == (result.toListString())
+    }
+
 
     Instance getDummyInstance() {
         return new Instance("redis.proof.com", "redis", "latest",
                 new Host("127.0.0.1", "redis-vm-1", 2376),
                 Collections.unmodifiableMap(["/home/deploy/cache-data-1": "/data-1", "/home/deploy/cache-data-2": "/data-2"]), Collections.unmodifiableMap([10222: 22]) as Map<Integer, Integer>,
-                Collections.unmodifiableMap([:])
-        )
+                Collections.unmodifiableMap([:]),
+                Collections.unmodifiableMap(["env":"test","number":"3"]
+        ))
     }
 
 }

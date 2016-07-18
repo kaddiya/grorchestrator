@@ -66,10 +66,10 @@ class GrorProjectSerialiserImplSpec extends Specification {
         when:
         serialiser.prepareEnvironmentVariables(project)
         then:
-        assert System.getProperty("registry.username") == "username"
-        assert System.getProperty("registry.email") == "email@example.com"
-        assert System.getProperty("registry.password") == "password"
-        assert System.getProperty("registry.auth")  == "auth"
+        assert System.getenv("registry.username") == "username"
+        assert System.getenv("registry.email") == "email@example.com"
+        assert System.getenv("registry.password") == "password"
+        assert System.getenv("registry.auth")  == "auth"
 
     }
 
@@ -81,10 +81,10 @@ class GrorProjectSerialiserImplSpec extends Specification {
         when:
         serialiser.prepareEnvironmentVariables(project)
         then:
-        assert System.getProperty("registry.username") == "username"
-        assert System.getProperty("registry.email") == "email@example.com"
-        assert System.getProperty("registry.password") == "password"
-        assert System.getProperty("registry.auth")  == "auth"
+        assert System.getenv("registry.username") == "username"
+        assert System.getenv("registry.email") == "email@example.com"
+        assert System.getenv("registry.password") == "password"
+        assert System.getenv("registry.auth")  == "auth"
 
     }
 
@@ -111,10 +111,10 @@ class GrorProjectSerialiserImplSpec extends Specification {
         when:
         serialiser.prepareEnvironmentVariables(project)
         then:
-        assert  System.getProperty("registry.username") == "username" : "username not properly set"
-        assert  System.getProperty("registry.password") == "password" :"password not prperly set"
-        assert  System.getProperty("registry.auth") == "auth"  : "auth not properly set"
-        assert  System.getProperty("registry.email") == "email@example.com" :"email not properly set"
+        assert  System.getenv("registry.username") == "username" : "username not properly set"
+        assert  System.getenv("registry.password") == "password" :"password not prperly set"
+        assert  System.getenv("registry.auth") == "auth"  : "auth not properly set"
+        assert  System.getenv("registry.email") == "email@example.com" :"email not properly set"
     }
 
     def "prepareEnvironmentVariables should override the proper environment variables after reading from a well formed gror.json and having the env values set"(){
@@ -129,10 +129,10 @@ class GrorProjectSerialiserImplSpec extends Specification {
         when:
         serialiser.prepareEnvironmentVariables(project)
         then:
-        assert  System.getProperty("registry.username") == "overidden-username" : "username not properly overriden"
-        assert  System.getProperty("registry.passowrd") == "overidden-password" :"password not properly overriden"
-        assert  System.getProperty("registry.auth") == "overidden-auth"  : "auth not properly overriden"
-        assert  System.getProperty("registry.email") == "overidden-email@example.com" :"email not properly overriden"
+        assert  System.getenv("registry.username") == "overidden-username" : "username not properly overriden"
+        assert  System.getenv("registry.passowrd") == "overidden-password" :"password not properly overriden"
+        assert  System.getenv("registry.auth") == "overidden-auth"  : "auth not properly overriden"
+        assert  System.getenv("registry.email") == "overidden-email@example.com" :"email not properly overriden"
     }*/
 
     def cleanup() {

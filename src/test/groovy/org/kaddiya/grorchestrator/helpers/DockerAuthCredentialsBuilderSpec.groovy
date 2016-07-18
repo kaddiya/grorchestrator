@@ -21,10 +21,10 @@ class DockerAuthCredentialsBuilderSpec extends Specification {
 
     def "constructDockerHubAuthenticationCredentials should return a proper DockerHubAuth model"() {
         given:
-        builder = new DockerAuthCredentialsBuilder()
+        builder = new DockerAuthCredentialsBuilder(new EnvironmentVarsResolver())
         when:
         DockerHubAuth actualAuth = builder.constructDockerHubAuthenticationCredentials()
-        DockerHubAuth expectedAuth = new DockerHubAuth("username", "password", "", "example@email.com")
+        DockerHubAuth expectedAuth = new DockerHubAuth("username", "password", "example@email.com","")
         then:
         assert actualAuth == expectedAuth
     }

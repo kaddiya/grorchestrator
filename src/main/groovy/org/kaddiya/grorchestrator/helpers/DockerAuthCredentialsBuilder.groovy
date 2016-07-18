@@ -1,5 +1,6 @@
 package org.kaddiya.grorchestrator.helpers
 
+import com.google.inject.Inject
 import groovy.json.JsonBuilder
 import groovy.transform.CompileStatic
 import org.kaddiya.grorchestrator.models.core.DockerHubAuth
@@ -10,13 +11,21 @@ import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 @CompileStatic
 class DockerAuthCredentialsBuilder {
 
-    DockerHubAuth constructDockerHubAuthenticationCredentials() {
-        assert System.getProperty("registry_username") : "Did not find value set for the registry username"
-        assert System.getProperty("registry_password") : "Did not find value set for the registry password"
-        assert System.getProperty("registry_email")    : "Did not find value set for the registry email"
-        assert System.getProperty("registry_auth") != null
+    final EnvironmentVarsResolver environmentVarsResolver
 
-        return new DockerHubAuth(System.getProperty("registry_username"), System.getProperty("registry_password"), System.getProperty("registry_auth"), System.getProperty("registry_email"))
+    @Inject
+    public DockerAuthCredentialsBuilder(EnvironmentVarsResolver resolver){
+        this.environmentVarsResolver = resolver
+    }
+
+    DockerHubAuth constructDockerHubAuthenticationCredentials() {
+
+        String registryUsername = environmentVarsResolver.getEnvironmentVarValueForKey("registry_username")
+        String registryPassword = environmentVarsResolver.getEnvironmentVarValueForKey("registry_password")
+        String registryEmail = environmentVarsResolver.getEnvironmentVarValueForKey("registry_email")
+        String registryAuth = environmentVarsResolver.getEnvironmentVarValueForKey("registry_auth")
+
+        return new DockerHubAuth(registryUsername, registryPassword,registryEmail,registryAuth)
     }
 
     String getbase64EncodedValueForCredentials() {

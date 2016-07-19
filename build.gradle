@@ -24,6 +24,11 @@ repositories {
 
 
 }
+configurations{
+    application{
+        applicationName = "gror"
+    }
+}
 
 // In this section you declare the dependencies for your production and test code
 dependencies {

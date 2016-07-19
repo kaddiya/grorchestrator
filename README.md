@@ -24,7 +24,7 @@ Set the following environment variables in your gror server shell.
 
 #Current features:  
 1.Port mappings from host to container.  
-2.Volume mappings from host to container. 
+2.Volume mappings from host to container.   
 3.Adding extra hosts to the container.  
 4.Pulling an image from docker hub.  
 5.Running a container.  

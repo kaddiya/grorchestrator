@@ -14,7 +14,7 @@ class HostConfigBuilderImpl implements HostConfigBuilder {
     HostConfig constructHostConfig(Instance instance) {
         HostConfig config = new HostConfig()
         config.binds = getBinds(instance)
-        // config.Links = getLinks(instance)
+        config.Links = getLinks(instance)
         config.PortBindings = getPortBindings(instance)
         config.extraHosts = getExtraHostsMapping(instance)
 

@@ -11,6 +11,8 @@
 apply plugin: 'groovy'
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'application'
+mainClassName = "org.kaddiya.grorchestrator.Grorchestrator"
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Use 'jcenter' for resolving your dependencies.
@@ -22,6 +24,11 @@ repositories {
 
 
 }
+configurations{
+    application{
+        applicationName = "gror"
+    }
+}
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
@@ -32,4 +39,11 @@ dependencies {
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
     compile 'org.slf4j:slf4j-simple:1.6.1'
     compile 'org.slf4j:slf4j-api:1.6.1'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.5'
+    compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.5.0'
+    compile 'com.google.inject:guice:[4.0,5)'
+    compile 'com.google.inject:guice-parent:3.0'
+    compile group: 'com.google.inject.extensions', name: 'guice-assistedinject', version: '4.0'
+
+
 }

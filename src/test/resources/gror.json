@@ -1,0 +1,41 @@
+{
+  "systemInfo": {
+    "name": "demo"
+  },
+  "components": [
+    {
+      "instances": [
+        {
+          "name": "api.proof.com",
+          "portMapping": {
+            "8080": 8080
+          },
+          "volumeMapping": {
+            "\/home\/ubuntu\/api-data\/proof-data-sets": "\/root\/Proof-Data-Sets",
+            "\/home\/ubuntu\/api-data\/logs": "\/opt\/appData\/proof-service-api\/logs\/"
+          },
+          "imageName": "proofadmin\/proof-service-api",
+          "host": {
+            "alias": "api-vm-1",
+            "ip": "127.0.0.1",
+            "dockerPort": 2376
+          },
+          "tag": "latest",
+          "hostsMapping": {
+            "db.proof.com": "127.0.0.1",
+            "redis.proof.com": "127.0.0.1"
+          },
+          "envMap": {
+            "key-1": "value-1",
+            "key-2": "value-2",
+            "key-3": "value-3"
+          },
+          "links":{
+            "name.for.container.1":"alias.for.container.1"
+          }
+        }
+      ],
+      "name": "api-server"
+    }
+  ]
+}

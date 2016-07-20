@@ -28,7 +28,9 @@ class HostConfigBuilderImpl implements HostConfigBuilder {
     }
 
     List<String> getLinks(Instance instance) {
-        return Arrays.asList("")
+        instance.links.collect { k, v ->
+            k + ":" + v
+        }
     }
 
     Map<String, Map<String, String>> getPortBindings(Instance instance) {

@@ -1,5 +1,7 @@
 package org.kaddiya.grorchestrator.managers.impl
 
+import com.google.inject.Inject
+import com.google.inject.assistedinject.Assisted
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPIInfoManager
 import org.kaddiya.grorchestrator.models.core.Instance
@@ -9,12 +11,15 @@ import org.kaddiya.grorchestrator.models.core.Instance
  */
 class DockerRemoteAPIInfoManagerImpl extends DockerRemoteAPI implements  DockerRemoteAPIInfoManager {
 
-    DockerRemoteAPIInfoManagerImpl(Instance instance) {
+    @Inject
+    DockerRemoteAPIInfoManagerImpl(@Assisted Instance instance) {
         super(instance)
     }
 
     @Override
     String getInfo() {
-        return this.client.get(path: "/info")
+        def res =  this.client.get(path: "/info")
+        println(res)
+        return  res
     }
 }

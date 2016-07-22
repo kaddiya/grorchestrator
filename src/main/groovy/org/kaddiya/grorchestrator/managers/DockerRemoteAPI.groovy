@@ -23,10 +23,9 @@ abstract class DockerRemoteAPI {
     public DockerRemoteAPI(Instance instance) {
         this.instance = instance
         //construct the baseURL
-        this.baseUrl = "http://$instance.host.ip:$instance.host.dockerPort"
+        this.baseUrl = "$instance.host.ip:$instance.host.dockerPort"
         //need to deprecate the HTTPBUILEr
         this.client = new HTTPBuilder(baseUrl)
-
         this.restClient = new RESTClient(baseUrl)
     }
 

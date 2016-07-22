@@ -11,11 +11,13 @@ import org.kaddiya.grorchestrator.guice.factory.DockerContainerKillManagerFactor
 import org.kaddiya.grorchestrator.guice.factory.DockerContainerRemoveMangerFactory
 import org.kaddiya.grorchestrator.guice.factory.DockerContainerRunnerFactory
 import org.kaddiya.grorchestrator.guice.factory.DockerImagePullManagerFactory
+import org.kaddiya.grorchestrator.guice.factory.DockerRemoteAPIInfoManagerFactory
 import org.kaddiya.grorchestrator.helpers.InstanceFinder
 import org.kaddiya.grorchestrator.managers.DockerContainerKillManager
 import org.kaddiya.grorchestrator.managers.DockerContainerRemoveManager
 import org.kaddiya.grorchestrator.managers.DockerContainerRunnerManager
 import org.kaddiya.grorchestrator.managers.DockerImagePullManager
+import org.kaddiya.grorchestrator.managers.DockerRemoteAPIInfoManager
 import org.kaddiya.grorchestrator.models.core.GrorProject
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.SupportedActions
@@ -39,6 +41,7 @@ class Grorchestrator {
         DockerContainerRunnerFactory dockerContainerRunnerFactory = grorchestratorInjector.getInstance(DockerContainerRunnerFactory)
         DockerContainerKillManagerFactory dockerContainerKillManagerFactory = grorchestratorInjector.getInstance(DockerContainerKillManagerFactory)
         DockerContainerRemoveMangerFactory dockerContainerRemoveManagerFactory = grorchestratorInjector.getInstance(DockerContainerRemoveMangerFactory)
+        DockerRemoteAPIInfoManagerFactory infoManagerFactory = grorchestratorInjector.getInstance(DockerRemoteAPIInfoManagerFactory)
         InstanceFinder instanceFinderImpl = grorchestratorInjector.getInstance(InstanceFinder)
 
 
@@ -73,6 +76,7 @@ class Grorchestrator {
         DockerContainerRunnerManager dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance)
         DockerContainerKillManager dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance)
         DockerContainerRemoveManager removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance)
+        DockerRemoteAPIInfoManager infoManager = infoManagerFactory.create(requestedInstance)
 
         switch (action.toUpperCase()) {
             case SupportedActions.PULL.name():
@@ -88,8 +92,8 @@ class Grorchestrator {
                 println("finished killing the container $requestedInstance.imageName:$requestedInstance.tag ")
                 break
             case SupportedActions.INFO.name():
-                dockerContainerKillManager.killContainer();
-                println("finished killing the container $requestedInstance.imageName:$requestedInstance.tag ")
+                infoManager.getInfo();
+                println("fiished getting the info for $requestedInstance.imageName:$requestedInstance.tag ")
                 break
             default:
                 throw new IllegalArgumentException("Unsupported Actions")

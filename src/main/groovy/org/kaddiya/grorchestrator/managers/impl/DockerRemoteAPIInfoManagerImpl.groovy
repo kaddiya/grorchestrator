@@ -18,6 +18,7 @@ class DockerRemoteAPIInfoManagerImpl extends DockerRemoteAPI implements  DockerR
 
     @Override
     String getInfo() {
+        println("finding the info for the host of $protocol://$instance.host.ip")
         def res =  this.client.get(path: "/info")
         println(res)
         return  res

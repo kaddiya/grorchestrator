@@ -3,6 +3,8 @@ package org.kaddiya.grorchestrator.managers
 import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.HttpResponseException
 import groovyx.net.http.RESTClient
+import org.apache.http.conn.scheme.Scheme
+import org.apache.http.conn.ssl.SSLSocketFactory
 import org.kaddiya.grorchestrator.models.core.Instance
 
 /**
@@ -31,6 +33,11 @@ abstract class DockerRemoteAPI {
 
         //need to deprecate the HTTPBUILEr
         this.client = new HTTPBuilder(baseUrl)
+
+        SSLSocketFactory sf = new SSLSocketFactory
+        sf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER)
+        this.client.client.connectionManager.schemeRegistry.register(new Scheme("https", sf, 443))
+        this.client.client.connectionManager.sslS
         this.restClient = new RESTClient(baseUrl)
     }
 

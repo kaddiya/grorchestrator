@@ -20,13 +20,22 @@ abstract class DockerRemoteAPI {
 
     final RESTClient restClient;
 
+    final String protocol
+
     public DockerRemoteAPI(Instance instance) {
+        this.protocol = derieveProtocol(instance)
         this.instance = instance
         //construct the baseURL
-        this.baseUrl = "$instance.host.ip:$instance.host.dockerPort"
+
+        this.baseUrl = "$protocol$instance.host.ip:$instance.host.dockerPort"
+
         //need to deprecate the HTTPBUILEr
         this.client = new HTTPBuilder(baseUrl)
         this.restClient = new RESTClient(baseUrl)
+    }
+
+    String derieveProtocol(Instance instance) {
+        return "https://"
     }
 
     def tryCatchClosure(Closure closure) {

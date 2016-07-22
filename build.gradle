@@ -24,8 +24,8 @@ repositories {
 
 
 }
-configurations{
-    application{
+configurations {
+    application {
         applicationName = "gror"
     }
 }

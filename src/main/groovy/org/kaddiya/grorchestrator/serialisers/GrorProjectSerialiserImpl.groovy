@@ -20,8 +20,8 @@ class GrorProjectSerialiserImpl implements GrorProjectSerialiser {
         GrorProject grorProject
         ObjectMapper mapper = new ObjectMapper();
         try {
-             grorProject = mapper.readValue(name.text, GrorProject.class);
-        }catch (Exception e){
+            grorProject = mapper.readValue(name.text, GrorProject.class);
+        } catch (Exception e) {
             println("Invalid gror file format.please correct the format")
             throw new IllegalStateException(e.getMessage())
         }

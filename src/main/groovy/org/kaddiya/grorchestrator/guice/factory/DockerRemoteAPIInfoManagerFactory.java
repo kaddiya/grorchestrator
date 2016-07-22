@@ -1,6 +1,5 @@
 package org.kaddiya.grorchestrator.guice.factory;
 
-import org.kaddiya.grorchestrator.managers.DockerImagePullManager;
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPIInfoManager;
 import org.kaddiya.grorchestrator.models.core.Instance;
 

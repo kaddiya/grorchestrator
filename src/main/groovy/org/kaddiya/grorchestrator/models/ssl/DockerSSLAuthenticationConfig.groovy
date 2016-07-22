@@ -1,4 +1,4 @@
-package org.kaddiya.grorchestrator.ssl
+package org.kaddiya.grorchestrator.models.ssl
 
 import groovy.transform.Canonical
 
@@ -6,7 +6,7 @@ import groovy.transform.Canonical
  * Created by Webonise on 22/07/16.
  */
 @Canonical
-class DockerCertificatesConfig {
+class DockerSSLAuthenticationConfig {
 
     private File caCertPath;
     private File clientKeyPath;

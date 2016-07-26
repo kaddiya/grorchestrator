@@ -3,7 +3,9 @@ package org.kaddiya.grorchestrator.managers.impl
 import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
 import groovy.transform.CompileStatic
+import okhttp3.MediaType
 import okhttp3.Request
+import okhttp3.RequestBody
 import org.kaddiya.grorchestrator.guice.factory.DockerContainerRemoveMangerFactory
 import org.kaddiya.grorchestrator.managers.DockerContainerKillManager
 import org.kaddiya.grorchestrator.managers.DockerContainerRemoveManager
@@ -31,16 +33,18 @@ class DockerContainerKillManagerImpl extends DockerRemoteAPI implements DockerCo
     @Override
     void killContainer() {
         println("going to kill the container $instance.name")
-        tryCatchClosure {
-            this.restClient.post(path: "/containers/$instance.name/kill")
-        }
+        doWork(constructRequest())
         println("finished killing the container.Now going to remove the name $instance.name")
         containerRemoveManager.removeContainer()
     }
 
     @Override
     Request constructRequest() {
-        throw new IllegalStateException("Not yet implemented")
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        return new Request.Builder()
+                .url("$baseUrl/containers/$instance.name/kill")
+                .post(RequestBody.create(JSON, "")) //this requires an empty request body
+                .build();
     }
 }
 

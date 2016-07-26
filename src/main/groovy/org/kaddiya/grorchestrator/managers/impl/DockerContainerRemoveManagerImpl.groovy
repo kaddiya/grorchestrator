@@ -22,13 +22,14 @@ class DockerContainerRemoveManagerImpl extends DockerRemoteAPI implements Docker
     @Override
     void removeContainer() {
         println("deleting the instance with $instance.name")
-        this.tryCatchClosure {
-            this.restClient.delete(path: "/containers/$instance.name")
-        }
+        doWork(constructRequest())
     }
 
     @Override
     Request constructRequest() {
-        throw new IllegalStateException("Not yet implemented")
+        return new Request.Builder()
+                .url("$baseUrl/containers/$instance.name")
+                .delete()  //this requires an empty request body
+                .build();
     }
 }

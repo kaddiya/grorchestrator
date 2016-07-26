@@ -28,6 +28,14 @@ class DockerImagePullManagerImpl extends DockerRemoteAPI implements DockerImageP
         super(instance)
     }
 
+
+    @Override
+    String pullImage() {
+        String result = doWork(constructRequest())
+        println(result)
+        result
+    }
+
     @Override
     Request constructRequest() {
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
@@ -36,13 +44,5 @@ class DockerImagePullManagerImpl extends DockerRemoteAPI implements DockerImageP
                 .header("X-Registry-Auth", builder.getbase64EncodedValueForCredentials())
                 .post(RequestBody.create(JSON, ""))  //this requires an empty request body
                 .build();
-
-    }
-
-    @Override
-    String pullImage() {
-        String result = doWork(constructRequest())
-        println(result)
-        result
     }
 }

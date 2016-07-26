@@ -12,7 +12,6 @@ import static javax.net.ssl.TrustManagerFactory.getDefaultAlgorithm
 
 class SslSocketConfigFactory {
 
-
     DockerSslSocket createDockerSslSocket(String certPath) {
         def keyStore = createKeyStore(certPath)
         KeyManagerFactory keyManagerFactory = initKeyManagerFactory(keyStore)

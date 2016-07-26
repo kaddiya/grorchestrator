@@ -7,7 +7,6 @@ import javax.net.ssl.X509TrustManager
 
 @Canonical
 class DockerSslSocket {
-
     SSLSocketFactory sslSocketFactory
     X509TrustManager trustManager
 }

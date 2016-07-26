@@ -10,10 +10,7 @@ import java.security.cert.CertificateFactory
 import java.security.cert.X509Certificate
 import java.security.spec.PKCS8EncodedKeySpec
 
-/**
- * A slightly modified copy from https://github.com/rhuss/docker-maven-plugin
- * with kind permission of Roland Huß (https://twitter.com/ro14nd).
- */
+
 public class KeyStoreUtil {
 
     def static KEY_STORE_PASSWORD = "anypasswordwilldo?".toCharArray()

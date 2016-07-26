@@ -29,9 +29,9 @@ abstract class DockerRemoteAPI {
 
     final OkHttpClient httpClient
 
-    String path;
+    final String path;
 
-    final Request
+    final Request request
 
     public DockerRemoteAPI(Instance instance) {
         this.protocol = derieveProtocol(instance)
@@ -47,6 +47,12 @@ abstract class DockerRemoteAPI {
 
         this.httpClient = initOkHTTP()
 
+    }
+
+    public DockerRemoteAPI(Instance instance,String path){
+        this(instance)
+        this.path = path
+        this.request = initRequest()
     }
 
     String derieveProtocol(Instance instance) {
@@ -69,7 +75,7 @@ abstract class DockerRemoteAPI {
 
     }
 
-    protected Request getRequest(){
+    protected Request initRequest(){
         new Request.Builder()
                 .url("$baseUrl$path")
                 .build();

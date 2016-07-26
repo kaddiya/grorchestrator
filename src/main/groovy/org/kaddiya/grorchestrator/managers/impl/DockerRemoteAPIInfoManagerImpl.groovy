@@ -14,14 +14,13 @@ class DockerRemoteAPIInfoManagerImpl extends DockerRemoteAPI implements DockerRe
 
     @Inject
     DockerRemoteAPIInfoManagerImpl(@Assisted Instance instance) {
-        super(instance)
-        this.path = "/info"
+        super(instance,"/info")
+
     }
 
     @Override
     String getInfo() {
-        Request request = this.getRequest()
-        def info = this.httpClient.newCall(request).execute();
+        def info = this.httpClient.newCall(this.request).execute();
         println(info.body().string())
         return info
     }

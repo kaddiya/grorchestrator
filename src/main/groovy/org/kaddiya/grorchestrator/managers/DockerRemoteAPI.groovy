@@ -38,7 +38,6 @@ abstract class DockerRemoteAPI {
 
         //need to deprecate the HTTPBUILEr
         this.client = new HTTPBuilder(baseUrl)
-
         this.httpClient = initOkHTTP()
 
     }
@@ -75,11 +74,12 @@ abstract class DockerRemoteAPI {
                 return true
             }
         }).build();
+
         return okClient
     }
 
-    public String doWork(Request constructedRequest){
-        this.tryCatchClosure{
+    public String doWork(Request constructedRequest) {
+        this.tryCatchClosure {
             return this.httpClient.newCall(constructedRequest).execute().body().string()
         }
     }

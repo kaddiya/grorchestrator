@@ -28,7 +28,7 @@ class DockerRemoteAPIInfoManagerImpl extends DockerRemoteAPI implements DockerRe
 
     @Override
     String getInfo() {
-        Response result = doWork(constructRequest())
+        Response result = doWork()
         println(result)
         return ""
     }

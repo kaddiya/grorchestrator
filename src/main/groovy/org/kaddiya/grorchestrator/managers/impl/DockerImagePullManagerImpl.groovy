@@ -31,7 +31,7 @@ class DockerImagePullManagerImpl extends DockerRemoteAPI implements DockerImageP
 
     @Override
     String pullImage() {
-        String result = doWork(constructRequest())
+        String result = doWork()
         println(result)
         result
     }

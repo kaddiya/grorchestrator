@@ -22,7 +22,7 @@ class DockerContainerRemoveManagerImpl extends DockerRemoteAPI implements Docker
     @Override
     void removeContainer() {
         println("deleting the instance with $instance.name")
-        doWork(constructRequest())
+        doWork()
     }
 
     @Override

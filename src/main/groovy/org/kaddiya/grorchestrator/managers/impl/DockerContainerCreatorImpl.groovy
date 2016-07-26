@@ -33,7 +33,7 @@ class DockerContainerCreatorImpl extends DockerRemoteAPI implements DockerContai
 
     @Override
     DockerContainerCreationResponse createContainer() {
-        Response result = doWork(constructRequest())
+        Response result = doWork()
         Gson gson = new Gson();
         DockerContainerCreationResponse obj = gson.fromJson(result.body().charStream(), DockerContainerCreationResponse.class);
         return obj

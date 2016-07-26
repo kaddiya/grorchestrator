@@ -39,7 +39,7 @@ class DockerContainerRunnerManagerImpl extends DockerRemoteAPI implements Docker
         if (!containerCreationResponse) {
             throw new IllegalStateException("Something has gone wrong in the creating the container")
         }
-        println(doWork(constructRequest()))
+        println(doWork())
     }
 
     @Override

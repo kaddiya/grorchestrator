@@ -33,7 +33,7 @@ class DockerContainerKillManagerImpl extends DockerRemoteAPI implements DockerCo
     @Override
     void killContainer() {
         println("going to kill the container $instance.name")
-        doWork(constructRequest())
+        doWork()
         println("finished killing the container.Now going to remove the name $instance.name")
         containerRemoveManager.removeContainer()
     }

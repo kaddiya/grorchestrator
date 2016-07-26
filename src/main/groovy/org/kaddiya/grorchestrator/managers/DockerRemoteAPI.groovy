@@ -78,9 +78,9 @@ abstract class DockerRemoteAPI {
         return okClient
     }
 
-    public Response doWork(Request constructedRequest) {
+    public Response doWork() {
         this.tryCatchClosure {
-            return this.httpClient.newCall(constructedRequest).execute()
+            return this.httpClient.newCall(constructRequest()).execute()
         }
     }
 

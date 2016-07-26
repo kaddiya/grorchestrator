@@ -4,6 +4,7 @@ import groovyx.net.http.HttpResponseException
 import groovyx.net.http.RESTClient
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.Response
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.ssl.DockerSslSocket
 import org.kaddiya.grorchestrator.ssl.SslSocketConfigFactory
@@ -77,9 +78,9 @@ abstract class DockerRemoteAPI {
         return okClient
     }
 
-    public String doWork(Request constructedRequest) {
+    public Response doWork(Request constructedRequest) {
         this.tryCatchClosure {
-            return this.httpClient.newCall(constructedRequest).execute().body().string()
+            return this.httpClient.newCall(constructedRequest).execute()
         }
     }
 

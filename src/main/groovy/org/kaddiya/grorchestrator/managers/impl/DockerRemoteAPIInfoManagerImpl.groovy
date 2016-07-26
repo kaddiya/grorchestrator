@@ -3,6 +3,7 @@ package org.kaddiya.grorchestrator.managers.impl
 import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
 import okhttp3.Request
+import okhttp3.Response
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPIInfoManager
 import org.kaddiya.grorchestrator.models.core.Instance
@@ -27,8 +28,8 @@ class DockerRemoteAPIInfoManagerImpl extends DockerRemoteAPI implements DockerRe
 
     @Override
     String getInfo() {
-        String result = doWork(constructRequest())
+        Response result = doWork(constructRequest())
         println(result)
-        return result
+        return ""
     }
 }

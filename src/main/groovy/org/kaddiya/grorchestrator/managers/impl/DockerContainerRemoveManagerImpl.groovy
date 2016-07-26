@@ -3,6 +3,7 @@ package org.kaddiya.grorchestrator.managers.impl
 import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
 import groovy.transform.CompileStatic
+import okhttp3.Request
 import org.kaddiya.grorchestrator.managers.DockerContainerRemoveManager
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
@@ -21,8 +22,14 @@ class DockerContainerRemoveManagerImpl extends DockerRemoteAPI implements Docker
     @Override
     void removeContainer() {
         println("deleting the instance with $instance.name")
-        this.tryCatchClosure {
-            this.restClient.delete(path: "/containers/$instance.name")
-        }
+        doWork()
+    }
+
+    @Override
+    Request constructRequest() {
+        return new Request.Builder()
+                .url("$baseUrl/containers/$instance.name")
+                .delete()  //this requires an empty request body
+                .build();
     }
 }

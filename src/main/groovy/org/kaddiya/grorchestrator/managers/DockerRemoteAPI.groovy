@@ -1,9 +1,16 @@
 package org.kaddiya.grorchestrator.managers
 
-import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.HttpResponseException
 import groovyx.net.http.RESTClient
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.ssl.DockerSslSocket
+import org.kaddiya.grorchestrator.ssl.SslSocketConfigFactory
+
+import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.SSLSession
 
 /**
  * Created by Webonise on 24/06/16.
@@ -14,20 +21,30 @@ abstract class DockerRemoteAPI {
 
     final String baseUrl;
 
-    final String apiUrl;
-
-    final HTTPBuilder client;
+    // final HTTPBuilder client;
 
     final RESTClient restClient;
 
+    final String protocol
+
+    final OkHttpClient httpClient
+
     public DockerRemoteAPI(Instance instance) {
+        this.protocol = derieveProtocol(instance)
         this.instance = instance
         //construct the baseURL
-        this.baseUrl = "http://$instance.host.ip:$instance.host.dockerPort"
-        //need to deprecate the HTTPBUILEr
-        this.client = new HTTPBuilder(baseUrl)
 
-        this.restClient = new RESTClient(baseUrl)
+        this.baseUrl = "$protocol://$instance.host.ip:$instance.host.dockerPort"
+
+        //need to deprecate the HTTPBUILEr
+        //  this.client = new HTTPBuilder(baseUrl)
+        this.httpClient = initOkHTTP()
+
+    }
+
+
+    String derieveProtocol(Instance instance) {
+        instance.host.protocol ? instance.host.protocol : "http"
     }
 
     def tryCatchClosure(Closure closure) {
@@ -45,4 +62,27 @@ abstract class DockerRemoteAPI {
         }
 
     }
+
+    public OkHttpClient initOkHTTP() {
+        SslSocketConfigFactory f = new SslSocketConfigFactory()
+        DockerSslSocket socket = f.createDockerSslSocket(System.getProperty("cert_path"))
+        OkHttpClient okClient = new OkHttpClient.Builder()
+                .sslSocketFactory(socket.sslSocketFactory, socket.trustManager)
+                .hostnameVerifier(new HostnameVerifier() {
+            @Override
+            boolean verify(String s, SSLSession sslSession) {
+                return true
+            }
+        }).build();
+
+        return okClient
+    }
+
+    public Response doWork() {
+        this.tryCatchClosure {
+            return this.httpClient.newCall(constructRequest()).execute()
+        }
+    }
+
+    protected abstract Request constructRequest()
 }

@@ -41,6 +41,7 @@ class DockerContainerRunnerManagerImpl extends DockerRemoteAPI implements Docker
         String path = "/containers/$containerCreationResponse.Id/start"
 
         HostConfig config = hostConfigBuilder.constructHostConfig(instance)
+
         tryCatchClosure {
             this.restClient.post(
                     path: path,

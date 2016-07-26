@@ -20,7 +20,7 @@ class DockerRemoteAPIInfoManagerImpl extends DockerRemoteAPI implements DockerRe
     @Override
     String getInfo() {
         Request request = new Request.Builder()
-                .url("$instance.host.protocol://$instance.host.ip:$instance.host.dockerPort/info")
+                .url("$baseUrl/info")
                 .build();
         def info = this.httpClient.newCall(request).execute();
         println(info.body().string())

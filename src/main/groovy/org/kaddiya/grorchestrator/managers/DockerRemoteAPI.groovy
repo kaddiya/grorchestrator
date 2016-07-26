@@ -20,8 +20,6 @@ abstract class DockerRemoteAPI {
 
     final String baseUrl;
 
-    final String apiUrl;
-
     final HTTPBuilder client;
 
     final RESTClient restClient;

@@ -29,10 +29,6 @@ abstract class DockerRemoteAPI {
 
     final OkHttpClient httpClient
 
-    final String path;
-
-    final Request request
-
     public DockerRemoteAPI(Instance instance) {
         this.protocol = derieveProtocol(instance)
         this.instance = instance
@@ -47,11 +43,6 @@ abstract class DockerRemoteAPI {
 
     }
 
-    public DockerRemoteAPI(Instance instance,String path){
-        this(instance)
-        this.path = path
-        this.request = initRequest()
-    }
 
     String derieveProtocol(Instance instance) {
         instance.host.protocol ? instance.host.protocol : "http"
@@ -73,13 +64,6 @@ abstract class DockerRemoteAPI {
 
     }
 
-    protected Request initRequest(){
-        new Request.Builder()
-                .url("$baseUrl$path")
-                .build();
-    }
-
-
     public OkHttpClient initOkHTTP() {
         SslSocketConfigFactory f = new SslSocketConfigFactory()
         DockerSslSocket socket = f.createDockerSslSocket(System.getProperty("cert_path"))
@@ -94,10 +78,9 @@ abstract class DockerRemoteAPI {
         return okClient
     }
 
-    public String doWork(){
-
+    public String doWork(Request constructedRequest){
         this.tryCatchClosure{
-            return this.httpClient.newCall(this.request).execute().body().string()
+            return this.httpClient.newCall(constructedRequest).execute().body().string()
         }
     }
 }

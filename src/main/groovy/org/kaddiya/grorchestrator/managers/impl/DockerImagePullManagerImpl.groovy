@@ -27,6 +27,7 @@ class DockerImagePullManagerImpl extends DockerRemoteAPI implements DockerImageP
 
     @Override
     String pullImage() {
+        this
         def response = this.tryCatchClosure {
             client.post(
                     path: "/images/create",

@@ -4,6 +4,7 @@ import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.HttpResponseException
 import groovyx.net.http.RESTClient
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.ssl.DockerSslSocket
 import org.kaddiya.grorchestrator.ssl.SslSocketConfigFactory
@@ -25,7 +26,12 @@ abstract class DockerRemoteAPI {
     final RESTClient restClient;
 
     final String protocol
+
     final OkHttpClient httpClient
+
+    String path;
+
+    final Request
 
     public DockerRemoteAPI(Instance instance) {
         this.protocol = derieveProtocol(instance)
@@ -61,6 +67,12 @@ abstract class DockerRemoteAPI {
             }
         }
 
+    }
+
+    protected Request getRequest(){
+        new Request.Builder()
+                .url("$baseUrl$path")
+                .build();
     }
 
     public OkHttpClient initOkHTTP() {

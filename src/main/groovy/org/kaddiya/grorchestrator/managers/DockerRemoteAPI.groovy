@@ -43,8 +43,6 @@ abstract class DockerRemoteAPI {
         //need to deprecate the HTTPBUILEr
         this.client = new HTTPBuilder(baseUrl)
 
-        this.restClient = new RESTClient(baseUrl)
-
         this.httpClient = initOkHTTP()
 
     }
@@ -81,6 +79,7 @@ abstract class DockerRemoteAPI {
                 .build();
     }
 
+
     public OkHttpClient initOkHTTP() {
         SslSocketConfigFactory f = new SslSocketConfigFactory()
         DockerSslSocket socket = f.createDockerSslSocket(System.getProperty("cert_path"))
@@ -93,5 +92,12 @@ abstract class DockerRemoteAPI {
             }
         }).build();
         return okClient
+    }
+
+    public String doWork(){
+
+        this.tryCatchClosure{
+            return this.httpClient.newCall(this.request).execute().body().string()
+        }
     }
 }

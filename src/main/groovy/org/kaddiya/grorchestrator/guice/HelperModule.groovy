@@ -5,6 +5,7 @@ import org.kaddiya.grorchestrator.helpers.*
 import org.kaddiya.grorchestrator.helpers.impl.DockerContainerCreationRequestBuilderImpl
 import org.kaddiya.grorchestrator.helpers.impl.HostConfigBuilderImpl
 import org.kaddiya.grorchestrator.helpers.impl.InstanceFinderImpl
+import org.kaddiya.grorchestrator.ssl.SslSocketConfigFactory
 
 /**
  * Created by Webonise on 01/07/16.
@@ -17,5 +18,6 @@ class HelperModule extends AbstractModule {
         bind(DockerContainerCreationRequestBuilder).to(DockerContainerCreationRequestBuilderImpl)
         bind(HostConfigBuilder).to(HostConfigBuilderImpl)
         bind(EnvironmentVarsResolver)
+        bind(SslSocketConfigFactory)
     }
 }

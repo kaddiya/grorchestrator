@@ -2,6 +2,7 @@ package org.kaddiya.grorchestrator.managers.impl
 
 import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
+import okhttp3.Request
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPIInfoManager
 import org.kaddiya.grorchestrator.models.core.Instance
@@ -18,9 +19,11 @@ class DockerRemoteAPIInfoManagerImpl extends DockerRemoteAPI implements DockerRe
 
     @Override
     String getInfo() {
-        println("finding the info for the host of $protocol://$instance.host.ip")
-        def res = this.client.get(path: "/info")
-        println(res)
-        return res
+        Request request = new Request.Builder()
+                .url("$instance.host.protocol://$instance.host.ip:$instance.host.dockerPort/info")
+                .build();
+        def info = this.httpClient.newCall(request).execute();
+        println(info.body().string())
+        return info
     }
 }

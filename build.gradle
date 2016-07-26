@@ -23,6 +23,9 @@ repositories {
     jcenter()
 
 
+    maven { url 'http://dl.bintray.com/gesellix/docker-utils' }
+
+
 }
 configurations {
     application {
@@ -44,7 +47,8 @@ dependencies {
     compile 'com.google.inject:guice:[4.0,5)'
     compile 'com.google.inject:guice-parent:3.0'
     compile group: 'com.google.inject.extensions', name: 'guice-assistedinject', version: '4.0'
-    compile 'org.bouncycastle:bcprov-jdk15on:1.54'
+    compile group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.54'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
 
 
 }

@@ -3,9 +3,13 @@ package org.kaddiya.grorchestrator.managers
 import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.HttpResponseException
 import groovyx.net.http.RESTClient
-import org.apache.http.conn.scheme.Scheme
-import org.apache.http.conn.ssl.SSLSocketFactory
+import okhttp3.OkHttpClient
 import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.ssl.DockerSslSocket
+import org.kaddiya.grorchestrator.ssl.SslSocketConfigFactory
+
+import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.SSLSession
 
 /**
  * Created by Webonise on 24/06/16.
@@ -23,6 +27,7 @@ abstract class DockerRemoteAPI {
     final RESTClient restClient;
 
     final String protocol
+    final OkHttpClient httpClient
 
     public DockerRemoteAPI(Instance instance) {
         this.protocol = derieveProtocol(instance)
@@ -34,11 +39,10 @@ abstract class DockerRemoteAPI {
         //need to deprecate the HTTPBUILEr
         this.client = new HTTPBuilder(baseUrl)
 
-        SSLSocketFactory sf = new SSLSocketFactory
-        sf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER)
-        this.client.client.connectionManager.schemeRegistry.register(new Scheme("https", sf, 443))
-        this.client.client.connectionManager.sslS
         this.restClient = new RESTClient(baseUrl)
+
+        this.httpClient = initOkHTTP()
+
     }
 
     String derieveProtocol(Instance instance) {
@@ -59,5 +63,19 @@ abstract class DockerRemoteAPI {
             }
         }
 
+    }
+
+    public OkHttpClient initOkHTTP() {
+        SslSocketConfigFactory f = new SslSocketConfigFactory()
+        DockerSslSocket socket = f.createDockerSslSocket("/Users/Webonise/Downloads/docker-certs-poc/new-certs")
+        OkHttpClient okClient = new OkHttpClient.Builder()
+                .sslSocketFactory(socket.sslSocketFactory, socket.trustManager)
+                .hostnameVerifier(new HostnameVerifier() {
+            @Override
+            boolean verify(String s, SSLSession sslSession) {
+                return true
+            }
+        }).build();
+        return okClient
     }
 }

@@ -1,4 +1,4 @@
-package org.kaddiya.grorchestrator.ssl;
+package org.kaddiya.grorchestrator.ssl
 
 import org.bouncycastle.openssl.PEMKeyPair
 import org.bouncycastle.openssl.PEMParser
@@ -16,16 +16,17 @@ import java.security.spec.PKCS8EncodedKeySpec
  */
 public class KeyStoreUtil {
 
-    def static KEY_STORE_PASSWORD = "test1234".toCharArray()
+    def static KEY_STORE_PASSWORD = "anypasswordwilldo?".toCharArray()
 
     def static KeyStore createDockerKeyStore(String certPath) throws IOException, GeneralSecurityException {
+
         PrivateKey privKey = loadPrivateKey(new File(certPath, "key.pem").absolutePath)
         Certificate[] certs = loadCertificates(new File(certPath, "cert.pem").absolutePath)
 
         KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType())
         keyStore.load((KeyStore.LoadStoreParameter) null)
 
-        keyStore.setKeyEntry("docker", privKey, KEY_STORE_PASSWORD, certs)
+        keyStore.setKeyEntry("docker-password", privKey, KEY_STORE_PASSWORD, certs)
         addCA(keyStore, new File(certPath, "ca.pem").absolutePath)
         return keyStore
     }

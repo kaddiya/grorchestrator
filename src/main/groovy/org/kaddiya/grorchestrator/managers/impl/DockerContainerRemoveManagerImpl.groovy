@@ -3,6 +3,7 @@ package org.kaddiya.grorchestrator.managers.impl
 import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
 import groovy.transform.CompileStatic
+import okhttp3.Request
 import org.kaddiya.grorchestrator.managers.DockerContainerRemoveManager
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
@@ -24,5 +25,10 @@ class DockerContainerRemoveManagerImpl extends DockerRemoteAPI implements Docker
         this.tryCatchClosure {
             this.restClient.delete(path: "/containers/$instance.name")
         }
+    }
+
+    @Override
+    Request constructRequest() {
+        throw new IllegalStateException("Not yet implemented")
     }
 }

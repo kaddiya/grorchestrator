@@ -1,6 +1,5 @@
 package org.kaddiya.grorchestrator.managers
 
-import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.HttpResponseException
 import groovyx.net.http.RESTClient
 import okhttp3.OkHttpClient
@@ -21,7 +20,7 @@ abstract class DockerRemoteAPI {
 
     final String baseUrl;
 
-    final HTTPBuilder client;
+    // final HTTPBuilder client;
 
     final RESTClient restClient;
 
@@ -37,7 +36,7 @@ abstract class DockerRemoteAPI {
         this.baseUrl = "$protocol://$instance.host.ip:$instance.host.dockerPort"
 
         //need to deprecate the HTTPBUILEr
-        this.client = new HTTPBuilder(baseUrl)
+        //  this.client = new HTTPBuilder(baseUrl)
         this.httpClient = initOkHTTP()
 
     }
@@ -84,5 +83,5 @@ abstract class DockerRemoteAPI {
         }
     }
 
-    public abstract Request constructRequest()
+    protected abstract Request constructRequest()
 }

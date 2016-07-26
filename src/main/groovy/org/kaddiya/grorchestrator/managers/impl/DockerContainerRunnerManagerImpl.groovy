@@ -3,6 +3,7 @@ package org.kaddiya.grorchestrator.managers.impl
 import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
 import groovy.transform.CompileStatic
+import okhttp3.Request
 import org.kaddiya.grorchestrator.guice.factory.DockerContainerCreatorFactory
 import org.kaddiya.grorchestrator.helpers.HostConfigBuilder
 import org.kaddiya.grorchestrator.managers.DockerContainerCreator
@@ -48,6 +49,10 @@ class DockerContainerRunnerManagerImpl extends DockerRemoteAPI implements Docker
         }
     }
 
+    @Override
+    Request constructRequest() {
+        throw new IllegalStateException("Not yet implemented")
+    }
 
 }
 

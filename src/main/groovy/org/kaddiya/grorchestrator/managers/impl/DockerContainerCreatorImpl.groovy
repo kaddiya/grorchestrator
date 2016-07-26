@@ -11,8 +11,6 @@ import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.requests.DockerContainerCreationRequest
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerCreationResponse
 
-import static groovyx.net.http.ContentType.JSON
-
 /**
  * Created by Webonise on 05/07/16.
  */
@@ -53,6 +51,6 @@ class DockerContainerCreatorImpl extends DockerRemoteAPI implements DockerContai
 
     @Override
     Request constructRequest() {
-        return null
+        throw new IllegalStateException("Not yet implemented")
     }
 }

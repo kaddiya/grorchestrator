@@ -3,6 +3,7 @@ package org.kaddiya.grorchestrator.managers.impl
 import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
 import groovy.transform.CompileStatic
+import okhttp3.Request
 import org.kaddiya.grorchestrator.guice.factory.DockerContainerRemoveMangerFactory
 import org.kaddiya.grorchestrator.managers.DockerContainerKillManager
 import org.kaddiya.grorchestrator.managers.DockerContainerRemoveManager
@@ -35,6 +36,11 @@ class DockerContainerKillManagerImpl extends DockerRemoteAPI implements DockerCo
         }
         println("finished killing the container.Now going to remove the name $instance.name")
         containerRemoveManager.removeContainer()
+    }
+
+    @Override
+    Request constructRequest() {
+        throw new IllegalStateException("Not yet implemented")
     }
 }
 

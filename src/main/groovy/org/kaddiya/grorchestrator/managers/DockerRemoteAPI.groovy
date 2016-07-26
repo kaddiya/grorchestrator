@@ -67,7 +67,7 @@ abstract class DockerRemoteAPI {
 
     public OkHttpClient initOkHTTP() {
         SslSocketConfigFactory f = new SslSocketConfigFactory()
-        DockerSslSocket socket = f.createDockerSslSocket("/Users/Webonise/Downloads/docker-certs-poc/new-certs")
+        DockerSslSocket socket = f.createDockerSslSocket(System.getProperty("cert_path"))
         OkHttpClient okClient = new OkHttpClient.Builder()
                 .sslSocketFactory(socket.sslSocketFactory, socket.trustManager)
                 .hostnameVerifier(new HostnameVerifier() {

@@ -21,11 +21,6 @@ repositories {
     mavenLocal()
     mavenCentral()
     jcenter()
-
-
-    maven { url 'http://dl.bintray.com/gesellix/docker-utils' }
-
-
 }
 configurations {
     application {

@@ -1,7 +1,6 @@
 package org.kaddiya.grorchestrator.managers
 
 import groovyx.net.http.HttpResponseException
-import groovyx.net.http.RESTClient
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -21,24 +20,15 @@ abstract class DockerRemoteAPI {
 
     final String baseUrl;
 
-    // final HTTPBuilder client;
-
-    final RESTClient restClient;
-
-    final String protocol
-
     final OkHttpClient httpClient
 
     public DockerRemoteAPI(Instance instance) {
-        this.protocol = derieveProtocol(instance)
+        String protocol = derieveProtocol(instance)
         this.instance = instance
         //construct the baseURL
-
         this.baseUrl = "$protocol://$instance.host.ip:$instance.host.dockerPort"
-
-        //need to deprecate the HTTPBUILEr
-        //  this.client = new HTTPBuilder(baseUrl)
-        this.httpClient = initOkHTTP()
+        //initialise the OkHTTPCLient
+        this.httpClient = initialiseOkHTTPClient()
 
     }
 
@@ -63,9 +53,10 @@ abstract class DockerRemoteAPI {
 
     }
 
-    public OkHttpClient initOkHTTP() {
-        SslSocketConfigFactory f = new SslSocketConfigFactory()
-        DockerSslSocket socket = f.createDockerSslSocket(System.getProperty("cert_path"))
+    public OkHttpClient initialiseOkHTTPClient() {
+        SslSocketConfigFactory socketConfigFactory = new SslSocketConfigFactory()
+        DockerSslSocket socket = socketConfigFactory.createDockerSslSocket(System.getProperty("cert_path"))
+        //this client has got AllowAllHostNameConfig.Need to change it soon
         OkHttpClient okClient = new OkHttpClient.Builder()
                 .sslSocketFactory(socket.sslSocketFactory, socket.trustManager)
                 .hostnameVerifier(new HostnameVerifier() {

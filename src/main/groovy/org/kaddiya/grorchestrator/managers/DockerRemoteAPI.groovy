@@ -83,4 +83,6 @@ abstract class DockerRemoteAPI {
             return this.httpClient.newCall(constructedRequest).execute().body().string()
         }
     }
+
+    public abstract Request constructRequest()
 }

@@ -3,6 +3,7 @@ package org.kaddiya.grorchestrator.managers.impl
 import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
 import groovy.json.JsonOutput
+import okhttp3.Request
 import org.kaddiya.grorchestrator.helpers.DockerContainerCreationRequestBuilder
 import org.kaddiya.grorchestrator.managers.DockerContainerCreator
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
@@ -36,7 +37,8 @@ class DockerContainerCreatorImpl extends DockerRemoteAPI implements DockerContai
         println(JsonOutput.toJson(request))
         this.tryCatchClosure {
             DockerContainerCreationResponse response
-            response = this.client.post(
+
+            /*response = this.client.post(
                     requestContentType: JSON,
                     path: "/containers/create",
                     query: [
@@ -44,8 +46,13 @@ class DockerContainerCreatorImpl extends DockerRemoteAPI implements DockerContai
                     ],
                     body: request
 
-            ) as DockerContainerCreationResponse
+            ) as DockerContainerCreationResponse*/
             response
         }
+    }
+
+    @Override
+    Request constructRequest() {
+        return null
     }
 }

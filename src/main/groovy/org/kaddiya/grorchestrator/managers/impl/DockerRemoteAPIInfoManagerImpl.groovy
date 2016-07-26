@@ -19,11 +19,15 @@ class DockerRemoteAPIInfoManagerImpl extends DockerRemoteAPI implements DockerRe
     }
 
     @Override
-    String getInfo() {
-        Request req = new Request.Builder()
+    Request constructRequest() {
+        return new Request.Builder()
                 .url("$baseUrl/info")
                 .build();
-        String result = doWork(req)
+    }
+
+    @Override
+    String getInfo() {
+        String result = doWork(constructRequest())
         println(result)
         return result
     }

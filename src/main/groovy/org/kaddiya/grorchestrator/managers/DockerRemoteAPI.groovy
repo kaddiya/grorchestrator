@@ -1,6 +1,5 @@
 package org.kaddiya.grorchestrator.managers
 
-import com.google.inject.Inject
 import groovyx.net.http.HttpResponseException
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -23,8 +22,6 @@ abstract class DockerRemoteAPI {
 
     final OkHttpClient httpClient
 
-
-    @Inject
     public DockerRemoteAPI(Instance instance) {
         String protocol = derieveProtocol(instance)
         this.instance = instance

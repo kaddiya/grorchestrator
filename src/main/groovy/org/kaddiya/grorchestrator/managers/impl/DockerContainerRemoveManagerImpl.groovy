@@ -7,12 +7,13 @@ import okhttp3.Request
 import org.kaddiya.grorchestrator.managers.DockerContainerRemoveManager
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerRemoveContainerResponse
 
 /**
  * Created by Webonise on 14/07/16.
  */
 @CompileStatic
-class DockerContainerRemoveManagerImpl extends DockerRemoteAPI implements DockerContainerRemoveManager {
+class DockerContainerRemoveManagerImpl extends DockerRemoteAPI<DockerContainerRemoveContainerResponse> implements DockerContainerRemoveManager {
 
     @Inject
     DockerContainerRemoveManagerImpl(@Assisted Instance instance) {

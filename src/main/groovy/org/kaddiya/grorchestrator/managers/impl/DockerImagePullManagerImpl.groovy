@@ -10,12 +10,13 @@ import org.kaddiya.grorchestrator.helpers.DockerAuthCredentialsBuilder
 import org.kaddiya.grorchestrator.managers.DockerImagePullManager
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerPullImageResponse
 
 /**
  * Created by Webonise on 24/06/16.
  */
 @CompileStatic
-class DockerImagePullManagerImpl extends DockerRemoteAPI implements DockerImagePullManager {
+class DockerImagePullManagerImpl extends DockerRemoteAPI<DockerContainerPullImageResponse> implements DockerImagePullManager {
 
     String authHeaderKey = "X-Registry-Auth"
 

@@ -16,6 +16,7 @@ class DockerRemoteAPIInfoManagerImpl extends DockerRemoteAPI implements DockerRe
     @Inject
     DockerRemoteAPIInfoManagerImpl(@Assisted Instance instance) {
         super(instance)
+        this.actionToPerform = "getting info"
 
     }
 
@@ -27,11 +28,16 @@ class DockerRemoteAPIInfoManagerImpl extends DockerRemoteAPI implements DockerRe
     }
 
     @Override
+    protected String getResponseAsString(Response response) {
+        String value = response.body().string()
+        String result = "response for $actionToPerform: $value"
+        return  result
+    }
+
+    @Override
     String getInfo() {
         Response result = doWork()
-        if(result) {
-            println(result)
-            return ""
-        }
+        return ""
+
     }
 }

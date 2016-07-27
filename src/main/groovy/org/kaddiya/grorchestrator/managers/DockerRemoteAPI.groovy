@@ -23,6 +23,8 @@ abstract class DockerRemoteAPI {
 
     final OkHttpClient httpClient
 
+    String actionToPerform
+
     def Closure<Response> doSynchonousHTTPCall
 
     public DockerRemoteAPI(Instance instance) {
@@ -75,10 +77,14 @@ abstract class DockerRemoteAPI {
             case 404:
                 throw new IllegalStateException("not found")
             case 200:
-                res
+                println(this.getResponseAsString(res))
+            default:
+                println(res.code())
         }
-
+        res
     }
 
     protected abstract Request constructRequest()
+
+    protected abstract String getResponseAsString(Response response)
 }

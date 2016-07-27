@@ -6,6 +6,7 @@ import groovy.transform.CompileStatic
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
+import okhttp3.Response
 import org.kaddiya.grorchestrator.helpers.DockerAuthCredentialsBuilder
 import org.kaddiya.grorchestrator.managers.DockerImagePullManager
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
@@ -26,6 +27,7 @@ class DockerImagePullManagerImpl extends DockerRemoteAPI implements DockerImageP
     @Inject
     public DockerImagePullManagerImpl(@Assisted Instance instance) {
         super(instance)
+        this.actionToPerform = "pulling an image"
     }
 
 
@@ -44,5 +46,12 @@ class DockerImagePullManagerImpl extends DockerRemoteAPI implements DockerImageP
                 .header("X-Registry-Auth", builder.getbase64EncodedValueForCredentials())
                 .post(RequestBody.create(JSON, ""))  //this requires an empty request body
                 .build();
+    }
+
+    @Override
+    protected String getResponseAsString(Response response) {
+        String value = response.body().string()
+        String result = "response for $actionToPerform: $value"
+        return  result
     }
 }

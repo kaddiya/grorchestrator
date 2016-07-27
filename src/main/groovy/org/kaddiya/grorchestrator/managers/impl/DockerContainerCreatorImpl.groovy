@@ -29,6 +29,7 @@ class DockerContainerCreatorImpl extends DockerRemoteAPI implements DockerContai
             @Assisted Instance instance, DockerContainerCreationRequestBuilder containerCreationRequestBuilder) {
         super(instance)
         this.containerCreationRequestBuilder = containerCreationRequestBuilder
+        this.actionToPerform = "Container Creation"
     }
 
     @Override
@@ -49,5 +50,12 @@ class DockerContainerCreatorImpl extends DockerRemoteAPI implements DockerContai
                 .url("$baseUrl/containers/create?name=$instance.name")
                 .post(RequestBody.create(JSON, JsonOutput.toJson(request)))
                 .build();
+    }
+
+    @Override
+    protected String getResponseAsString(Response response) {
+        String value = response.body().string()
+        String result = "response for $actionToPerform: $value"
+        return  result
     }
 }

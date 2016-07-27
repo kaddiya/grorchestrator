@@ -6,6 +6,7 @@ import groovy.transform.CompileStatic
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
+import okhttp3.Response
 import org.kaddiya.grorchestrator.guice.factory.DockerContainerRemoveMangerFactory
 import org.kaddiya.grorchestrator.managers.DockerContainerKillManager
 import org.kaddiya.grorchestrator.managers.DockerContainerRemoveManager
@@ -28,6 +29,7 @@ class DockerContainerKillManagerImpl extends DockerRemoteAPI implements DockerCo
             @Assisted Instance instance, DockerContainerRemoveMangerFactory containerRemoveMangerFactory) {
         super(instance)
         this.containerRemoveManager = containerRemoveMangerFactory.create(instance)
+        this.actionToPerform = "Container Creation"
     }
 
     @Override
@@ -45,6 +47,13 @@ class DockerContainerKillManagerImpl extends DockerRemoteAPI implements DockerCo
                 .url("$baseUrl/containers/$instance.name/kill")
                 .post(RequestBody.create(JSON, "")) //this requires an empty request body
                 .build();
+    }
+
+    @Override
+    protected String getResponseAsString(Response response) {
+        String value = response.body().string()
+        String result = "response for $actionToPerform: $value"
+        return  result
     }
 }
 

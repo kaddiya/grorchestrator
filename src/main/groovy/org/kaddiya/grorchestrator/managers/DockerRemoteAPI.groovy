@@ -1,10 +1,9 @@
 package org.kaddiya.grorchestrator.managers
 
-import groovyx.net.http.HttpResponseException
+import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
-import org.codehaus.groovy.runtime.MethodClosure
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.ssl.DockerSslSocket
 import org.kaddiya.grorchestrator.ssl.SslSocketConfigFactory
@@ -15,7 +14,7 @@ import javax.net.ssl.SSLSession
 /**
  * Created by Webonise on 24/06/16.
  */
-abstract class DockerRemoteAPI {
+abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     final Instance instance;
 
@@ -26,6 +25,8 @@ abstract class DockerRemoteAPI {
     String actionToPerform
 
     def Closure<Response> doSynchonousHTTPCall
+
+    final Gson gson = new Gson()
 
     public DockerRemoteAPI(Instance instance) {
         String protocol = derieveProtocol(instance)
@@ -63,7 +64,7 @@ abstract class DockerRemoteAPI {
         return okClient
     }
 
-    public Response doWork() {
+    public <DOCKER_REMOTE_RESPONSE_CLASS> DOCKER_REMOTE_RESPONSE_CLASS doWork() {
         doSynchonousHTTPCall.call()
     }
 
@@ -76,12 +77,19 @@ abstract class DockerRemoteAPI {
         switch (res.code()){
             case 404:
                 throw new IllegalStateException("not found")
+            case 409:
+                throw new IllegalStateException("conflict")
             case 200:
-                println(this.getResponseAsString(res))
+            case 201:
+            case 204:
+              return  parseResponseJson(res)
             default:
                 println(res.code())
         }
-        res
+    }
+
+    protected <DOCKER_REMOTE_RESPONSE_CLASS> DOCKER_REMOTE_RESPONSE_CLASS parseResponseJson(Response response){
+        gson.fromJson(response.body().charStream(), DOCKER_REMOTE_RESPONSE_CLASS.class);
     }
 
     protected abstract Request constructRequest()

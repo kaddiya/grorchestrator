@@ -22,8 +22,6 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     final OkHttpClient httpClient
 
-    String actionToPerform
-
     def Closure<Response> doSynchonousHTTPCall
 
     final Gson gson = new Gson()
@@ -36,7 +34,7 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
         //initialise the OkHTTPCLient
         this.httpClient = initialiseOkHTTPClient()
 
-        this.doSynchonousHTTPCall =  scrubResponse << apiCallClosure
+        this.doSynchonousHTTPCall = scrubResponse << apiCallClosure
     }
 
 
@@ -45,7 +43,7 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
     }
 
     def tryCatchClosure(Closure closure) {
-            closure()
+        closure()
     }
 
     public OkHttpClient initialiseOkHTTPClient() {
@@ -70,11 +68,11 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
 
 
     def apiCallClosure = {
-         this.httpClient.newCall(constructRequest()).execute()
+        this.httpClient.newCall(constructRequest()).execute()
     }
 
     def scrubResponse = { Response res ->
-        switch (res.code()){
+        switch (res.code()) {
             case 404:
                 throw new IllegalStateException("not found")
             case 409:
@@ -82,17 +80,16 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
             case 200:
             case 201:
             case 204:
-              return  parseResponseJson(res)
+                return parseResponseJson(res)
             default:
-                println(res.code())
+                throw new IllegalStateException("Unidentified response code found")
         }
     }
 
-    protected <DOCKER_REMOTE_RESPONSE_CLASS> DOCKER_REMOTE_RESPONSE_CLASS parseResponseJson(Response response){
+    protected <DOCKER_REMOTE_RESPONSE_CLASS> DOCKER_REMOTE_RESPONSE_CLASS parseResponseJson(Response response) {
         gson.fromJson(response.body().charStream(), DOCKER_REMOTE_RESPONSE_CLASS.class);
     }
 
     protected abstract Request constructRequest()
 
-    protected abstract String getResponseAsString(Response response)
 }

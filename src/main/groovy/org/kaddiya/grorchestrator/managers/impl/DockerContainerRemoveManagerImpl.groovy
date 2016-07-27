@@ -4,7 +4,6 @@ import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
 import groovy.transform.CompileStatic
 import okhttp3.Request
-import okhttp3.Response
 import org.kaddiya.grorchestrator.managers.DockerContainerRemoveManager
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
@@ -18,7 +17,6 @@ class DockerContainerRemoveManagerImpl extends DockerRemoteAPI implements Docker
     @Inject
     DockerContainerRemoveManagerImpl(@Assisted Instance instance) {
         super(instance)
-        this.actionToPerform = "Removing a container"
     }
 
     @Override
@@ -31,14 +29,8 @@ class DockerContainerRemoveManagerImpl extends DockerRemoteAPI implements Docker
     Request constructRequest() {
         return new Request.Builder()
                 .url("$baseUrl/containers/$instance.name")
-                .delete()  //this requires an empty request body
+                .delete()
                 .build();
     }
 
-    @Override
-    protected String getResponseAsString(Response response) {
-        String value = response.body().string()
-        String result = "response for $actionToPerform: $value"
-        return  result
-    }
 }

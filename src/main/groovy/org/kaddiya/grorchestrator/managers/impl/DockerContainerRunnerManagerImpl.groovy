@@ -7,7 +7,6 @@ import groovy.transform.CompileStatic
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
-import okhttp3.Response
 import org.kaddiya.grorchestrator.guice.factory.DockerContainerCreatorFactory
 import org.kaddiya.grorchestrator.helpers.HostConfigBuilder
 import org.kaddiya.grorchestrator.managers.DockerContainerCreator
@@ -32,7 +31,6 @@ class DockerContainerRunnerManagerImpl extends DockerRemoteAPI implements Docker
         super(instance)
         containerCreator = creatorFactory.create(this.instance)
         this.hostConfigBuilder = hostConfigBuilder
-        this.actionToPerform = "Running a container"
     }
 
     @Override
@@ -54,11 +52,6 @@ class DockerContainerRunnerManagerImpl extends DockerRemoteAPI implements Docker
                 .build();
     }
 
-    @Override
-    protected String getResponseAsString(Response response) {
-        String value = response.body().string()
-        String result = "response for $actionToPerform: $value"
-        return  result
-    }
+
 }
 

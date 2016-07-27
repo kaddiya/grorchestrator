@@ -7,7 +7,6 @@ import groovy.transform.CompileStatic
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
-import okhttp3.Response
 import org.kaddiya.grorchestrator.helpers.DockerContainerCreationRequestBuilder
 import org.kaddiya.grorchestrator.managers.DockerContainerCreator
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
@@ -28,7 +27,6 @@ class DockerContainerCreatorImpl extends DockerRemoteAPI<DockerContainerCreation
             @Assisted Instance instance, DockerContainerCreationRequestBuilder containerCreationRequestBuilder) {
         super(instance)
         this.containerCreationRequestBuilder = containerCreationRequestBuilder
-        this.actionToPerform = "Container Creation"
     }
 
     @Override
@@ -47,10 +45,5 @@ class DockerContainerCreatorImpl extends DockerRemoteAPI<DockerContainerCreation
                 .build();
     }
 
-    @Override
-    protected String getResponseAsString(Response response) {
-        String value = response.body().string()
-        String result = "response for $actionToPerform: $value"
-        return  result
-    }
+
 }

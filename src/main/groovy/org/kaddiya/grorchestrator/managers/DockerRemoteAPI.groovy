@@ -4,6 +4,7 @@ import groovyx.net.http.HttpResponseException
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
+import org.codehaus.groovy.runtime.MethodClosure
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.ssl.DockerSslSocket
 import org.kaddiya.grorchestrator.ssl.SslSocketConfigFactory
@@ -22,6 +23,8 @@ abstract class DockerRemoteAPI {
 
     final OkHttpClient httpClient
 
+    def Closure<Response> doSynchonousHTTPCall
+
     public DockerRemoteAPI(Instance instance) {
         String protocol = derieveProtocol(instance)
         this.instance = instance
@@ -30,6 +33,7 @@ abstract class DockerRemoteAPI {
         //initialise the OkHTTPCLient
         this.httpClient = initialiseOkHTTPClient()
 
+        this.doSynchonousHTTPCall =  scrubResponse << apiCallClosure
     }
 
 
@@ -38,19 +42,7 @@ abstract class DockerRemoteAPI {
     }
 
     def tryCatchClosure(Closure closure) {
-        try {
             closure()
-        } catch (HttpResponseException e) {
-            if (e.statusCode == 404) {
-                println("image $instance.imageName:$instance.tag for $instance.name not found locally.Please pull the image and then try again")
-                throw new IllegalStateException("image $instance.imageName:$instance.tag for $instance.name not found locally.Please pull the image and then try again")
-            }
-            if (e.statusCode == 409) {
-                println("Container with name $instance.name is already running.Please terminate this to proceed further ")
-                throw new IllegalStateException("Container with name $instance.name is already running.Please terminate this to proceed further")
-            }
-        }
-
     }
 
     public OkHttpClient initialiseOkHTTPClient() {
@@ -70,9 +62,22 @@ abstract class DockerRemoteAPI {
     }
 
     public Response doWork() {
-        this.tryCatchClosure {
-            return this.httpClient.newCall(constructRequest()).execute()
+        doSynchonousHTTPCall.call()
+    }
+
+
+    def apiCallClosure = {
+         this.httpClient.newCall(constructRequest()).execute()
+    }
+
+    def scrubResponse = { Response res ->
+        switch (res.code()){
+            case 404:
+                throw new IllegalStateException("not found")
+            case 200:
+                res
         }
+
     }
 
     protected abstract Request constructRequest()

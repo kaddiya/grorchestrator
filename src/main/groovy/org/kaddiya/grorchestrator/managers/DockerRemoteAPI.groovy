@@ -5,6 +5,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerRunContainerResponse
 import org.kaddiya.grorchestrator.models.ssl.DockerSslSocket
 import org.kaddiya.grorchestrator.ssl.SslSocketConfigFactory
 
@@ -22,7 +23,7 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     final OkHttpClient httpClient
 
-    def Closure<Response> doSynchonousHTTPCall
+    def Closure<DOCKER_REMOTE_RESPONSE_CLASS> doSynchonousHTTPCall
 
     final Gson gson = new Gson()
 
@@ -79,15 +80,23 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
                 throw new IllegalStateException("conflict")
             case 200:
             case 201:
-            case 204:
                 return parseResponseJson(res)
+            case 204:
+                return parseJsonResponseFor204()
             default:
-                throw new IllegalStateException("Unidentified response code found")
+                throw new IllegalStateException("Unidentified response code $res.code found")
         }
     }
 
     protected <DOCKER_REMOTE_RESPONSE_CLASS> DOCKER_REMOTE_RESPONSE_CLASS parseResponseJson(Response response) {
-        gson.fromJson(response.body().charStream(), DOCKER_REMOTE_RESPONSE_CLASS.class);
+      def value = response.body().string()
+      //  println(response.body().string())
+        println(value)
+        gson.fromJson(value, DOCKER_REMOTE_RESPONSE_CLASS.class);
+    }
+
+    protected <DOCKER_REMOTE_RESPONSE_CLASS> DOCKER_REMOTE_RESPONSE_CLASS parseJsonResponseFor204(){
+        return  new DockerContainerRunContainerResponse("the requested action for the $instance.name has been succesfully completed/")
     }
 
     protected abstract Request constructRequest()

@@ -78,14 +78,19 @@ class Grorchestrator {
             case SupportedActions.RUN.name():
                 dockerContainerRunnerManager.runContainer();
                 println("finished running the container $requestedInstance.imageName:$requestedInstance.tag ")
+                println(infoManager.getInfo())
                 break
             case SupportedActions.KILL.name():
                 dockerContainerKillManager.killContainer();
                 println("finished killing the container $requestedInstance.imageName:$requestedInstance.tag ")
                 break
-            case SupportedActions.INFO.name():
-                infoManager.getInfo();
-                println("fiished getting the info for $requestedInstance.imageName:$requestedInstance.tag ")
+            case SupportedActions.STATUS.name():
+                String result = infoManager.getInfo();
+                println(result)
+                break
+            case SupportedActions.REMOVE.name():
+                removeManager.removeContainer()
+                println("finished removing the container $requestedInstance.imageName:$requestedInstance.tag ")
                 break
             default:
                 throw new IllegalArgumentException("Unsupported Actions")

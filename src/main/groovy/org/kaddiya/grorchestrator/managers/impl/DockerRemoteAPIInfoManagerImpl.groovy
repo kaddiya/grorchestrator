@@ -29,8 +29,7 @@ class DockerRemoteAPIInfoManagerImpl extends DockerRemoteAPI<DockerContainerInsp
     @Override
     String getInfo() {
         DockerContainerInspectionResponse result = doWork()
-        println(result.toString())
-        return ""
+        return "status of $instance.name is $result.State.Status and has been started at $result.State.StartedAt"
 
     }
 }

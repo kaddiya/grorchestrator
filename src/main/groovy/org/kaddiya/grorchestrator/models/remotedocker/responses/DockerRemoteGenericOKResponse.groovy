@@ -1,11 +1,11 @@
 package org.kaddiya.grorchestrator.models.remotedocker.responses
 
-import groovy.transform.Canonical
+import groovy.transform.Immutable
 
 /**
  * Created by Webonise on 28/07/16.
  */
-@Canonical
+@Immutable
 class DockerRemoteGenericOKResponse {
     String actualResponse
 }

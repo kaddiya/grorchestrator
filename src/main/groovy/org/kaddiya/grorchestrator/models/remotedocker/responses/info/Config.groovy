@@ -1,11 +1,15 @@
 package org.kaddiya.grorchestrator.models.remotedocker.responses.info
+
+import groovy.transform.Canonical
+
 /**
  * Created by Webonise on 28/07/16.
  */
+@Canonical
 class Config {
     String User
 
-    Object OnBuild
+    String OnBuild
 
     Boolean Tty
 
@@ -13,9 +17,9 @@ class Config {
 
     Boolean StdinOnce
 
-    Object Labels
+    String Labels
 
-    Map<String, Object> ExposedPorts
+    Map<String, String> ExposedPorts
 
     List<String> Cmd
 
@@ -39,11 +43,11 @@ class Config {
 
     Boolean AttachStdin
 
-    Object PortSpecs
+    String PortSpecs
 
     String Hostname
 
-    Map<String, Object> Volumes
+    Map<String, String> Volumes
 
     Boolean OpenStdin
 }

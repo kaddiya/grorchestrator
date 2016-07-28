@@ -45,6 +45,6 @@ class NetworkSettings {
 
     //not found in 1.9
     String SandboxID
-    Object Networks
+    String Networks
 }
 

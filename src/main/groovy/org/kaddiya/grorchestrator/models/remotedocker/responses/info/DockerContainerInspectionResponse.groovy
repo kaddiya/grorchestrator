@@ -2,7 +2,6 @@ package org.kaddiya.grorchestrator.models.remotedocker.responses.info
 
 import groovy.transform.Canonical
 
-
 /**
  * Created by Webonise on 28/07/16.
  */
@@ -28,7 +27,7 @@ class DockerContainerInspectionResponse {
     String AppArmorProfile
     String ExecDriver
     String Image
-    Object ExecIDs
+    String ExecIDs
     String Id
     String MountLabel
     NetworkSettings NetworkSettings

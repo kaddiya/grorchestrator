@@ -1,15 +1,13 @@
 package org.kaddiya.grorchestrator.models.remotedocker.responses.info
 
 import groovy.transform.Canonical
-import groovy.transform.InheritConstructors
-import org.kaddiya.grorchestrator.models.remotedocker.requests.HostConfig
 
 /**
  * Created by Webonise on 28/07/16.
  */
 
 @Canonical
-class DockerContainerResponseHostConfig extends HostConfig {
+class DockerContainerResponseHostConfig {
 
     String ContainerIDFile
 
@@ -19,7 +17,7 @@ class DockerContainerResponseHostConfig extends HostConfig {
 
     String BlkioWeight
 
-    Object Devices
+    String Devices
 
     String CpuShares
 
@@ -27,7 +25,7 @@ class DockerContainerResponseHostConfig extends HostConfig {
 
     String CpusetMems
 
-    Object VolumesFrom
+    String VolumesFrom
 
     LogConfig LogConfig
 
@@ -84,16 +82,16 @@ class DockerContainerResponseHostConfig extends HostConfig {
     String GroupAdd
     String Cgroup
     Integer OomScoreAdj
-    Object StorageOpt
+    String StorageOpt
     String UsernsMode
     BigInteger ShmSize
     List<Integer> ConsoleSize
     String Isolation
-    Object BlkioWeightDevice
-    Object BlkioDeviceReadBps
-    Object BlkioDeviceWriteBps
-    Object BlkioDeviceReadIOps
-    Object BlkioDeviceWriteIOps
+    String BlkioWeightDevice
+    String BlkioDeviceReadBps
+    String BlkioDeviceWriteBps
+    String BlkioDeviceReadIOps
+    String BlkioDeviceWriteIOps
     Integer DiskQuota
     Integer KernelMemory
     Integer MemoryReservation

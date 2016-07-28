@@ -8,12 +8,14 @@ import groovy.transform.CompileStatic
 @CompileStatic
 class EnvironmentVarsResolver {
 
-    public String getEnvironmentVarValueForKey(String keyName) {
-        if (System.getProperty(keyName) != null) {
+    public String getEnvironmentVarValueForKey(String keyName){
+        if(System.getProperty(keyName)!=null){
             return System.getProperty(keyName)
-        } else if (System.getenv(keyName)) {
+        }
+        else if(System.getenv(keyName)){
             return System.getenv(keyName)
-        } else {
+        }
+        else{
             throw new IllegalStateException("Did not find any env var for $keyName")
         }
     }

@@ -14,7 +14,7 @@ class DockerAuthCredentialsBuilder {
     final EnvironmentVarsResolver environmentVarsResolver
 
     @Inject
-    public DockerAuthCredentialsBuilder(EnvironmentVarsResolver resolver) {
+    public DockerAuthCredentialsBuilder(EnvironmentVarsResolver resolver){
         this.environmentVarsResolver = resolver
     }
 
@@ -25,7 +25,7 @@ class DockerAuthCredentialsBuilder {
         String registryEmail = environmentVarsResolver.getEnvironmentVarValueForKey("registry_email")
         String registryAuth = environmentVarsResolver.getEnvironmentVarValueForKey("registry_auth")
 
-        return new DockerHubAuth(registryUsername, registryPassword, registryEmail, registryAuth)
+        return new DockerHubAuth(registryUsername, registryPassword,registryEmail,registryAuth)
     }
 
     String getbase64EncodedValueForCredentials() {

@@ -15,5 +15,5 @@ class Instance {
     Map<Integer, Integer> portMapping
     Map<String, String> hostsMapping
     Map<String, String> envMap
-    Map<String, String> links
+    Map<String,String>links
 }

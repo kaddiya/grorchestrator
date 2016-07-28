@@ -15,12 +15,13 @@ import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.requests.HostConfig
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerCreationResponse
+import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericOKResponse
 
 /**
  * Created by Webonise on 11/07/16.
  */
 @CompileStatic
-class DockerContainerRunnerManagerImpl extends DockerRemoteAPI implements DockerContainerRunnerManager {
+class DockerContainerRunnerManagerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> implements DockerContainerRunnerManager {
 
     final DockerContainerCreator containerCreator
     final HostConfigBuilder hostConfigBuilder
@@ -39,7 +40,7 @@ class DockerContainerRunnerManagerImpl extends DockerRemoteAPI implements Docker
         if (!containerCreationResponse) {
             throw new IllegalStateException("Something has gone wrong in the creating the container")
         }
-        println(doWork())
+        doWork()
     }
 
     @Override
@@ -51,6 +52,7 @@ class DockerContainerRunnerManagerImpl extends DockerRemoteAPI implements Docker
                 .post(RequestBody.create(JSON, JsonOutput.toJson(config)))
                 .build();
     }
+
 
 }
 

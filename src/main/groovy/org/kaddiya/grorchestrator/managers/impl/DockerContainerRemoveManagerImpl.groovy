@@ -7,12 +7,13 @@ import okhttp3.Request
 import org.kaddiya.grorchestrator.managers.DockerContainerRemoveManager
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericOKResponse
 
 /**
  * Created by Webonise on 14/07/16.
  */
 @CompileStatic
-class DockerContainerRemoveManagerImpl extends DockerRemoteAPI implements DockerContainerRemoveManager {
+class DockerContainerRemoveManagerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> implements DockerContainerRemoveManager {
 
     @Inject
     DockerContainerRemoveManagerImpl(@Assisted Instance instance) {
@@ -22,14 +23,15 @@ class DockerContainerRemoveManagerImpl extends DockerRemoteAPI implements Docker
     @Override
     void removeContainer() {
         println("deleting the instance with $instance.name")
-        doWork()
+        println(doWork())
     }
 
     @Override
     Request constructRequest() {
         return new Request.Builder()
                 .url("$baseUrl/containers/$instance.name")
-                .delete()  //this requires an empty request body
+                .delete()
                 .build();
     }
+
 }

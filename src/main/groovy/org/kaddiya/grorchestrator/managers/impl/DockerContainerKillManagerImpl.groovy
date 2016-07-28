@@ -11,12 +11,13 @@ import org.kaddiya.grorchestrator.managers.DockerContainerKillManager
 import org.kaddiya.grorchestrator.managers.DockerContainerRemoveManager
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericNoContentResponse
 
 /**
  * Created by Webonise on 12/07/16.
  */
 @CompileStatic
-class DockerContainerKillManagerImpl extends DockerRemoteAPI implements DockerContainerKillManager {
+class DockerContainerKillManagerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResponse> implements DockerContainerKillManager {
 
     @Inject
     DockerContainerRemoveMangerFactory containerRemoveMangerFactory
@@ -33,8 +34,8 @@ class DockerContainerKillManagerImpl extends DockerRemoteAPI implements DockerCo
     @Override
     void killContainer() {
         println("going to kill the container $instance.name")
-        doWork()
-        println("finished killing the container.Now going to remove the name $instance.name")
+        DockerRemoteGenericNoContentResponse response = doWork()
+        println(response.toString())
         containerRemoveManager.removeContainer()
     }
 
@@ -46,5 +47,6 @@ class DockerContainerKillManagerImpl extends DockerRemoteAPI implements DockerCo
                 .post(RequestBody.create(JSON, "")) //this requires an empty request body
                 .build();
     }
+
 }
 

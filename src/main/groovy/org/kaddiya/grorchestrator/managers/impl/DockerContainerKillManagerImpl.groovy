@@ -11,13 +11,13 @@ import org.kaddiya.grorchestrator.managers.DockerContainerKillManager
 import org.kaddiya.grorchestrator.managers.DockerContainerRemoveManager
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
-import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerKillContainerResponse
+import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericResponse
 
 /**
  * Created by Webonise on 12/07/16.
  */
 @CompileStatic
-class DockerContainerKillManagerImpl extends DockerRemoteAPI<DockerContainerKillContainerResponse> implements DockerContainerKillManager {
+class DockerContainerKillManagerImpl extends DockerRemoteAPI<DockerRemoteGenericResponse> implements DockerContainerKillManager {
 
     @Inject
     DockerContainerRemoveMangerFactory containerRemoveMangerFactory

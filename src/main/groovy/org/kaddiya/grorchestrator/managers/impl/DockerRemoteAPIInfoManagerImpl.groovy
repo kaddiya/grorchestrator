@@ -7,12 +7,12 @@ import okhttp3.Response
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPIInfoManager
 import org.kaddiya.grorchestrator.models.core.Instance
-import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerInfoResponse
+import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericResponse
 
 /**
  * Created by Webonise on 22/07/16.
  */
-class DockerRemoteAPIInfoManagerImpl extends DockerRemoteAPI<DockerContainerInfoResponse> implements DockerRemoteAPIInfoManager {
+class DockerRemoteAPIInfoManagerImpl extends DockerRemoteAPI<DockerRemoteGenericResponse> implements DockerRemoteAPIInfoManager {
 
     @Inject
     DockerRemoteAPIInfoManagerImpl(@Assisted Instance instance) {

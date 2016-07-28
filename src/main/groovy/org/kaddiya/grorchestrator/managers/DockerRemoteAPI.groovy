@@ -6,6 +6,7 @@ import okhttp3.Request
 import okhttp3.Response
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerRunContainerResponse
+import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericResponse
 import org.kaddiya.grorchestrator.models.ssl.DockerSslSocket
 import org.kaddiya.grorchestrator.ssl.SslSocketConfigFactory
 
@@ -27,6 +28,8 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     final Gson gson = new Gson()
 
+    final Class aClass
+
     public DockerRemoteAPI(Instance instance) {
         String protocol = derieveProtocol(instance)
         this.instance = instance
@@ -34,7 +37,7 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
         this.baseUrl = "$protocol://$instance.host.ip:$instance.host.dockerPort"
         //initialise the OkHTTPCLient
         this.httpClient = initialiseOkHTTPClient()
-
+        this.aClass = DOCKER_REMOTE_RESPONSE_CLASS.class
         this.doSynchonousHTTPCall = scrubResponse << apiCallClosure
     }
 
@@ -89,14 +92,27 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
     }
 
     protected <DOCKER_REMOTE_RESPONSE_CLASS> DOCKER_REMOTE_RESPONSE_CLASS parseResponseJson(Response response) {
-      def value = response.body().string()
-      //  println(response.body().string())
-        println(value)
-        gson.fromJson(value, DOCKER_REMOTE_RESPONSE_CLASS.class);
+        def value = response.body().string()
+
+        try {
+            return gson.fromJson(value, DOCKER_REMOTE_RESPONSE_CLASS.class);
+        } catch (Exception e) {
+            println("Something went wrong in the parsing of the response.Going to return a Generic response with actual response wrapped in")
+            return new DockerRemoteGenericResponse(value)
+        }
+        /*  DOCKER_REMOTE_RESPONSE_CLASS actualResponse;
+          if(DOCKER_REMOTE_RESPONSE_CLASS instanceof DockerRemoteGenericResponse){
+              actualResponse = new DockerRemoteGenericResponse(value)
+              return actualResponse
+          }
+          else{
+
+          }*/
+
     }
 
-    protected <DOCKER_REMOTE_RESPONSE_CLASS> DOCKER_REMOTE_RESPONSE_CLASS parseJsonResponseFor204(){
-        return  new DockerContainerRunContainerResponse("the requested action for the $instance.name has been succesfully completed/")
+    protected <DOCKER_REMOTE_RESPONSE_CLASS> DOCKER_REMOTE_RESPONSE_CLASS parseJsonResponseFor204() {
+        return new DockerContainerRunContainerResponse("the requested action for the $instance.name has been succesfully completed/")
     }
 
     protected abstract Request constructRequest()

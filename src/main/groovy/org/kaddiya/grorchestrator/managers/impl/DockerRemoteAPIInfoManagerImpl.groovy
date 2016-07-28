@@ -8,11 +8,12 @@ import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPIInfoManager
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericOKResponse
+import org.kaddiya.grorchestrator.models.remotedocker.responses.info.DockerContainerInspectionResponse
 
 /**
  * Created by Webonise on 22/07/16.
  */
-class DockerRemoteAPIInfoManagerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> implements DockerRemoteAPIInfoManager {
+class DockerRemoteAPIInfoManagerImpl extends DockerRemoteAPI<DockerContainerInspectionResponse> implements DockerRemoteAPIInfoManager {
 
     @Inject
     DockerRemoteAPIInfoManagerImpl(@Assisted Instance instance) {
@@ -22,14 +23,15 @@ class DockerRemoteAPIInfoManagerImpl extends DockerRemoteAPI<DockerRemoteGeneric
     @Override
     Request constructRequest() {
         return new Request.Builder()
-                .url("$baseUrl/info")
+                .url("$baseUrl/containers/$instance.name/json")
                 .build();
     }
 
 
     @Override
     String getInfo() {
-        Response result = doWork()
+        DockerContainerInspectionResponse result = doWork()
+        println(result.toString())
         return ""
 
     }

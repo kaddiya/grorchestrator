@@ -15,13 +15,13 @@ import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.requests.HostConfig
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerCreationResponse
-import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericResponse
+import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericOKResponse
 
 /**
  * Created by Webonise on 11/07/16.
  */
 @CompileStatic
-class DockerContainerRunnerManagerImpl extends DockerRemoteAPI<DockerRemoteGenericResponse> implements DockerContainerRunnerManager {
+class DockerContainerRunnerManagerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> implements DockerContainerRunnerManager {
 
     final DockerContainerCreator containerCreator
     final HostConfigBuilder hostConfigBuilder

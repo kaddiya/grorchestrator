@@ -7,6 +7,6 @@ import groovy.transform.Canonical
  */
 @Canonical
 class RestartPolicy {
-     String Name;
+    String Name;
     String MaximumRetryCount;
 }

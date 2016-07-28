@@ -1,18 +1,17 @@
 package org.kaddiya.grorchestrator.models.remotedocker.responses.info
 
 import groovy.transform.Canonical
-import org.kaddiya.grorchestrator.models.core.Instance
 
 /**
  * Created by Webonise on 28/07/16.
  */
 @Canonical
 class DockerContainerResponseHostConfig {
-     String ContainerIDFile
+    String ContainerIDFile
 
-     String MemorySwap
+    String MemorySwap
 
-     String Privileged
+    String Privileged
 
     String BlkioWeight
 
@@ -77,7 +76,7 @@ class DockerContainerResponseHostConfig {
     //not found in 1.9
     Boolean AutoRemove
     String VolumeDriver
-    List<String>DnsOptions
+    List<String> DnsOptions
     String GroupAdd
     String Cgroup
     Integer OomScoreAdj

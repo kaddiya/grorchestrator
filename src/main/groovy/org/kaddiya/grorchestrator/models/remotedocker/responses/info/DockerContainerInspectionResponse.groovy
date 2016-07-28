@@ -13,7 +13,9 @@ class DockerContainerInspectionResponse {
     String RestartCount
     String ResolvConfPath
     DockerContainerResponseHostConfig HostConfig
-   // Map<String,Object> VolumesRW deprecated in the 1.12
+    Map<String, String> Volumes //needed for 1.9
+    Map<String, Boolean> VolumesRW  //needed for 1.9
+
     GraphDriver GraphDriver  //added in 1.12
     String Path
     String ProcessLabel

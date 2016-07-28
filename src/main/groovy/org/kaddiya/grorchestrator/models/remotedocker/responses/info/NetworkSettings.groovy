@@ -41,7 +41,7 @@ class NetworkSettings {
 
     List<String> PortMapping
 
-    Map<String,List<Object>> Ports
+    Map<String, List<Object>> Ports
 
     //not found in 1.9
     String SandboxID

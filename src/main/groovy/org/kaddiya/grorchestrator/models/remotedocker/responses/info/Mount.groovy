@@ -7,7 +7,7 @@ import groovy.transform.Canonical
  */
 @Canonical
 class Mount {
-    String  Source
+    String Source
     String Destination
     String Mode
     Boolean RW

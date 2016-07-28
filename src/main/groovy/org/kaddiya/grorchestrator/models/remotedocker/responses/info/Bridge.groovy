@@ -9,7 +9,7 @@ import groovy.transform.Canonical
 class Bridge {
     Object IPAMConfig
     List<String> Links
-    List<String>Aliases
+    List<String> Aliases
     String NetworkID
     String EndpointID
     String Gateway

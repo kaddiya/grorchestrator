@@ -1,7 +1,4 @@
 package org.kaddiya.grorchestrator.models.remotedocker.responses.info
-
-import com.sun.org.apache.xpath.internal.operations.Bool
-
 /**
  * Created by Webonise on 28/07/16.
  */
@@ -18,7 +15,7 @@ class Config {
 
     Object Labels
 
-    Map<String,Object> ExposedPorts
+    Map<String, Object> ExposedPorts
 
     List<String> Cmd
 
@@ -46,7 +43,7 @@ class Config {
 
     String Hostname
 
-    Map<String,Object> Volumes
+    Map<String, Object> Volumes
 
     Boolean OpenStdin
 }

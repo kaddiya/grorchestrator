@@ -7,7 +7,7 @@ import groovy.transform.Canonical
  */
 @Canonical
 class LogConfig {
-     String Config
+    String Config
 
-     String Type
+    String Type
 }

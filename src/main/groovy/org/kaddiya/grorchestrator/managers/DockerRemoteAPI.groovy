@@ -45,7 +45,7 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
     String derieveProtocol(Instance instance) {
         instance.host.protocol ? instance.host.protocol : "http"
     }
-    
+
     public OkHttpClient initialiseOkHTTPClient() {
         SslSocketConfigFactory socketConfigFactory = new SslSocketConfigFactory()
         DockerSslSocket socket = socketConfigFactory.createDockerSslSocket(System.getProperty("cert_path"))

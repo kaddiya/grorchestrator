@@ -30,6 +30,9 @@ class DockerRemoteAPIModule extends AbstractModule {
         this.install(new FactoryModuleBuilder()
                 .implement(DockerContainerRemoveManager.class, DockerContainerRemoveManagerImpl.class)
                 .build(DockerContainerRemoveMangerFactory))
+        this.install(new FactoryModuleBuilder()
+                .implement(DockerRemoteAPIInfoManager.class, DockerRemoteAPIInfoManagerImpl.class)
+                .build(DockerRemoteAPIInfoManagerFactory))
 
     }
 }

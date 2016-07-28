@@ -10,5 +10,5 @@ class HostConfig {
     List<String> binds
     List<String> Links
     Map<String, Map<String, String>> PortBindings
-    List<String> extraHosts
+    List<String> ExtraHosts
 }

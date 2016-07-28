@@ -1,5 +1,6 @@
 package org.kaddiya.grorchestrator.managers
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.Request

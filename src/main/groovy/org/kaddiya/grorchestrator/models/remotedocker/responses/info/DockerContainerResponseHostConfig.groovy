@@ -1,12 +1,16 @@
 package org.kaddiya.grorchestrator.models.remotedocker.responses.info
 
 import groovy.transform.Canonical
+import groovy.transform.InheritConstructors
+import org.kaddiya.grorchestrator.models.remotedocker.requests.HostConfig
 
 /**
  * Created by Webonise on 28/07/16.
  */
+
 @Canonical
-class DockerContainerResponseHostConfig {
+class DockerContainerResponseHostConfig extends HostConfig {
+
     String ContainerIDFile
 
     String MemorySwap
@@ -19,7 +23,7 @@ class DockerContainerResponseHostConfig {
 
     String CpuShares
 
-    String[] Binds
+    List<String> Binds //extend from hostConfig and then remove this property
 
     String CpusetMems
 
@@ -41,9 +45,9 @@ class DockerContainerResponseHostConfig {
 
     String PublishAllPorts
 
-    String[] ExtraHosts
+    List<String> ExtraHosts  //extend from hostConfig and then remove this property
 
-    Map<String, Map<String, String>> PortBindings
+    Map<String, Map<String, String>> PortBindings //extend from hostConfig and then remove this property
 
     String CpusetCpus
 
@@ -63,7 +67,7 @@ class DockerContainerResponseHostConfig {
 
     List<String> CapDrop
 
-    List<String> Links
+    List<String> Links //extend from hostconfig and then remove this property
 
     List<String> DnsSearch
 

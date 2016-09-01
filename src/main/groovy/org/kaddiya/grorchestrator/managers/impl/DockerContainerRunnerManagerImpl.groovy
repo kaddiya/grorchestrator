@@ -35,7 +35,7 @@ class DockerContainerRunnerManagerImpl extends DockerRemoteAPI<DockerRemoteGener
     }
 
     @Override
-    void runContainer() {
+    void    runContainer() {
         DockerContainerCreationResponse containerCreationResponse = containerCreator.createContainer()
         if (!containerCreationResponse) {
             throw new IllegalStateException("Something has gone wrong in the creating the container")
@@ -46,10 +46,12 @@ class DockerContainerRunnerManagerImpl extends DockerRemoteAPI<DockerRemoteGener
     @Override
     Request constructRequest() {
         HostConfig config = hostConfigBuilder.constructHostConfig(instance)
+        //this is to accomodate the deprecation of hostCOnfig
+        String request =  true ? "":config
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         return new Request.Builder()
                 .url("$baseUrl/containers/$instance.name/start")
-                .post(RequestBody.create(JSON, JsonOutput.toJson(config)))
+                .post(RequestBody.create(JSON, request))
                 .build();
     }
 

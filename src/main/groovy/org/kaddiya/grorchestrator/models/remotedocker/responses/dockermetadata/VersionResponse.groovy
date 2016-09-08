@@ -1,4 +1,4 @@
-package org.kaddiya.grorchestrator.models.remotedocker.responses.version
+package org.kaddiya.grorchestrator.models.remotedocker.responses.dockermetadata
 
 import groovy.transform.Canonical
 
@@ -7,7 +7,6 @@ import groovy.transform.Canonical
  */
 @Canonical
 class VersionResponse {
-
     String Version
     String ApiVersion
     String GitCommit

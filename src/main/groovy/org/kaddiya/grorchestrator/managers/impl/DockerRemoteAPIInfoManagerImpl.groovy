@@ -6,7 +6,7 @@ import okhttp3.Request
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPIInfoManager
 import org.kaddiya.grorchestrator.models.core.Instance
-import org.kaddiya.grorchestrator.models.remotedocker.responses.info.DockerContainerInspectionResponse
+import org.kaddiya.grorchestrator.models.remotedocker.responses.containerinfo.DockerContainerInspectionResponse
 
 /**
  * Created by Webonise on 22/07/16.

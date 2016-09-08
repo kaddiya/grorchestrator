@@ -11,6 +11,7 @@ import org.kaddiya.grorchestrator.models.remotedocker.requests.DockerContainerCr
 @CompileStatic
 class DockerContainerCreationRequestBuilderImpl implements DockerContainerCreationRequestBuilder {
 
+
     @Override
     DockerContainerCreationRequest getContainerCreationRequest(Instance instance) {
         DockerContainerCreationRequest request = new DockerContainerCreationRequest()

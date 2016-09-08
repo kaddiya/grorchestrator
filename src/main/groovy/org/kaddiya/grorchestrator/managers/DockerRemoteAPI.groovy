@@ -48,7 +48,7 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     public OkHttpClient initialiseOkHTTPClient() {
         SslSocketConfigFactory socketConfigFactory = new SslSocketConfigFactory()
-        DockerSslSocket socket = socketConfigFactory.createDockerSslSocket(System.getProperty("cert_path"))
+        DockerSslSocket socket = socketConfigFactory.createDockerSslSocket(System.getenv("cert_path"))
         //this client has got AllowAllHostNameConfig.Need to change it soon
         OkHttpClient okClient = new OkHttpClient.Builder()
                 .sslSocketFactory(socket.sslSocketFactory, socket.trustManager)

@@ -32,7 +32,7 @@ class Grorchestrator {
         PullImageFactory dockerImagePullManagerFactory = grorchestratorInjector.getInstance(PullImageFactory)
         RunContainerFactory dockerContainerRunnerFactory = grorchestratorInjector.getInstance(RunContainerFactory)
         KillContainerFactory dockerContainerKillManagerFactory = grorchestratorInjector.getInstance(KillContainerFactory)
-        DockerContainerRemoveMangerFactory dockerContainerRemoveManagerFactory = grorchestratorInjector.getInstance(DockerContainerRemoveMangerFactory)
+        RemoveContainerFactory dockerContainerRemoveManagerFactory = grorchestratorInjector.getInstance(RemoveContainerFactory)
         DockerRemoteAPIInfoManagerFactory infoManagerFactory = grorchestratorInjector.getInstance(DockerRemoteAPIInfoManagerFactory)
         InstanceFinder instanceFinderImpl = grorchestratorInjector.getInstance(InstanceFinder)
 
@@ -67,7 +67,7 @@ class Grorchestrator {
         PullImage pullManager = dockerImagePullManagerFactory.create(requestedInstance)
         RunContainer dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance)
         KillContainer dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance)
-        DockerContainerRemoveManager removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance)
+        RemoveContainer removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance)
         DockerRemoteAPIInfoManager infoManager = infoManagerFactory.create(requestedInstance)
 
         switch (action.toUpperCase()) {

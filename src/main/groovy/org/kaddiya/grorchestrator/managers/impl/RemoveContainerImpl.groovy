@@ -4,7 +4,7 @@ import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
 import groovy.transform.CompileStatic
 import okhttp3.Request
-import org.kaddiya.grorchestrator.managers.DockerContainerRemoveManager
+import org.kaddiya.grorchestrator.managers.RemoveContainer
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericOKResponse
@@ -13,10 +13,10 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGene
  * Created by Webonise on 14/07/16.
  */
 @CompileStatic
-class DockerContainerRemoveManagerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> implements DockerContainerRemoveManager {
+class RemoveContainerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> implements RemoveContainer {
 
     @Inject
-    DockerContainerRemoveManagerImpl(@Assisted Instance instance) {
+    RemoveContainerImpl(@Assisted Instance instance) {
         super(instance)
     }
 

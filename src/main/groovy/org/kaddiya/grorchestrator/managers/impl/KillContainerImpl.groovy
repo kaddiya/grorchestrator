@@ -7,7 +7,7 @@ import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
 import org.kaddiya.grorchestrator.guice.factory.DockerContainerRemoveMangerFactory
-import org.kaddiya.grorchestrator.managers.DockerContainerKillManager
+import org.kaddiya.grorchestrator.managers.KillContainer
 import org.kaddiya.grorchestrator.managers.DockerContainerRemoveManager
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
@@ -17,7 +17,7 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGene
  * Created by Webonise on 12/07/16.
  */
 @CompileStatic
-class DockerContainerKillManagerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResponse> implements DockerContainerKillManager {
+class KillContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResponse> implements KillContainer {
 
     @Inject
     DockerContainerRemoveMangerFactory containerRemoveMangerFactory
@@ -25,7 +25,7 @@ class DockerContainerKillManagerImpl extends DockerRemoteAPI<DockerRemoteGeneric
     final DockerContainerRemoveManager containerRemoveManager;
 
     @Inject
-    DockerContainerKillManagerImpl(
+    KillContainerImpl(
             @Assisted Instance instance, DockerContainerRemoveMangerFactory containerRemoveMangerFactory) {
         super(instance)
         this.containerRemoveManager = containerRemoveMangerFactory.create(instance)

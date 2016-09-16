@@ -30,8 +30,8 @@ class Grorchestrator {
         GrorProjectSerialiser serialiser = grorchestratorInjector.getInstance(GrorProjectSerialiser)
 
         DockerImagePullManagerFactory dockerImagePullManagerFactory = grorchestratorInjector.getInstance(DockerImagePullManagerFactory)
-        DockerContainerRunnerFactory dockerContainerRunnerFactory = grorchestratorInjector.getInstance(DockerContainerRunnerFactory)
-        DockerContainerKillManagerFactory dockerContainerKillManagerFactory = grorchestratorInjector.getInstance(DockerContainerKillManagerFactory)
+        RunContainerFactory dockerContainerRunnerFactory = grorchestratorInjector.getInstance(RunContainerFactory)
+        KillContainerFactory dockerContainerKillManagerFactory = grorchestratorInjector.getInstance(KillContainerFactory)
         DockerContainerRemoveMangerFactory dockerContainerRemoveManagerFactory = grorchestratorInjector.getInstance(DockerContainerRemoveMangerFactory)
         DockerRemoteAPIInfoManagerFactory infoManagerFactory = grorchestratorInjector.getInstance(DockerRemoteAPIInfoManagerFactory)
         InstanceFinder instanceFinderImpl = grorchestratorInjector.getInstance(InstanceFinder)
@@ -65,8 +65,8 @@ class Grorchestrator {
         }
 
         DockerImagePullManager pullManager = dockerImagePullManagerFactory.create(requestedInstance)
-        DockerContainerRunnerManager dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance)
-        DockerContainerKillManager dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance)
+        RunContainer dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance)
+        KillContainer dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance)
         DockerContainerRemoveManager removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance)
         DockerRemoteAPIInfoManager infoManager = infoManagerFactory.create(requestedInstance)
 

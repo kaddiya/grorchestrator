@@ -5,7 +5,7 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerC
 /**
  * Created by Webonise on 05/07/16.
  */
-public interface DockerContainerCreator {
+public interface CreateContainer {
 
     public DockerContainerCreationResponse createContainer();
 }

@@ -29,7 +29,7 @@ class Grorchestrator {
 
         GrorProjectSerialiser serialiser = grorchestratorInjector.getInstance(GrorProjectSerialiser)
 
-        DockerImagePullManagerFactory dockerImagePullManagerFactory = grorchestratorInjector.getInstance(DockerImagePullManagerFactory)
+        PullImageFactory dockerImagePullManagerFactory = grorchestratorInjector.getInstance(PullImageFactory)
         RunContainerFactory dockerContainerRunnerFactory = grorchestratorInjector.getInstance(RunContainerFactory)
         KillContainerFactory dockerContainerKillManagerFactory = grorchestratorInjector.getInstance(KillContainerFactory)
         DockerContainerRemoveMangerFactory dockerContainerRemoveManagerFactory = grorchestratorInjector.getInstance(DockerContainerRemoveMangerFactory)
@@ -64,7 +64,7 @@ class Grorchestrator {
             requestedInstance.tag = "latest"
         }
 
-        DockerImagePullManager pullManager = dockerImagePullManagerFactory.create(requestedInstance)
+        PullImage pullManager = dockerImagePullManagerFactory.create(requestedInstance)
         RunContainer dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance)
         KillContainer dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance)
         DockerContainerRemoveManager removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance)

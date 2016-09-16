@@ -16,8 +16,8 @@ class DockerRemoteAPIModule extends AbstractModule {
     @Override
     protected void configure() {
         this.install(new FactoryModuleBuilder()
-                .implement(DockerImagePullManager.class, DockerImagePullManagerImpl.class)
-                .build(DockerImagePullManagerFactory.class));
+                .implement(PullImage.class, PullImageImpl.class)
+                .build(PullImageFactory.class));
         this.install(new FactoryModuleBuilder()
                 .implement(CreateContainer.class, CreateContainerImpl.class)
                 .build(CreateContainerFactory))

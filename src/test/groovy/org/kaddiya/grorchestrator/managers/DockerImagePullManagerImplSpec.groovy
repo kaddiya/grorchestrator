@@ -1,6 +1,6 @@
 package org.kaddiya.grorchestrator.managers
 
-import org.kaddiya.grorchestrator.managers.impl.DockerImagePullManagerImpl
+import org.kaddiya.grorchestrator.managers.impl.PullImageImpl
 import org.kaddiya.grorchestrator.models.core.Host
 import org.kaddiya.grorchestrator.models.core.Instance
 import spock.lang.Ignore
@@ -13,7 +13,7 @@ import spock.lang.Specification
 class DockerImagePullManagerImplSpec extends Specification {
 
     @Shared
-    DockerImagePullManager imagePullManager
+    PullImage imagePullManager
 
     @Ignore
     def "pullImage should pull the image"() {
@@ -22,7 +22,7 @@ class DockerImagePullManagerImplSpec extends Specification {
                 new Host("127.0.0.1", "127.0.0.1", 2376),
                 [:], [:], [:])
 
-        imagePullManager = new DockerImagePullManagerImpl(instance)
+        imagePullManager = new PullImageImpl(instance)
         imagePullManager.client.post >> {
             return "Pulling from sample-repo-name/sample-image-name"
         }

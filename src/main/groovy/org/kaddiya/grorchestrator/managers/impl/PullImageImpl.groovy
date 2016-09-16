@@ -7,7 +7,7 @@ import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
 import org.kaddiya.grorchestrator.helpers.DockerAuthCredentialsBuilder
-import org.kaddiya.grorchestrator.managers.DockerImagePullManager
+import org.kaddiya.grorchestrator.managers.PullImage
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericOKResponse
@@ -16,7 +16,7 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGene
  * Created by Webonise on 24/06/16.
  */
 @CompileStatic
-class DockerImagePullManagerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> implements DockerImagePullManager {
+class PullImageImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> implements PullImage {
 
     String authHeaderKey = "X-Registry-Auth"
 
@@ -25,7 +25,7 @@ class DockerImagePullManagerImpl extends DockerRemoteAPI<DockerRemoteGenericOKRe
 
 
     @Inject
-    public DockerImagePullManagerImpl(@Assisted Instance instance) {
+    public PullImageImpl(@Assisted Instance instance) {
         super(instance)
     }
 

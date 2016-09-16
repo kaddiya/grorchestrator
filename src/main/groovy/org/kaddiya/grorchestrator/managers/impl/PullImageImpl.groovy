@@ -7,8 +7,8 @@ import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
 import org.kaddiya.grorchestrator.helpers.DockerAuthCredentialsBuilder
-import org.kaddiya.grorchestrator.managers.interfaces.PullImage
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
+import org.kaddiya.grorchestrator.managers.interfaces.PullImage
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericOKResponse
 

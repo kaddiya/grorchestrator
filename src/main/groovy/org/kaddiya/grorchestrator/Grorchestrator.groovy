@@ -9,11 +9,7 @@ import org.kaddiya.grorchestrator.guice.HelperModule
 import org.kaddiya.grorchestrator.guice.SerialiserModule
 import org.kaddiya.grorchestrator.guice.factory.*
 import org.kaddiya.grorchestrator.helpers.InstanceFinder
-import org.kaddiya.grorchestrator.managers.interfaces.InspectContainer
-import org.kaddiya.grorchestrator.managers.interfaces.KillContainer
-import org.kaddiya.grorchestrator.managers.interfaces.PullImage
-import org.kaddiya.grorchestrator.managers.interfaces.RemoveContainer
-import org.kaddiya.grorchestrator.managers.interfaces.RunContainer
+import org.kaddiya.grorchestrator.managers.interfaces.*
 import org.kaddiya.grorchestrator.models.core.GrorProject
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.SupportedActions

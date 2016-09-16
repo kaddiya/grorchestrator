@@ -18,10 +18,10 @@
           "host": {
             "alias": "api-vm-1",
             "ip": "127.0.0.1",
-            "protocol":"http",
+            "protocol": "http",
             "dockerPort": 2376,
-            "dockerVersion":"1.7.1",
-            "apiVersion":"1.19"
+            "dockerVersion": "1.7.1",
+            "apiVersion": "1.19"
           },
           "tag": "latest",
           "hostsMapping": {
@@ -33,8 +33,8 @@
             "key-2": "value-2",
             "key-3": "value-3"
           },
-          "links":{
-            "name.for.container.1":"alias.for.container.1"
+          "links": {
+            "name.for.container.1": "alias.for.container.1"
           }
         }
       ],

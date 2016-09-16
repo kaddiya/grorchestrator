@@ -1,4 +1,4 @@
-package org.kaddiya.grorchestrator.models.remotedocker.responses.info
+package org.kaddiya.grorchestrator.models.remotedocker.responses.containerinfo
 
 import groovy.transform.Canonical
 

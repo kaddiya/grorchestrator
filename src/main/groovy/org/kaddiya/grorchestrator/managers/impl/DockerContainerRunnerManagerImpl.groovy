@@ -2,6 +2,7 @@ package org.kaddiya.grorchestrator.managers.impl
 
 import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
+import groovy.json.JsonBuilder
 import groovy.json.JsonOutput
 import groovy.transform.CompileStatic
 import okhttp3.MediaType
@@ -45,9 +46,13 @@ class DockerContainerRunnerManagerImpl extends DockerRemoteAPI<DockerRemoteGener
 
     @Override
     Request constructRequest() {
+        String request
         HostConfig config = hostConfigBuilder.constructHostConfig(instance)
-        //this is to accomodate the deprecation of hostCOnfig
-        String request =  true ? "":config
+        if(instance.host.dockerVersion == '1.18'){
+            request = new JsonBuilder(config)
+        }else{
+            request = ""
+        }
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         return new Request.Builder()
                 .url("$baseUrl/containers/$instance.name/start")

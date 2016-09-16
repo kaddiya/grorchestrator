@@ -1,6 +1,6 @@
 package org.kaddiya.grorchestrator.guice.factory;
 
-import org.kaddiya.grorchestrator.managers.InspectContainer;
+import org.kaddiya.grorchestrator.managers.interfaces.InspectContainer;
 import org.kaddiya.grorchestrator.models.core.Instance;
 
 /**

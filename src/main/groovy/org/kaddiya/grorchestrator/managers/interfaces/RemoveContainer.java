@@ -1,4 +1,4 @@
-package org.kaddiya.grorchestrator.managers;
+package org.kaddiya.grorchestrator.managers.interfaces;
 
 /**
  * Created by Webonise on 14/07/16.

@@ -4,8 +4,13 @@ import com.google.inject.AbstractModule
 import com.google.inject.assistedinject.FactoryModuleBuilder
 import groovy.transform.CompileStatic
 import org.kaddiya.grorchestrator.guice.factory.*
-import org.kaddiya.grorchestrator.managers.*
 import org.kaddiya.grorchestrator.managers.impl.*
+import org.kaddiya.grorchestrator.managers.interfaces.CreateContainer
+import org.kaddiya.grorchestrator.managers.interfaces.InspectContainer
+import org.kaddiya.grorchestrator.managers.interfaces.KillContainer
+import org.kaddiya.grorchestrator.managers.interfaces.PullImage
+import org.kaddiya.grorchestrator.managers.interfaces.RemoveContainer
+import org.kaddiya.grorchestrator.managers.interfaces.RunContainer
 
 /**
  * Created by Webonise on 01/07/16.

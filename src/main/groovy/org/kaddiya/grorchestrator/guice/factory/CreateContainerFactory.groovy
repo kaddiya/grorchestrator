@@ -1,6 +1,6 @@
 package org.kaddiya.grorchestrator.guice.factory
 
-import org.kaddiya.grorchestrator.managers.CreateContainer
+import org.kaddiya.grorchestrator.managers.interfaces.CreateContainer
 import org.kaddiya.grorchestrator.models.core.Instance
 
 /**

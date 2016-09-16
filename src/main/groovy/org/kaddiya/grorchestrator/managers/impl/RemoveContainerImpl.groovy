@@ -4,7 +4,7 @@ import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
 import groovy.transform.CompileStatic
 import okhttp3.Request
-import org.kaddiya.grorchestrator.managers.RemoveContainer
+import org.kaddiya.grorchestrator.managers.interfaces.RemoveContainer
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericOKResponse

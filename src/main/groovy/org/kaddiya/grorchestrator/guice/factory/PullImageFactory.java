@@ -1,6 +1,6 @@
 package org.kaddiya.grorchestrator.guice.factory;
 
-import org.kaddiya.grorchestrator.managers.PullImage;
+import org.kaddiya.grorchestrator.managers.interfaces.PullImage;
 import org.kaddiya.grorchestrator.models.core.Instance;
 
 /**

@@ -7,8 +7,8 @@ import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
 import org.kaddiya.grorchestrator.guice.factory.RemoveContainerFactory
-import org.kaddiya.grorchestrator.managers.KillContainer
-import org.kaddiya.grorchestrator.managers.RemoveContainer
+import org.kaddiya.grorchestrator.managers.interfaces.KillContainer
+import org.kaddiya.grorchestrator.managers.interfaces.RemoveContainer
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericNoContentResponse

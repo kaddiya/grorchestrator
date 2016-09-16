@@ -1,6 +1,7 @@
 package org.kaddiya.grorchestrator.managers
 
 import org.kaddiya.grorchestrator.managers.impl.PullImageImpl
+import org.kaddiya.grorchestrator.managers.interfaces.PullImage
 import org.kaddiya.grorchestrator.models.core.Host
 import org.kaddiya.grorchestrator.models.core.Instance
 import spock.lang.Ignore

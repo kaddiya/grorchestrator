@@ -9,8 +9,8 @@ import okhttp3.Request
 import okhttp3.RequestBody
 import org.kaddiya.grorchestrator.guice.factory.CreateContainerFactory
 import org.kaddiya.grorchestrator.helpers.HostConfigBuilder
-import org.kaddiya.grorchestrator.managers.CreateContainer
-import org.kaddiya.grorchestrator.managers.RunContainer
+import org.kaddiya.grorchestrator.managers.interfaces.CreateContainer
+import org.kaddiya.grorchestrator.managers.interfaces.RunContainer
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.requests.HostConfig

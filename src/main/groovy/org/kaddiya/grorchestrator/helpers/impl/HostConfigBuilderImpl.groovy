@@ -12,14 +12,7 @@ import org.kaddiya.grorchestrator.models.remotedocker.requests.HostConfig
 class HostConfigBuilderImpl implements HostConfigBuilder {
 
     HostConfig constructHostConfig(Instance instance) {
-        HostConfig config
-        if(instance.host.apiVersion  == '1.19'){
-            config = new HostConfig()
-        }
-        else{
-            config = new HostConfig(getBinds(instance), getLinks(instance), getPortBindings(instance), getExtraHostsMapping(instance))
-        }
-
+        HostConfig config = new HostConfig(getBinds(instance), getLinks(instance), getPortBindings(instance), getExtraHostsMapping(instance))
         return config
     }
 

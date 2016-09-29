@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>Grorchestrator by kaddiya</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Grorchestrator</h1>
+        <h2>Groovy orchestrator for Docker designed for you to just chill</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/kaddiya/grorchestrator/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/kaddiya/grorchestrator/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/kaddiya/grorchestrator" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h1>
+
+<p>Grorchestrator is an docker orchestration tool designed using Groovy.It abstracts away interaction with a Docker Daemon to a json configuration file and a few commands.it is designed to be used in CD pipelines.</p>
+
+<h1>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation.</h1>
+
+<p>1.Download the distro.<br>
+2.Extract the archive.<br>
+3.Set the <code>$GROR_HOME</code> env variable to the place where you have extracted the archive.<br>
+4.Adjust the <code>$PATH</code> to include this: <code>export PATH=$PATH:$GROR_HOME/bin</code>  </p>
+
+<h1>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage.</h1>
+
+<p>1.Create a <code>gror.json</code> file where you want to store the environment configurations.The contents should be as described in the documentation.<br>
+2.To pull a image exec <code>gror pull &lt;your_instance_name&gt; &lt;tag&gt;</code>.<br>
+3.To run a container exec <code>gror run &lt;your_instance_name&gt; &lt;tag&gt;</code>.<br>
+4.To kill a container exec <code>gror kill &lt;your_instance_name&gt;</code>.  </p>
+
+<h1>
+<a id="knobs" class="anchor" href="#knobs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Knobs</h1>
+
+<p>Set the following environment variables in your gror server shell.<br>
+<code>registry_username</code>  : username for the registry.Maps to <code>DockerHubAuth.username</code>.<br>
+<code>registry_email</code>: email for the registry.Maps to <code>DockerHubAuth.email</code>.<br>
+<code>registry_password</code> : password for the registry.Maps to <code>DockerHubAuth.password</code>.<br>
+<code>registry_auth</code> : auth for the registry.Maps to <code>DockerHubAuth.auth</code>.Let it default to <code>""</code>.   </p>
+
+<h1>
+<a id="current-features" class="anchor" href="#current-features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Current features:</h1>
+
+<p>1.Port mappings from host to container.<br>
+2.Volume mappings from host to container.<br>
+3.Adding extra hosts to the container.<br>
+4.Pulling an image from docker hub.<br>
+5.Running a container.<br>
+6.Killing a container.<br>
+7.SSL Support.<br>
+8.V1.19 to V1.24 of Docker Remote API supported</p>
+      </section>
+    </div>
+
+    
+  </body>
+</html>

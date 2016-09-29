@@ -1,0 +1,40 @@
+{
+  "systemInfo": {
+    "name": "demo"
+  },
+  "components": [
+    {
+      "instances": [
+           {
+                  "name": "db.project.com",
+                  "portMapping": {
+                    "3306": 3306
+                  },
+                  "volumeMapping": {
+                    "/home/ec2-user/db-data/data-files": "/var/lib/mysql"
+                  },
+                  "imageName": "mysql",
+                  "host": {
+                    "alias": "mysql-vm-1",
+                    "ip": "xx.xx.xx.xx",
+                    "dockerPort": 2376,
+                    "protocol": "http",
+                    "dockerVersion": "1.12.1",
+                    "apiVersion": "1.24"
+                  },
+                  "tag": "latest",
+                  "hostsMapping": {
+                     "db-1.project.com" : "172.17.0.1",
+                     "db-2.project.com" : "172.17.0.1",
+                  },
+                  "envMap": {
+                    "MYSQL_ROOT_PASSWORD": "ROOT"
+                  },
+                  "links": {
+                  "db-3.project.com" : "db-3.project.com",
+                  }
+           }
+      ],
+      "name": "project-db"
+    }
+}

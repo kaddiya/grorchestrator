@@ -98,6 +98,46 @@ It definitely helps systems to achieve the fabled mantle of the <code>12 Factor 
 6.Killing a container.<br>
 7.SSL Support.<br>
 8.V1.19 to V1.24 of Docker Remote API supported</p>
+
+<h1>
+<a id="structure-of-grorjson" class="anchor" href="#structure-of-grorjson" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Structure of Gror.json</h1>
+
+<p>1.Gror.json is the file that the gror installation reads to be able to orchestrate your environment.<br>
+2.You would need to structure the file appropriately and source control it.<br>
+3.Its structure is as follows.please refer to the <code>gror.json.example</code> as a reference</p>
+
+<pre><code>      systemInfo  
+         name :   Name of the system.
+
+      components  
+         instance 
+             name : Name of the instance.(Eg redis-server-1)    
+
+             portMapping: Map of ports to be exposed .
+
+             volumeMapping: Map of volumes to be attached.
+
+             imageName: The image name to run e.g. (redis)  
+
+             host  
+                 alias: a common name for easy reference  
+                 ip: Ip of the host  
+                 dockerPort: Port of the docker remote api  
+                 protocol :  http or https  
+                 dockerVersion : Docker version 
+                 apiVersion : Docker API version  
+
+             tag : The tag of image to run  
+
+             hostsMapping : Addition of extra hosts to the container.  
+
+             envMap : Map of environment vars to be set in the container.  
+
+             links :  Map of links to other containers  
+
+          name : Name of the micro service.(Eg - Cache-Service)    
+
+</code></pre>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/kaddiya">kaddiya</a></p>

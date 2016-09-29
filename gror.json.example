@@ -1,0 +1,35 @@
+{
+  "systemInfo": {
+    "name": "demo"
+  },
+  "components": [
+    {
+      "instances": [
+        {
+          "name": "redis.project.com",
+          "portMapping": {
+            "6379": 6379
+          },
+          "volumeMapping": {
+          },
+          "imageName": "redis",
+          "host": {
+            "alias": "cache-vm-1",
+            "ip": "ip.of.vm.to.host.this",
+            "dockerPort": 2376,
+            "protocol": "http",
+            "dockerVersion": "1.12.1",
+            "apiVersion": "1.24"
+          },
+          "tag": "latest",
+          "hostsMapping": {
+          },
+          "envMap": {
+          },
+          "links": {
+          }
+        }
+      ],
+      "name": "redis-cache"
+    }
+}

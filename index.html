@@ -1,48 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-
     <title>Grorchestrator by kaddiya</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-
   <body>
-
-    <header>
-      <div class="container">
+    <div class="wrapper">
+      <header>
         <h1>Grorchestrator</h1>
-        <h2>Groovy orchestrator for Docker designed for you to just chill</h2>
+        <p>Groovy orchestrator for Docker designed for you to just chill</p>
 
-        <section id="downloads">
-          <a href="https://github.com/kaddiya/grorchestrator/zipball/master" class="btn">Download as .zip</a>
-          <a href="https://github.com/kaddiya/grorchestrator/tarball/master" class="btn">Download as .tar.gz</a>
-          <a href="https://github.com/kaddiya/grorchestrator" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
-        </section>
-      </div>
-    </header>
+        <p class="view"><a href="https://github.com/kaddiya/grorchestrator">View the Project on GitHub <small>kaddiya/grorchestrator</small></a></p>
 
-    <div class="container">
-      <section id="main_content">
+
+        <ul>
+          <li><a href="https://github.com/kaddiya/grorchestrator/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/kaddiya/grorchestrator/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/kaddiya/grorchestrator">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
         <h1>
 <a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h1>
 
 <p>Grorchestrator is an docker orchestration tool designed using Groovy.It abstracts away interaction with a Docker Daemon to a json configuration file and a few commands.it is designed to be used in CD pipelines.</p>
 
 <h1>
-<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation.</h1>
+<a id="motivation" class="anchor" href="#motivation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Motivation</h1>
 
-<p>1.Download the distro.<br>
-2.Extract the archive.<br>
-3.Set the <code>$GROR_HOME</code> env variable to the place where you have extracted the archive.<br>
-4.Adjust the <code>$PATH</code> to include this: <code>export PATH=$PATH:$GROR_HOME/bin</code>  </p>
+<p>Docker is an engineering marvel.It helps you to think about you infrastructure and topology from wheels-up.
+It definitely helps systems to achieve the fabled mantle of the <code>12 Factor App</code>.</p>
+
+<p>But to make use of it in a production grade application,we have a plethora of options:Unwieldy shell scripts,proprietary orchestration systems all of which are a bit clunky when it comes to a slick CI/CD process the way you want,and adhering to common sense practices like Abstraction,Security,Separation of Concerns,Versioning of Infrastructure(yes!) and etc.</p>
+
+<p>But there is a silver lining.Docker provides a Remote API that can be leveraged for orchestration.It is awesome.!</p>
+
+<p>Grorchestrator provides a simple abstraction for this API and exposes its capabilities via a shell script that can be easily used in CD processes without having to worry about bulky shell scripts.</p>
 
 <h1>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage.</h1>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation.</h1>
+
+<ul>
+<li>Build the distro.(you need JDK 8 installed)
+
+<ul>
+<li>  Clone the code.<br>
+</li>
+<li>  Run the command <code>./gradlew clean build</code>.<br>
+</li>
+<li>  This will yield a <code>gror.zip</code> in the <code>build/distributions/</code> directory.<br>
+</li>
+<li>  <code>gror.zip</code> is the bundle you will normally have to download if you don't have to build from source.<br>
+</li>
+</ul>
+</li>
+<li>Extract the archive.<br>
+</li>
+<li>Set the <code>$GROR_HOME</code> env variable to the place where you have extracted the archive.<br>
+</li>
+<li>Adjust the <code>$PATH</code> to include this: <code>export PATH=$PATH:$GROR_HOME/bin</code><br>
+</li>
+</ul>
+
+<h1>
+<a id="usageneeds-jre-8" class="anchor" href="#usageneeds-jre-8" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage.(Needs JRE 8)</h1>
 
 <p>1.Create a <code>gror.json</code> file where you want to store the environment configurations.The contents should be as described in the documentation.<br>
 2.To pull a image exec <code>gror pull &lt;your_instance_name&gt; &lt;tag&gt;</code>.<br>
@@ -70,8 +99,12 @@
 7.SSL Support.<br>
 8.V1.19 to V1.24 of Docker Remote API supported</p>
       </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/kaddiya">kaddiya</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
     </div>
-
+    <script src="javascripts/scale.fix.js"></script>
     
   </body>
 </html>

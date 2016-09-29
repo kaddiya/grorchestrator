@@ -4,8 +4,8 @@ import com.google.inject.AbstractModule
 import com.google.inject.assistedinject.FactoryModuleBuilder
 import groovy.transform.CompileStatic
 import org.kaddiya.grorchestrator.guice.factory.*
-import org.kaddiya.grorchestrator.managers.*
 import org.kaddiya.grorchestrator.managers.impl.*
+import org.kaddiya.grorchestrator.managers.interfaces.*
 
 /**
  * Created by Webonise on 01/07/16.
@@ -16,23 +16,23 @@ class DockerRemoteAPIModule extends AbstractModule {
     @Override
     protected void configure() {
         this.install(new FactoryModuleBuilder()
-                .implement(DockerImagePullManager.class, DockerImagePullManagerImpl.class)
-                .build(DockerImagePullManagerFactory.class));
+                .implement(PullImage.class, PullImageImpl.class)
+                .build(PullImageFactory.class));
         this.install(new FactoryModuleBuilder()
-                .implement(DockerContainerCreator.class, DockerContainerCreatorImpl.class)
-                .build(DockerContainerCreatorFactory))
+                .implement(CreateContainer.class, CreateContainerImpl.class)
+                .build(CreateContainerFactory))
         this.install(new FactoryModuleBuilder()
-                .implement(DockerContainerRunnerManager.class, DockerContainerRunnerManagerImpl.class)
-                .build(DockerContainerRunnerFactory))
+                .implement(RunContainer.class, RunContainerImpl.class)
+                .build(RunContainerFactory))
         this.install(new FactoryModuleBuilder()
-                .implement(DockerContainerKillManager.class, DockerContainerKillManagerImpl.class)
-                .build(DockerContainerKillManagerFactory))
+                .implement(KillContainer.class, KillContainerImpl.class)
+                .build(KillContainerFactory))
         this.install(new FactoryModuleBuilder()
-                .implement(DockerContainerRemoveManager.class, DockerContainerRemoveManagerImpl.class)
-                .build(DockerContainerRemoveMangerFactory))
+                .implement(RemoveContainer.class, RemoveContainerImpl.class)
+                .build(RemoveContainerFactory))
         this.install(new FactoryModuleBuilder()
-                .implement(DockerRemoteAPIInfoManager.class, DockerRemoteAPIInfoManagerImpl.class)
-                .build(DockerRemoteAPIInfoManagerFactory))
+                .implement(InspectContainer.class, InspectContainerImpl.class)
+                .build(InspectContainerFactory))
 
     }
 }

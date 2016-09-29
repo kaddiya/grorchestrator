@@ -9,7 +9,7 @@ import org.kaddiya.grorchestrator.guice.HelperModule
 import org.kaddiya.grorchestrator.guice.SerialiserModule
 import org.kaddiya.grorchestrator.guice.factory.*
 import org.kaddiya.grorchestrator.helpers.InstanceFinder
-import org.kaddiya.grorchestrator.managers.*
+import org.kaddiya.grorchestrator.managers.interfaces.*
 import org.kaddiya.grorchestrator.models.core.GrorProject
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.SupportedActions
@@ -29,11 +29,11 @@ class Grorchestrator {
 
         GrorProjectSerialiser serialiser = grorchestratorInjector.getInstance(GrorProjectSerialiser)
 
-        DockerImagePullManagerFactory dockerImagePullManagerFactory = grorchestratorInjector.getInstance(DockerImagePullManagerFactory)
-        DockerContainerRunnerFactory dockerContainerRunnerFactory = grorchestratorInjector.getInstance(DockerContainerRunnerFactory)
-        DockerContainerKillManagerFactory dockerContainerKillManagerFactory = grorchestratorInjector.getInstance(DockerContainerKillManagerFactory)
-        DockerContainerRemoveMangerFactory dockerContainerRemoveManagerFactory = grorchestratorInjector.getInstance(DockerContainerRemoveMangerFactory)
-        DockerRemoteAPIInfoManagerFactory infoManagerFactory = grorchestratorInjector.getInstance(DockerRemoteAPIInfoManagerFactory)
+        PullImageFactory dockerImagePullManagerFactory = grorchestratorInjector.getInstance(PullImageFactory)
+        RunContainerFactory dockerContainerRunnerFactory = grorchestratorInjector.getInstance(RunContainerFactory)
+        KillContainerFactory dockerContainerKillManagerFactory = grorchestratorInjector.getInstance(KillContainerFactory)
+        RemoveContainerFactory dockerContainerRemoveManagerFactory = grorchestratorInjector.getInstance(RemoveContainerFactory)
+        InspectContainerFactory infoManagerFactory = grorchestratorInjector.getInstance(InspectContainerFactory)
         InstanceFinder instanceFinderImpl = grorchestratorInjector.getInstance(InstanceFinder)
 
 
@@ -64,11 +64,11 @@ class Grorchestrator {
             requestedInstance.tag = "latest"
         }
 
-        DockerImagePullManager pullManager = dockerImagePullManagerFactory.create(requestedInstance)
-        DockerContainerRunnerManager dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance)
-        DockerContainerKillManager dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance)
-        DockerContainerRemoveManager removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance)
-        DockerRemoteAPIInfoManager infoManager = infoManagerFactory.create(requestedInstance)
+        PullImage pullManager = dockerImagePullManagerFactory.create(requestedInstance)
+        RunContainer dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance)
+        KillContainer dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance)
+        RemoveContainer removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance)
+        InspectContainer infoManager = infoManagerFactory.create(requestedInstance)
 
         switch (action.toUpperCase()) {
             case SupportedActions.PULL.name():
@@ -78,7 +78,6 @@ class Grorchestrator {
             case SupportedActions.RUN.name():
                 dockerContainerRunnerManager.runContainer();
                 println("finished running the container $requestedInstance.imageName:$requestedInstance.tag ")
-                println(infoManager.getInfo())
                 break
             case SupportedActions.KILL.name():
                 dockerContainerKillManager.killContainer();

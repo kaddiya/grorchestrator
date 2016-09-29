@@ -1,4 +1,4 @@
-package org.kaddiya.grorchestrator.managers;
+package org.kaddiya.grorchestrator.managers.interfaces;
 
 import org.kaddiya.grorchestrator.models.remotedocker.responses.dockermetadata.VersionResponse;
 

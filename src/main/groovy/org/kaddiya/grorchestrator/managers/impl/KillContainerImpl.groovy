@@ -6,10 +6,10 @@ import groovy.transform.CompileStatic
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
-import org.kaddiya.grorchestrator.guice.factory.DockerContainerRemoveMangerFactory
-import org.kaddiya.grorchestrator.managers.DockerContainerKillManager
-import org.kaddiya.grorchestrator.managers.DockerContainerRemoveManager
+import org.kaddiya.grorchestrator.guice.factory.RemoveContainerFactory
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
+import org.kaddiya.grorchestrator.managers.interfaces.KillContainer
+import org.kaddiya.grorchestrator.managers.interfaces.RemoveContainer
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericNoContentResponse
 
@@ -17,16 +17,16 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGene
  * Created by Webonise on 12/07/16.
  */
 @CompileStatic
-class DockerContainerKillManagerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResponse> implements DockerContainerKillManager {
+class KillContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResponse> implements KillContainer {
 
     @Inject
-    DockerContainerRemoveMangerFactory containerRemoveMangerFactory
+    RemoveContainerFactory containerRemoveMangerFactory
 
-    final DockerContainerRemoveManager containerRemoveManager;
+    final RemoveContainer containerRemoveManager;
 
     @Inject
-    DockerContainerKillManagerImpl(
-            @Assisted Instance instance, DockerContainerRemoveMangerFactory containerRemoveMangerFactory) {
+    KillContainerImpl(
+            @Assisted Instance instance, RemoveContainerFactory containerRemoveMangerFactory) {
         super(instance)
         this.containerRemoveManager = containerRemoveMangerFactory.create(instance)
     }

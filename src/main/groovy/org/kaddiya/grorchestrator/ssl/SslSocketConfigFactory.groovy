@@ -33,7 +33,7 @@ class SslSocketConfigFactory {
     private X509TrustManager getUniqueX509TrustManager(TrustManagerFactory trustManagerFactory) {
         def trustManagers = trustManagerFactory.trustManagers
         if (trustManagers.length != 1 || !(trustManagers[0] instanceof X509TrustManager)) {
-            throw new IllegalStateException("Unexpected default trust managers: ${trustManagers}")
+            throw new IllegalStateException("Unexpected default trust mana2s: ${trustManagers}")
         }
         (X509TrustManager) trustManagers[0]
     }

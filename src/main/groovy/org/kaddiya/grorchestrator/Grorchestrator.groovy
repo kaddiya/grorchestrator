@@ -78,7 +78,6 @@ class Grorchestrator {
             case SupportedActions.RUN.name():
                 dockerContainerRunnerManager.runContainer();
                 println("finished running the container $requestedInstance.imageName:$requestedInstance.tag ")
-                println(infoManager.getInfo())
                 break
             case SupportedActions.KILL.name():
                 dockerContainerKillManager.killContainer();

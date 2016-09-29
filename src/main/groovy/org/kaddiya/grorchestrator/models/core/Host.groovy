@@ -10,4 +10,7 @@ class Host {
     String ip
     String alias
     Integer dockerPort
+    String protocol
+    String dockerVersion
+    String apiVersion
 }

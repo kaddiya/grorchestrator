@@ -1,7 +1,9 @@
 package org.kaddiya.grorchestrator.helpers.impl
 
+import com.google.inject.Inject
 import groovy.transform.CompileStatic
 import org.kaddiya.grorchestrator.helpers.DockerContainerCreationRequestBuilder
+import org.kaddiya.grorchestrator.helpers.HostConfigBuilder
 import org.kaddiya.grorchestrator.models.core.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.requests.DockerContainerCreationRequest
 
@@ -11,6 +13,10 @@ import org.kaddiya.grorchestrator.models.remotedocker.requests.DockerContainerCr
 @CompileStatic
 class DockerContainerCreationRequestBuilderImpl implements DockerContainerCreationRequestBuilder {
 
+
+    @Inject
+    HostConfigBuilder hostConfigBuilderImpl
+
     @Override
     DockerContainerCreationRequest getContainerCreationRequest(Instance instance) {
         DockerContainerCreationRequest request = new DockerContainerCreationRequest()
@@ -18,6 +24,7 @@ class DockerContainerCreationRequestBuilderImpl implements DockerContainerCreati
         request.exposedPorts = getPortMappingsFromInstance(instance)
         request.volumes = getVolumes(instance)
         request.env = getEnvironmentMappings(instance)
+        request.hostConfig = hostConfigBuilderImpl.constructHostConfig(instance)
         return request
     }
 

@@ -6,15 +6,15 @@
     {
       "instances": [
         {
-          "name": "api.proof.com",
+          "name": "api.project.com",
           "portMapping": {
             "8080": 8080
           },
           "volumeMapping": {
-            "\/home\/ubuntu\/api-data\/proof-data-sets": "\/root\/Proof-Data-Sets",
-            "\/home\/ubuntu\/api-data\/logs": "\/opt\/appData\/proof-service-api\/logs\/"
+            "\/home\/ubuntu\/api-data\/some-api-data": "\/root\/some-api-data",
+            "\/home\/ubuntu\/api-data\/logs": "\/opt\/appData\/api-logs\/logs\/"
           },
-          "imageName": "proofadmin\/proof-service-api",
+          "imageName": "dockerhubid\/image_name",
           "host": {
             "alias": "api-vm-1",
             "ip": "127.0.0.1",
@@ -25,8 +25,8 @@
           },
           "tag": "latest",
           "hostsMapping": {
-            "db.proof.com": "127.0.0.1",
-            "redis.proof.com": "127.0.0.1"
+            "db.project.com": "127.0.0.1",
+            "redis.project.com": "127.0.0.1"
           },
           "envMap": {
             "key-1": "value-1",

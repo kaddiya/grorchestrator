@@ -5,5 +5,5 @@ package org.kaddiya.grorchestrator.models.core;
  */
 public enum ACCESSIBILITY {
     RO,
-    WO
+    RW
 }

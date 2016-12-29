@@ -35,6 +35,16 @@
           },
           "links": {
             "name.for.container.1": "alias.for.container.1"
+          },
+          "volumesFrom":{
+            "container1":[{
+              "volume_1":"RO",
+              "volume_2":"WO"
+            }],
+            "container2":[{
+              "volume_3":"RO",
+              "volume_4":"WO"
+            }]
           }
         }
       ],

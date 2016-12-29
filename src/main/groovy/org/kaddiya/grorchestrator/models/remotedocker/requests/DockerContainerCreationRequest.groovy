@@ -12,4 +12,5 @@ class DockerContainerCreationRequest {
     Map<String, Object> exposedPorts
     HostConfig hostConfig
     List<String> env
+    List<String> volumesFrom
 }

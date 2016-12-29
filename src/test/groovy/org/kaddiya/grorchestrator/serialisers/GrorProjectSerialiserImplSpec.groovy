@@ -160,7 +160,8 @@ class GrorProjectSerialiserImplSpec extends Specification {
                                                              "/home/ubuntu/api-data/logs"           : "/opt/appData/api-logs/logs/"]), Collections.unmodifiableMap([8080: 8080]) as Map<Integer, Integer>,
                                 Collections.unmodifiableMap(["db.project.com": "127.0.0.1", "redis.project.com": "127.0.0.1"]),
                                 Collections.unmodifiableMap(["key-1": "value-1", "key-2": "value-2", "key-3": "value-3"]),
-                                Collections.unmodifiableMap(["name.for.container.1": "alias.for.container.1"])
+                                Collections.unmodifiableMap(["name.for.container.1": "alias.for.container.1"]),
+                                Collections.unmodifiableMap(["container_1":new VolumesFromMapping(Collections.unmodifiableMap(["volume_1:RO"],["volume_2:WO"]))])
                         )
 
                 ))

@@ -35,7 +35,11 @@
           },
           "links": {
             "name.for.container.1": "alias.for.container.1"
-          }
+          },
+          "volumesFrom":[
+           "container_1",
+            "container_2"
+          ]
         }
       ],
       "name": "api-server"

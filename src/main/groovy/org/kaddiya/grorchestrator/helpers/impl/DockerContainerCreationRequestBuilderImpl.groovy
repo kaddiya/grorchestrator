@@ -25,6 +25,7 @@ class DockerContainerCreationRequestBuilderImpl implements DockerContainerCreati
         request.volumes = getVolumes(instance)
         request.env = getEnvironmentMappings(instance)
         request.hostConfig = hostConfigBuilderImpl.constructHostConfig(instance)
+        request.volumesFrom = instance.volumesFrom
         return request
     }
 

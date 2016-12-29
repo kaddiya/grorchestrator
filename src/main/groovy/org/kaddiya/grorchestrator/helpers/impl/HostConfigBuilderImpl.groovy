@@ -12,7 +12,14 @@ import org.kaddiya.grorchestrator.models.remotedocker.requests.HostConfig
 class HostConfigBuilderImpl implements HostConfigBuilder {
 
     HostConfig constructHostConfig(Instance instance) {
-        HostConfig config = new HostConfig(getBinds(instance), getLinks(instance), getPortBindings(instance), getExtraHostsMapping(instance))
+        List<String> binds = getBinds(instance)
+        List<String> Links = getLinks(instance)
+        Map<String, Map<String, String>> PortBindings = getPortBindings(instance)
+        List<String> ExtraHosts = getExtraHostsMapping(instance)
+        if(binds.isEmpty() && Links.isEmpty() && PortBindings.isEmpty() && ExtraHosts.isEmpty()){
+            return null
+        }
+        HostConfig config = new HostConfig(binds, Links, PortBindings, ExtraHosts)
         return config
     }
 

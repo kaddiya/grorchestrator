@@ -8,4 +8,5 @@ import groovy.transform.Canonical
 @Canonical
 class SystemInfo {
     String name
+    String grorVersion
 }

@@ -13,4 +13,5 @@ class DockerContainerCreationRequest {
     HostConfig hostConfig
     List<String> env
     List<String> volumesFrom
+    List<String> cmd
 }

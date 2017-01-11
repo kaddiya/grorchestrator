@@ -22,7 +22,8 @@
             "protocol": "http",
             "dockerPort": 2376,
             "dockerVersion": "1.7.1",
-            "apiVersion": "1.19"
+            "apiVersion": "1.19",
+            "certPathForDockerDaemon": "/path/to/certs"
           },
           "tag": "latest",
           "hostsMapping": {

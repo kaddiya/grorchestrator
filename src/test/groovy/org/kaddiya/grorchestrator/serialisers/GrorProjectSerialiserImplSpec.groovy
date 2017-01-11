@@ -58,7 +58,7 @@ class GrorProjectSerialiserImplSpec extends Specification {
         assert actualProject == expectedProject: "Something went wrong in the parsing"
 
     }
-    
+
     def cleanup() {
         System.setProperty("registry_username", "")
         System.setProperty("registry_password", "")
@@ -69,19 +69,14 @@ class GrorProjectSerialiserImplSpec extends Specification {
     def getDummyFullGrorProject() {
         SystemInfo info = new SystemInfo("demo","0.0.2")
         DockerHubAuth dockerHubAuth = new DockerHubAuth("username", "password", "auth", "email@example.com")
-        List<Host> hosts = Arrays.asList(
-                new Host("127.0.0.1", "redis-vm-1", 2376, "http", "1.7.1", "1.19"),
-                new Host("127.0.0.1", "mysql-vm-1", 2376, "http", "1.7.1", "1.19"),
-                new Host("127.0.0.1", "api-vm-1", 2376, "http", "1.7.1", "1.19"),
-                new Host("127.0.0.1", "frontend-vm-1", 2376, "http", "1.7.1", "1.19")
-        )
+
         List<Component> components = Arrays.asList(
 
                 new Component("api-server", Arrays.asList(
                         new Instance("api.project.com",
                                 "dockerhubid/image_name",
                                 "latest",
-                                new Host("127.0.0.1", "api-vm-1", 2376, "http", "1.7.1", "1.19"),
+                                new Host("127.0.0.1", "api-vm-1", 2376, "http", "1.7.1", "1.19","/path/to/certs"),
                                 Collections.unmodifiableMap(["/home/ubuntu/api-data/some-api-data": "/root/some-api-data",
                                                              "/home/ubuntu/api-data/logs"           : "/opt/appData/api-logs/logs/"]),
                                 Collections.unmodifiableMap([8080: 8080]) as Map<Integer, Integer>,

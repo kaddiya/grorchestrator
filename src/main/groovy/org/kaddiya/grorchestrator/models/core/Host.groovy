@@ -13,4 +13,5 @@ class Host {
     String protocol
     String dockerVersion
     String apiVersion
+    String certPathForDockerDaemon
 }

@@ -6,14 +6,14 @@ import groovy.transform.CompileStatic
 import org.kaddiya.grorchestrator.guice.DockerRemoteAPIModule
 import org.kaddiya.grorchestrator.guice.GrorchestratorModule
 import org.kaddiya.grorchestrator.guice.HelperModule
-import org.kaddiya.grorchestrator.guice.SerialiserModule
+import org.kaddiya.grorchestrator.guice.DeserialiserModule
 import org.kaddiya.grorchestrator.guice.factory.*
 import org.kaddiya.grorchestrator.helpers.InstanceFinder
 import org.kaddiya.grorchestrator.managers.interfaces.*
 import org.kaddiya.grorchestrator.models.core.previous.GrorProject
 import org.kaddiya.grorchestrator.models.core.previous.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.SupportedActions
-import org.kaddiya.grorchestrator.serialisers.GrorProjectSerialiser
+import org.kaddiya.grorchestrator.serialisers.GrorProjectDeserialiser
 
 @CompileStatic
 class Grorchestrator {
@@ -23,11 +23,11 @@ class Grorchestrator {
     public static void main(String[] args) {
 
         Injector grorchestratorInjector = Guice.createInjector(new GrorchestratorModule(
-                new SerialiserModule(), new DockerRemoteAPIModule(), new HelperModule()
+                new DeserialiserModule(), new DockerRemoteAPIModule(), new HelperModule()
 
         ))
 
-        GrorProjectSerialiser serialiser = grorchestratorInjector.getInstance(GrorProjectSerialiser)
+        GrorProjectDeserialiser serialiser = grorchestratorInjector.getInstance(GrorProjectDeserialiser)
 
         PullImageFactory dockerImagePullManagerFactory = grorchestratorInjector.getInstance(PullImageFactory)
         RunContainerFactory dockerContainerRunnerFactory = grorchestratorInjector.getInstance(RunContainerFactory)

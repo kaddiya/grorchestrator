@@ -3,13 +3,13 @@ package org.kaddiya.grorchestrator.serialisers.previous
 import com.fasterxml.jackson.databind.ObjectMapper
 import groovy.transform.CompileStatic
 import org.kaddiya.grorchestrator.models.core.previous.GrorProject
-import org.kaddiya.grorchestrator.serialisers.GrorProjectSerialiser
+import org.kaddiya.grorchestrator.serialisers.GrorProjectDeserialiser
 
 /**
  * Created by Webonise on 24/06/16.
  */
 @CompileStatic
-class GrorProjectSerialiserImpl implements GrorProjectSerialiser {
+class GrorProjectDeserialiserImpl implements GrorProjectDeserialiser {
 
     @Override
     GrorProject constructGrorProject(File name) {

@@ -7,7 +7,7 @@ import java.io.File;
 /**
  * Created by Webonise on 24/06/16.
  */
-public interface GrorProjectSerialiser {
+public interface GrorProjectDeserialiser {
 
     public GrorProject constructGrorProject(File name);
 }

@@ -7,7 +7,7 @@ import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.previous.Component
 import org.kaddiya.grorchestrator.models.core.previous.GrorProject
 import org.kaddiya.grorchestrator.models.core.previous.Instance
-import org.kaddiya.grorchestrator.serialisers.GrorProjectSerialiser
+import org.kaddiya.grorchestrator.serialisers.GrorProjectDeserialiser
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -15,10 +15,10 @@ import spock.lang.Specification
  * Created by Webonise on 19/03/16.
  */
 @Log
-class GrorProjectSerialiserImplSpec extends Specification {
+class GrorProjectDeserialiserImplSpec extends Specification {
 
     @Shared
-    GrorProjectSerialiser serialiser = new GrorProjectSerialiserImpl();
+    GrorProjectDeserialiser serialiser = new GrorProjectDeserialiserImpl();
 
     def "constructGrorProject should thrown an exception on recieving a null file name"() {
         when:

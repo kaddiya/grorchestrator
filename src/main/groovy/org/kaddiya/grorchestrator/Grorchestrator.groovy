@@ -10,9 +10,10 @@ import org.kaddiya.grorchestrator.guice.DeserialiserModule
 import org.kaddiya.grorchestrator.guice.factory.*
 import org.kaddiya.grorchestrator.helpers.InstanceFinder
 import org.kaddiya.grorchestrator.managers.interfaces.*
+import org.kaddiya.grorchestrator.models.core.SupportedSystemActions
 import org.kaddiya.grorchestrator.models.core.previous.GrorProject
 import org.kaddiya.grorchestrator.models.core.previous.Instance
-import org.kaddiya.grorchestrator.models.remotedocker.SupportedActions
+import org.kaddiya.grorchestrator.models.core.SupportedContainerActions
 import org.kaddiya.grorchestrator.deserialisers.GrorProjectDeserialiser
 import org.kaddiya.grorchestrator.serialiser.GrorProjectSerialiser
 import org.kaddiya.grorchestrator.updators.PreviousToLatestSchemaUpdator
@@ -41,18 +42,6 @@ class Grorchestrator {
         InstanceFinder instanceFinderImpl = grorchestratorInjector.getInstance(InstanceFinder)
 
 
-        String tag
-
-        assert args.size() >= 1: "incorrect number of arguments."
-
-        String action = args[0]
-        String instanceName = args[1]
-
-        //if the tag is passed then update or let it be default
-        if (args.size() > 2) {
-            tag = args[2]
-        }
-
 
         File grorFile = new File(System.getProperty("user.dir")).listFiles().find { File it ->
             it.name.equals(DEFAULT_GROR_FILE_NAME)
@@ -61,41 +50,75 @@ class Grorchestrator {
         assert grorFile: "$DEFAULT_GROR_FILE_NAME file not found"
         GrorProject project = deserialiser.constructGrorProject(grorFile)
         assert project: "project cant be constructed"
-        Instance requestedInstance = instanceFinderImpl.getInstanceToInteractWith(project, instanceName)
-        if (tag) {
+
+        String tag
+        String action
+        String instanceName
+
+        Instance requestedInstance
+
+        PullImage pullManager
+        RunContainer dockerContainerRunnerManager
+        KillContainer dockerContainerKillManager
+        RemoveContainer removeManager
+        InspectContainer infoManager
+
+        assert args.size() >= 1: "incorrect number of arguments."
+
+        if(SupportedSystemActions.values().any{SupportedSystemActions it -> it.name().equals(args[0])}){
+            //the action to be performed is a system actions
+            //continue
+            action = args[0]
+        }
+        else if(SupportedContainerActions.values().contains(args[0])){
+
+            if(args.size() < 2 ){
+                throw new IllegalStateException("Please mention the instance to deal with")
+            }
+            action = args[0]
+            instanceName = args[1]
+            if(args.size() > 2){
+                tag = args[2]
+            }
+            else{
+                tag = "latest"
+            }
+            requestedInstance = instanceFinderImpl.getInstanceToInteractWith(project, instanceName)
             requestedInstance.tag = tag
-        } else {
-            requestedInstance.tag = "latest"
+
+             pullManager = dockerImagePullManagerFactory.create(requestedInstance)
+             dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance)
+             dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance)
+             removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance)
+             infoManager = infoManagerFactory.create(requestedInstance)
+
         }
 
-        PullImage pullManager = dockerImagePullManagerFactory.create(requestedInstance)
-        RunContainer dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance)
-        KillContainer dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance)
-        RemoveContainer removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance)
-        InspectContainer infoManager = infoManagerFactory.create(requestedInstance)
+
+
 
         switch (action.toUpperCase()) {
-            case SupportedActions.PULL.name():
+            case SupportedContainerActions.PULL.name():
                 pullManager.pullImage()
                 println("finished pulling the image for $requestedInstance.imageName:$requestedInstance.tag ")
                 break
-            case SupportedActions.RUN.name():
+            case SupportedContainerActions.RUN.name():
                 dockerContainerRunnerManager.runContainer();
                 println("finished running the container $requestedInstance.imageName:$requestedInstance.tag ")
                 break
-            case SupportedActions.KILL.name():
+            case SupportedContainerActions.KILL.name():
                 dockerContainerKillManager.killContainer();
                 println("finished killing the container $requestedInstance.imageName:$requestedInstance.tag ")
                 break
-            case SupportedActions.STATUS.name():
+            case SupportedContainerActions.STATUS.name():
                 String result = infoManager.getInfo();
                 println(result)
                 break
-            case SupportedActions.REMOVE.name():
+            case SupportedContainerActions.REMOVE.name():
                 removeManager.removeContainer()
                 println("finished removing the container $requestedInstance.imageName:$requestedInstance.tag ")
                 break
-            case SupportedActions.GROR_UPDATE.name():
+            case SupportedSystemActions.GROR_UPDATE.name():
                 org.kaddiya.grorchestrator.models.core.latest.GrorProject newProject  = updator.updateFromPreviousProject(project)
                 serialiser.serialiseProjectToFile(newProject,"v2_gror.json")
                 println("Done with updating to the new version")

@@ -1,4 +1,4 @@
-package org.kaddiya.grorchestrator.serialisers
+package org.kaddiya.grorchestrator.serialisers.previous;
 
 import groovy.util.logging.Log
 import org.kaddiya.grorchestrator.models.core.*
@@ -6,6 +6,8 @@ import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.previous.Component
 import org.kaddiya.grorchestrator.models.core.previous.GrorProject
 import org.kaddiya.grorchestrator.models.core.previous.Instance
+import org.kaddiya.grorchestrator.serialisers.GrorProjectSerialiser
+import org.kaddiya.grorchestrator.serialisers.previous.GrorProjectSerialiserImpl
 import spock.lang.Shared
 import spock.lang.Specification
 

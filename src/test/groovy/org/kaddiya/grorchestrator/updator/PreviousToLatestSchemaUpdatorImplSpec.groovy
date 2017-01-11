@@ -64,6 +64,6 @@ class PreviousToLatestSchemaUpdatorImplSpec extends Specification {
 
         ))
     }
-    
+
 }
 

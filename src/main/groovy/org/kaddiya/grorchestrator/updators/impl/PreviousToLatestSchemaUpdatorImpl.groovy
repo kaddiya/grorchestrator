@@ -17,7 +17,9 @@ class PreviousToLatestSchemaUpdatorImpl implements PreviousToLatestSchemaUpdator
     GrorProject updateFromPreviousProject(org.kaddiya.grorchestrator.models.core.previous.GrorProject previousProject) {
         //extract the host list
         List<Host> newHostList = getLatestHostListFromPreviousProject(previousProject)
+        //etract the component list
         List<org.kaddiya.grorchestrator.models.core.latest.Component> newComponents = getLatestComponentsListFromPreviousGrorProject(previousProject)
+        //return the new project
         return new GrorProject(new SystemInfo(previousProject.getSystemInfo().getName(),"0.0.3"), newComponents, newHostList)
     }
 

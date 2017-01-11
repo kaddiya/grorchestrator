@@ -74,7 +74,6 @@ class GrorProjectDeserialiserImplSpec extends Specification {
 
     def getDummyFullGrorProject() {
         SystemInfo info = new SystemInfo("demo", "0.0.2")
-        DockerHubAuth dockerHubAuth = new DockerHubAuth("username", "password", "auth", "email@example.com")
 
         List<Component> components = Arrays.asList(
 

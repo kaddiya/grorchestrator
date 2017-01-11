@@ -19,7 +19,7 @@ class HelperModule extends AbstractModule {
         bind(DockerContainerCreationRequestBuilder).to(DockerContainerCreationRequestBuilderImpl)
         bind(HostConfigBuilder).to(HostConfigBuilderImpl)
         bind(EnvironmentVarsResolver)
-        bind(PreviousToLatestSchemaUpdatorImpl).to(PreviousToLatestSchemaUpdator)
+        bind(PreviousToLatestSchemaUpdator).to(PreviousToLatestSchemaUpdatorImpl)
     }
 
 }

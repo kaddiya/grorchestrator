@@ -14,6 +14,8 @@ import org.kaddiya.grorchestrator.models.core.previous.GrorProject
 import org.kaddiya.grorchestrator.models.core.previous.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.SupportedActions
 import org.kaddiya.grorchestrator.deserialisers.GrorProjectDeserialiser
+import org.kaddiya.grorchestrator.serialiser.GrorProjectSerialiser
+import org.kaddiya.grorchestrator.updators.PreviousToLatestSchemaUpdator
 
 @CompileStatic
 class Grorchestrator {
@@ -27,7 +29,9 @@ class Grorchestrator {
 
         ))
 
-        GrorProjectDeserialiser serialiser = grorchestratorInjector.getInstance(GrorProjectDeserialiser)
+        GrorProjectDeserialiser deserialiser = grorchestratorInjector.getInstance(GrorProjectDeserialiser)
+        GrorProjectSerialiser serialiser = grorchestratorInjector.getInstance(GrorProjectSerialiser)
+        PreviousToLatestSchemaUpdator updator = grorchestratorInjector.getInstance(PreviousToLatestSchemaUpdator)
 
         PullImageFactory dockerImagePullManagerFactory = grorchestratorInjector.getInstance(PullImageFactory)
         RunContainerFactory dockerContainerRunnerFactory = grorchestratorInjector.getInstance(RunContainerFactory)
@@ -39,7 +43,7 @@ class Grorchestrator {
 
         String tag
 
-        assert args.size() >= 2: "incorrect number of arguments."
+        assert args.size() >= 1: "incorrect number of arguments."
 
         String action = args[0]
         String instanceName = args[1]
@@ -55,7 +59,7 @@ class Grorchestrator {
         }
 
         assert grorFile: "$DEFAULT_GROR_FILE_NAME file not found"
-        GrorProject project = serialiser.constructGrorProject(grorFile)
+        GrorProject project = deserialiser.constructGrorProject(grorFile)
         assert project: "project cant be constructed"
         Instance requestedInstance = instanceFinderImpl.getInstanceToInteractWith(project, instanceName)
         if (tag) {
@@ -91,6 +95,11 @@ class Grorchestrator {
                 removeManager.removeContainer()
                 println("finished removing the container $requestedInstance.imageName:$requestedInstance.tag ")
                 break
+            case SupportedActions.GROR_UPDATE.name():
+                org.kaddiya.grorchestrator.models.core.latest.GrorProject newProject  = updator.updateFromPreviousProject(project)
+                serialiser.serialiseProjectToFile(newProject,"v2_gror.json")
+                println("Done with updating to the new version")
+                break;
             default:
                 throw new IllegalArgumentException("Unsupported Actions")
                 break

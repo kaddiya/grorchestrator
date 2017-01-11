@@ -1,6 +1,7 @@
 package org.kaddiya.grorchestrator.updators.impl
 
 import groovy.transform.CompileStatic
+import org.kaddiya.grorchestrator.models.core.SystemInfo
 import org.kaddiya.grorchestrator.models.core.latest.GrorProject
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.previous.Component
@@ -16,8 +17,8 @@ class PreviousToLatestSchemaUpdatorImpl implements PreviousToLatestSchemaUpdator
     GrorProject updateFromPreviousProject(org.kaddiya.grorchestrator.models.core.previous.GrorProject previousProject) {
         //extract the host list
         List<Host> newHostList = getLatestHostListFromPreviousProject(previousProject)
-
-        return new GrorProject(previousProject.getSystemInfo(), Arrays.asList(new org.kaddiya.grorchestrator.models.core.latest.Component()), newHostList)
+        List<org.kaddiya.grorchestrator.models.core.latest.Component> newComponents = getLatestComponentsListFromPreviousGrorProject(previousProject)
+        return new GrorProject(new SystemInfo(previousProject.getSystemInfo().getName(),"0.0.3"), newComponents, newHostList)
     }
 
     @Override
@@ -32,19 +33,28 @@ class PreviousToLatestSchemaUpdatorImpl implements PreviousToLatestSchemaUpdator
         return result.flatten() as ArrayList<Host>
     }
 
+
     @Override
-    List<org.kaddiya.grorchestrator.models.core.latest.Instance> getLatestInstancesListFromPreviousProject(org.kaddiya.grorchestrator.models.core.previous.GrorProject previousProject) {
-        List<org.kaddiya.grorchestrator.models.core.latest.Instance> newInstancesList = previousProject.components.collectNested {
-            Component it ->
-                it.instances.collect { Instance previousInstance ->
+    List<org.kaddiya.grorchestrator.models.core.latest.Component> getLatestComponentsListFromPreviousGrorProject(org.kaddiya.grorchestrator.models.core.previous.GrorProject previousProject) {
+        List<org.kaddiya.grorchestrator.models.core.latest.Component> newComponentList = previousProject.components.collect{ it->
+             new org.kaddiya.grorchestrator.models.core.latest.Component(it.name,getLatestInstancesListFromPreviousComponents(it))
+        }
+        return newComponentList
+    }
+
+    @Override
+    List<org.kaddiya.grorchestrator.models.core.latest.Instance> getLatestInstancesListFromPreviousComponents(org.kaddiya.grorchestrator.models.core.previous.Component previousComponent) {
+        List<org.kaddiya.grorchestrator.models.core.latest.Instance> newInstancesList = previousComponent.instances.collect { previousInstance ->
                     new org.kaddiya.grorchestrator.models.core.latest.Instance(previousInstance.name, previousInstance.imageName,
                             previousInstance.tag, previousInstance.host.alias, previousInstance.volumeMapping,
                             previousInstance.portMapping, previousInstance.hostsMapping, previousInstance.envMap,
                             previousInstance.links, previousInstance.volumesFrom, previousInstance.commandToBeExecuted)
-                }
+
         }
 
-        return newInstancesList.flatten() as ArrayList<org.kaddiya.grorchestrator.models.core.latest.Instance>
+        return newInstancesList
     }
+
+
 }
 

@@ -1,7 +1,7 @@
 package org.kaddiya.grorchestrator.guice.factory;
 
 import org.kaddiya.grorchestrator.managers.interfaces.PullImage;
-import org.kaddiya.grorchestrator.models.core.Instance;
+import org.kaddiya.grorchestrator.models.core.previous.Instance;
 
 /**
  * Created by Webonise on 01/07/16.

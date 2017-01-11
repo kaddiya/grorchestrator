@@ -1,9 +1,9 @@
 package org.kaddiya.grorchestrator.helpers.impl
 
 import org.kaddiya.grorchestrator.helpers.InstanceFinder
-import org.kaddiya.grorchestrator.models.core.Component
-import org.kaddiya.grorchestrator.models.core.GrorProject
-import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.core.previous.Component
+import org.kaddiya.grorchestrator.models.core.previous.GrorProject
+import org.kaddiya.grorchestrator.models.core.previous.Instance
 
 /**
  * Created by Webonise on 02/07/16.

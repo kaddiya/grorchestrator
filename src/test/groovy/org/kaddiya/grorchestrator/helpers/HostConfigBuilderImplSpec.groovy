@@ -2,8 +2,8 @@ package org.kaddiya.grorchestrator.helpers
 
 import groovy.json.JsonOutput
 import org.kaddiya.grorchestrator.helpers.impl.HostConfigBuilderImpl
-import org.kaddiya.grorchestrator.models.core.Host
-import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.core.latest.Host
+import org.kaddiya.grorchestrator.models.core.previous.Instance
 import spock.lang.Shared
 import spock.lang.Specification
 

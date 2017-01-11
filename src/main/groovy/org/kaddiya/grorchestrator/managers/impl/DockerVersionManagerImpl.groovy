@@ -4,7 +4,7 @@ import okhttp3.MediaType
 import okhttp3.Request
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.interfaces.DockerVersionManager
-import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.core.previous.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.dockermetadata.VersionResponse
 
 /**

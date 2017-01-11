@@ -1,7 +1,7 @@
 package org.kaddiya.grorchestrator.guice.factory;
 
 import org.kaddiya.grorchestrator.managers.interfaces.RemoveContainer;
-import org.kaddiya.grorchestrator.models.core.Instance;
+import org.kaddiya.grorchestrator.models.core.previous.Instance;
 
 /**
  * Created by Webonise on 14/07/16.

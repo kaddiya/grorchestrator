@@ -1,9 +1,9 @@
-package org.kaddiya.grorchestrator.models.core
+package org.kaddiya.grorchestrator.models.core.latest
 
 import groovy.transform.Canonical
 
 /**
- * Created by Webonise on 19/03/16.
+ * Created by Webonise on 11/01/17.
  */
 @Canonical
 class Component {

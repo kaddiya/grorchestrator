@@ -5,7 +5,7 @@ import com.google.inject.assistedinject.Assisted
 import okhttp3.Request
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.interfaces.InspectContainer
-import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.core.previous.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.containerinfo.DockerContainerInspectionResponse
 
 /**

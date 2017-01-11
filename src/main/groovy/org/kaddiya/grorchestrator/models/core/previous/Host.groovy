@@ -1,9 +1,9 @@
-package org.kaddiya.grorchestrator.models.core
+package org.kaddiya.grorchestrator.models.core.previous
 
 import groovy.transform.Canonical
 
 /**
- * Created by Webonise on 23/06/16.
+ * Created by Webonise on 11/01/17.
  */
 @Canonical
 class Host {
@@ -13,5 +13,5 @@ class Host {
     String protocol
     String dockerVersion
     String apiVersion
-    String certPathForDockerDaemon
+
 }

@@ -10,7 +10,7 @@ import org.kaddiya.grorchestrator.guice.factory.RemoveContainerFactory
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.interfaces.KillContainer
 import org.kaddiya.grorchestrator.managers.interfaces.RemoveContainer
-import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.core.previous.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericNoContentResponse
 
 /**

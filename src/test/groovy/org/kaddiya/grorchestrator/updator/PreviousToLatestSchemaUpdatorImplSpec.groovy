@@ -38,7 +38,8 @@ class PreviousToLatestSchemaUpdatorImplSpec extends Specification {
         List<Host> newHostList = updatorImpl.getLatestHostListFromPreviousProject(previousProject)
         then:
         assert newHostList.size() == 1
-        assert newHostList.get(0).equals(new Host("127.0.0.1", "api-vm-1", 2376, "http", "1.7.1", "1.19", "/path/to/certs"))
+        Host host = newHostList.get(0)
+        assert host.equals(new Host("127.0.0.1", "api-vm-1", 2376, "http", "1.7.1", "1.19", "/path/to/certs"))
     }
 
 }

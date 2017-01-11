@@ -24,10 +24,11 @@ class PreviousToLatestSchemaUpdatorImpl implements PreviousToLatestSchemaUpdator
     List<Host> getLatestHostListFromPreviousProject(org.kaddiya.grorchestrator.models.core.previous.GrorProject previousProject) {
         List<Host> result = previousProject.components.collectNested {
             Component it ->
-                it.instances.collectNested {
+                it.instances.collect {
                     Instance i -> i.host
                 }
         }
-        return result
+
+        return result.flatten() as ArrayList<Host>
     }
 }

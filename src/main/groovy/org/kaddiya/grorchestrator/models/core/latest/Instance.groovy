@@ -10,7 +10,7 @@ class Instance {
     String name
     String imageName
     String tag
-    String hostKey
+    String hostid
     Map<String, String> volumeMapping
     Map<Integer, Integer> portMapping
     Map<String, String> hostsMapping

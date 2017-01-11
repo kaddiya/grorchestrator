@@ -9,5 +9,6 @@ import org.kaddiya.grorchestrator.models.core.SystemInfo
 @Canonical
 class GrorProject {
     SystemInfo systemInfo
-    List<org.kaddiya.grorchestrator.models.core.latest.Component> components
+    List<Component> components
+    List<Host> hosts
 }

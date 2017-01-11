@@ -1,7 +1,7 @@
 package org.kaddiya.grorchestrator.helpers
 
 import org.kaddiya.grorchestrator.helpers.impl.InstanceFinderImpl
-import org.kaddiya.grorchestrator.models.core.*
+import org.kaddiya.grorchestrator.models.core.SystemInfo
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.previous.Component
 import org.kaddiya.grorchestrator.models.core.previous.GrorProject

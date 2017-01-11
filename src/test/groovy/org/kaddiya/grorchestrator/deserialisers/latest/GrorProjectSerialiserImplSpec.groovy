@@ -1,4 +1,4 @@
-package org.kaddiya.grorchestrator.serialisers.latest
+package org.kaddiya.grorchestrator.deserialisers.latest
 
 import spock.lang.Specification
 

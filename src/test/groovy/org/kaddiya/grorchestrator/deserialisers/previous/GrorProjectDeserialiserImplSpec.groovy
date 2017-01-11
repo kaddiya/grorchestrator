@@ -1,4 +1,4 @@
-package org.kaddiya.grorchestrator.serialisers.previous
+package org.kaddiya.grorchestrator.deserialisers.previous
 
 import groovy.util.logging.Log
 import org.kaddiya.grorchestrator.models.core.DockerHubAuth
@@ -7,7 +7,7 @@ import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.previous.Component
 import org.kaddiya.grorchestrator.models.core.previous.GrorProject
 import org.kaddiya.grorchestrator.models.core.previous.Instance
-import org.kaddiya.grorchestrator.serialisers.GrorProjectDeserialiser
+import org.kaddiya.grorchestrator.deserialisers.GrorProjectDeserialiser
 import spock.lang.Shared
 import spock.lang.Specification
 

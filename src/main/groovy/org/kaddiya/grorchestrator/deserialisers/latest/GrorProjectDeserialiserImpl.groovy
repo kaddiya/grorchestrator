@@ -1,7 +1,7 @@
-package org.kaddiya.grorchestrator.serialisers.latest
+package org.kaddiya.grorchestrator.deserialisers.latest
 
 import org.kaddiya.grorchestrator.models.core.previous.GrorProject
-import org.kaddiya.grorchestrator.serialisers.GrorProjectDeserialiser
+import org.kaddiya.grorchestrator.deserialisers.GrorProjectDeserialiser
 
 /**
  * Created by Webonise on 11/01/17.

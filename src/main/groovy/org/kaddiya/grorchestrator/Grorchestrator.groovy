@@ -13,7 +13,7 @@ import org.kaddiya.grorchestrator.managers.interfaces.*
 import org.kaddiya.grorchestrator.models.core.previous.GrorProject
 import org.kaddiya.grorchestrator.models.core.previous.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.SupportedActions
-import org.kaddiya.grorchestrator.serialisers.GrorProjectDeserialiser
+import org.kaddiya.grorchestrator.deserialisers.GrorProjectDeserialiser
 
 @CompileStatic
 class Grorchestrator {

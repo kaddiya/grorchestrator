@@ -3,7 +3,7 @@ package org.kaddiya.grorchestrator.updator
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.core.previous.GrorProject
-import org.kaddiya.grorchestrator.serialisers.previous.GrorProjectDeserialiserImpl
+import org.kaddiya.grorchestrator.deserialisers.previous.GrorProjectDeserialiserImpl
 import org.kaddiya.grorchestrator.updators.PreviousToLatestSchemaUpdator
 import org.kaddiya.grorchestrator.updators.impl.PreviousToLatestSchemaUpdatorImpl
 import spock.lang.Shared

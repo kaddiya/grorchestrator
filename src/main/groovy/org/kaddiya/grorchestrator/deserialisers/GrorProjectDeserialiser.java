@@ -1,4 +1,4 @@
-package org.kaddiya.grorchestrator.serialisers;
+package org.kaddiya.grorchestrator.deserialisers;
 
 import org.kaddiya.grorchestrator.models.core.previous.GrorProject;
 

@@ -47,17 +47,25 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
     }
 
     public OkHttpClient initialiseOkHTTPClient() {
-        SslSocketConfigFactory socketConfigFactory = new SslSocketConfigFactory()
-        DockerSslSocket socket = socketConfigFactory.createDockerSslSocket(System.getenv("cert_path"))
-        //this client has got AllowAllHostNameConfig.Need to change it soon
-        OkHttpClient okClient = new OkHttpClient.Builder()
-                .sslSocketFactory(socket.sslSocketFactory, socket.trustManager)
-                .hostnameVerifier(new HostnameVerifier() {
-            @Override
-            boolean verify(String s, SSLSession sslSession) {
-                return true
-            }
-        }).build();
+        OkHttpClient okClient
+        if(this.instance.host.protocol == 'https'){
+            SslSocketConfigFactory socketConfigFactory = new SslSocketConfigFactory()
+            DockerSslSocket socket = socketConfigFactory.createDockerSslSocket(this.instance.host.certPathForDockerDaemon)
+            //this client has got AllowAllHostNameConfig.Need to change it soon
+             okClient = new OkHttpClient.Builder()
+                    .sslSocketFactory(socket.sslSocketFactory, socket.trustManager)
+                    .hostnameVerifier(new HostnameVerifier() {
+                @Override
+                boolean verify(String s, SSLSession sslSession) {
+                    return true
+                }
+            }).build();
+
+            return okClient
+        }
+        else{
+            okClient = new OkHttpClient.Builder().build()
+        }
 
         return okClient
     }

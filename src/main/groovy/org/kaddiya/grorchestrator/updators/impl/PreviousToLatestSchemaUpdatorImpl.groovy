@@ -14,8 +14,20 @@ import org.kaddiya.grorchestrator.updators.PreviousToLatestSchemaUpdator
 class PreviousToLatestSchemaUpdatorImpl implements PreviousToLatestSchemaUpdator {
     @Override
     GrorProject updateFromPreviousProject(org.kaddiya.grorchestrator.models.core.previous.GrorProject previousProject) {
-        List<Host> newHostList = previousProject.components.collectNested { Component it -> it.instances.collectNested {Instance i -> i.host}}
-        println(newHostList)
-        return new GrorProject(previousProject.getSystemInfo())
+        //extract the host list
+        List<Host> newHostList = getLatestHostListFromPreviousProject(previousProject)
+
+        return new GrorProject(previousProject.getSystemInfo(), Arrays.asList(new org.kaddiya.grorchestrator.models.core.latest.Component()), newHostList)
+    }
+
+    @Override
+    List<Host> getLatestHostListFromPreviousProject(org.kaddiya.grorchestrator.models.core.previous.GrorProject previousProject) {
+        List<Host> result = previousProject.components.collectNested {
+            Component it ->
+                it.instances.collectNested {
+                    Instance i -> i.host
+                }
+        }
+        return result
     }
 }

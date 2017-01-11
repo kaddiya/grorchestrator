@@ -49,8 +49,12 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
     public OkHttpClient initialiseOkHTTPClient() {
         OkHttpClient okClient
         if(this.instance.host.protocol == 'https'){
+            String certPath = this.instance.host.certPathForDockerDaemon
+            if(!certPath){
+                throw new IllegalStateException("protocol specified is https for host $instance.host.ip but the certificate path is not supplied")
+            }
             SslSocketConfigFactory socketConfigFactory = new SslSocketConfigFactory()
-            DockerSslSocket socket = socketConfigFactory.createDockerSslSocket(this.instance.host.certPathForDockerDaemon)
+            DockerSslSocket socket = socketConfigFactory.createDockerSslSocket(certPath)
             //this client has got AllowAllHostNameConfig.Need to change it soon
              okClient = new OkHttpClient.Builder()
                     .sslSocketFactory(socket.sslSocketFactory, socket.trustManager)

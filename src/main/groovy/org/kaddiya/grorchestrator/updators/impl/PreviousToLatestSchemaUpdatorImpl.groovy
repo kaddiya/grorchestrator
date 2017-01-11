@@ -31,4 +31,20 @@ class PreviousToLatestSchemaUpdatorImpl implements PreviousToLatestSchemaUpdator
 
         return result.flatten() as ArrayList<Host>
     }
+
+    @Override
+    List<org.kaddiya.grorchestrator.models.core.latest.Instance> getLatestInstancesListFromPreviousProject(org.kaddiya.grorchestrator.models.core.previous.GrorProject previousProject) {
+        List<org.kaddiya.grorchestrator.models.core.latest.Instance> newInstancesList = previousProject.components.collectNested {
+            Component it ->
+                it.instances.collect { Instance previousInstance ->
+                    new org.kaddiya.grorchestrator.models.core.latest.Instance(previousInstance.name, previousInstance.imageName,
+                            previousInstance.tag, previousInstance.host.alias, previousInstance.volumeMapping,
+                            previousInstance.portMapping, previousInstance.hostsMapping, previousInstance.envMap,
+                            previousInstance.links, previousInstance.volumesFrom, previousInstance.commandToBeExecuted)
+                }
+        }
+
+        return newInstancesList.flatten() as ArrayList<org.kaddiya.grorchestrator.models.core.latest.Instance>
+    }
 }
+

@@ -1,6 +1,7 @@
 package org.kaddiya.grorchestrator.updator
 
 import org.kaddiya.grorchestrator.models.core.latest.Host
+import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.core.previous.GrorProject
 import org.kaddiya.grorchestrator.serialisers.previous.GrorProjectSerialiserImpl
 import org.kaddiya.grorchestrator.updators.PreviousToLatestSchemaUpdator
@@ -40,6 +41,15 @@ class PreviousToLatestSchemaUpdatorImplSpec extends Specification {
         assert newHostList.size() == 1
         Host host = newHostList.get(0)
         assert host.equals(new Host("127.0.0.1", "api-vm-1", 2376, "http", "1.7.1", "1.19", "/path/to/certs"))
+    }
+
+    def "getLatestInstancesListFromPreviousProject should return a proper list of instances in the new form from the previous GrorProject"() {
+        when:
+        List<Instance> newInstanceList = updatorImpl.getLatestInstancesListFromPreviousProject(previousProject)
+        then:
+        assert newInstanceList
+        assert newInstanceList.size() == 1
+
     }
 
 }

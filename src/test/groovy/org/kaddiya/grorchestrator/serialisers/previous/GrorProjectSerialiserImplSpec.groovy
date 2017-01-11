@@ -73,7 +73,7 @@ class GrorProjectSerialiserImplSpec extends Specification {
     }
 
     def getDummyFullGrorProject() {
-        SystemInfo info = new SystemInfo("demo","0.0.2")
+        SystemInfo info = new SystemInfo("demo", "0.0.2")
         DockerHubAuth dockerHubAuth = new DockerHubAuth("username", "password", "auth", "email@example.com")
 
         List<Component> components = Arrays.asList(
@@ -82,14 +82,14 @@ class GrorProjectSerialiserImplSpec extends Specification {
                         new Instance("api.project.com",
                                 "dockerhubid/image_name",
                                 "latest",
-                                new Host("127.0.0.1", "api-vm-1", 2376, "http", "1.7.1", "1.19","/path/to/certs"),
+                                new Host("127.0.0.1", "api-vm-1", 2376, "http", "1.7.1", "1.19", "/path/to/certs"),
                                 Collections.unmodifiableMap(["/home/ubuntu/api-data/some-api-data": "/root/some-api-data",
-                                                             "/home/ubuntu/api-data/logs"           : "/opt/appData/api-logs/logs/"]),
+                                                             "/home/ubuntu/api-data/logs"         : "/opt/appData/api-logs/logs/"]),
                                 Collections.unmodifiableMap([8080: 8080]) as Map<Integer, Integer>,
                                 Collections.unmodifiableMap(["db.project.com": "127.0.0.1", "redis.project.com": "127.0.0.1"]),
                                 Collections.unmodifiableMap(["key-1": "value-1", "key-2": "value-2", "key-3": "value-3"]),
                                 Collections.unmodifiableMap(["name.for.container.1": "alias.for.container.1"]),
-                               Collections.unmodifiableList(["container_1","container_2"]),
+                                Collections.unmodifiableList(["container_1", "container_2"]),
                                 "someCommand arg1 arg2 --switch1 switchArg1"
 
                         )
@@ -114,7 +114,7 @@ class GrorProjectSerialiserImplSpec extends Specification {
                         new Instance("api.project.com", "dockerhubid/image_name", "latest",
                                 new Host("127.0.0.1", "api-vm-1", 2376, "http", "1.7.1", "1.19"),
                                 Collections.unmodifiableMap(["/home/ubuntu/api-data/some-api-data": "/root/some-api-data",
-                                                             "/home/ubuntu/api-data/logs"           : "/opt/appData/api-logs/logs/"]), Collections.unmodifiableMap([8080: 8080]) as Map<Integer, Integer>,
+                                                             "/home/ubuntu/api-data/logs"         : "/opt/appData/api-logs/logs/"]), Collections.unmodifiableMap([8080: 8080]) as Map<Integer, Integer>,
                                 Collections.unmodifiableMap(["db.project.com": "127.0.0.1", "redis.project.com": "127.0.0.1"],
 
                                 ),

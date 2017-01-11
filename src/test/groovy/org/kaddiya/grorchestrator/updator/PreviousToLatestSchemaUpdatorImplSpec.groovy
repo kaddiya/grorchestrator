@@ -22,23 +22,23 @@ class PreviousToLatestSchemaUpdatorImplSpec extends Specification {
     @Shared
     GrorProject previousProject = previousProjectSerializer.constructGrorProject(previousGrorJsonFile)
     @Shared
-    PreviousToLatestSchemaUpdator updatorImpl =  new PreviousToLatestSchemaUpdatorImpl()
+    PreviousToLatestSchemaUpdator updatorImpl = new PreviousToLatestSchemaUpdatorImpl()
 
-    def "updateFromPreviousProject should update properly to the new Version"(){
+    def "updateFromPreviousProject should update properly to the new Version"() {
 
         when:
         org.kaddiya.grorchestrator.models.core.latest.GrorProject updatedProject = updatorImpl.updateFromPreviousProject(previousProject)
 
         then:
-        assert updatedProject instanceof  org.kaddiya.grorchestrator.models.core.latest.GrorProject
+        assert updatedProject instanceof org.kaddiya.grorchestrator.models.core.latest.GrorProject
     }
 
     def "getLatestHostListFromPreviousProject should return a proper list of the host from the previous GrorProject"() {
-            when:
-            List<Host> newHostList = updatorImpl.getLatestHostListFromPreviousProject(previousProject)
-            then:
-            assert  newHostList.size() == 1
-            assert  newHostList.get(0).equals(new Host("127.0.0.1", "api-vm-1", 2376, "http", "1.7.1", "1.19","/path/to/certs"))
+        when:
+        List<Host> newHostList = updatorImpl.getLatestHostListFromPreviousProject(previousProject)
+        then:
+        assert newHostList.size() == 1
+        assert newHostList.get(0).equals(new Host("127.0.0.1", "api-vm-1", 2376, "http", "1.7.1", "1.19", "/path/to/certs"))
     }
 
 }

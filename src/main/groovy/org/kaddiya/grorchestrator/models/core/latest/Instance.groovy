@@ -16,6 +16,6 @@ class Instance {
     Map<String, String> hostsMapping
     Map<String, String> envMap
     Map<String, String> links
-    List<String>volumesFrom
+    List<String> volumesFrom
     String commandToBeExecuted
 }

@@ -55,11 +55,10 @@ class DockerContainerCreationRequestBuilderImpl implements DockerContainerCreati
         }
     }
 
-    List<String>getCommandToBeExecuted(String command){
-        if(command){
+    List<String> getCommandToBeExecuted(String command) {
+        if (command) {
             return Arrays.asList(command.split(" "))
-        }
-        else return null;
+        } else return null;
 
     }
 

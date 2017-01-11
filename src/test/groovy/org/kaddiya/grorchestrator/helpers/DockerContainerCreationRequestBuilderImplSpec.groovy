@@ -45,12 +45,12 @@ class DockerContainerCreationRequestBuilderImplSpec extends Specification {
         assert "[env=test, number=3]" == (result.toListString())
     }
 
-    def "getCommandToBeExecuted should return a an array of strings that is expected by the remote API"(){
+    def "getCommandToBeExecuted should return a an array of strings that is expected by the remote API"() {
         given:
         Instance instance = getDummyInstanceForVOnePointTwentyFour()
         when:
         List<String> result = (fixture as DockerContainerCreationRequestBuilderImpl).getCommandToBeExecuted(instance.commandToBeExecuted)
-        List<String> expected = Arrays.asList("someCommand","arg1","arg2","--switch1","switch1Args")
+        List<String> expected = Arrays.asList("someCommand", "arg1", "arg2", "--switch1", "switch1Args")
         then:
         assert expected == result
     }
@@ -71,9 +71,9 @@ class DockerContainerCreationRequestBuilderImplSpec extends Specification {
                 Collections.unmodifiableMap([:]),
                 Collections.unmodifiableMap(["env": "test", "number": "3"]),
                 Collections.unmodifiableMap(["name.for.container.1": "alias.for.container.1"]),
-                Collections.unmodifiableList(["container_1","container_2"]),
+                Collections.unmodifiableList(["container_1", "container_2"]),
                 "someCommand arg1 arg2 --switch1 switch1Args"
-                )
+        )
     }
 
 }

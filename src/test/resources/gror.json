@@ -1,7 +1,7 @@
 {
   "systemInfo": {
     "name": "demo",
-    "grorVersion":"0.0.2"
+    "grorVersion": "0.0.2"
   },
   "components": [
     {
@@ -38,11 +38,11 @@
           "links": {
             "name.for.container.1": "alias.for.container.1"
           },
-          "volumesFrom":[
-           "container_1",
+          "volumesFrom": [
+            "container_1",
             "container_2"
           ],
-          "commandToBeExecuted":"someCommand arg1 arg2 --switch1 switchArg1"
+          "commandToBeExecuted": "someCommand arg1 arg2 --switch1 switchArg1"
         }
       ],
       "name": "api-server"

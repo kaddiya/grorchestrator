@@ -4,7 +4,8 @@ import com.google.inject.Inject
 import groovy.transform.CompileStatic
 import org.kaddiya.grorchestrator.helpers.DockerContainerCreationRequestBuilder
 import org.kaddiya.grorchestrator.helpers.HostConfigBuilder
-import org.kaddiya.grorchestrator.models.core.previous.Instance
+import org.kaddiya.grorchestrator.models.core.latest.Host
+import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.requests.DockerContainerCreationRequest
 
 /**

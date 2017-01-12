@@ -1,7 +1,7 @@
 package org.kaddiya.grorchestrator.helpers;
 
-import org.kaddiya.grorchestrator.models.core.previous.GrorProject;
-import org.kaddiya.grorchestrator.models.core.previous.Instance;
+import org.kaddiya.grorchestrator.models.core.latest.GrorProject;
+import org.kaddiya.grorchestrator.models.core.latest.Instance;
 
 /**
  * Created by Webonise on 02/07/16.

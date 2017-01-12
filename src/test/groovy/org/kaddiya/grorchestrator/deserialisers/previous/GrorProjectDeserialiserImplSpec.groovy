@@ -1,13 +1,12 @@
 package org.kaddiya.grorchestrator.deserialisers.previous
 
 import groovy.util.logging.Log
-import org.kaddiya.grorchestrator.models.core.DockerHubAuth
+import org.kaddiya.grorchestrator.deserialisers.previous.GrorProjectDeserialiserImpl
 import org.kaddiya.grorchestrator.models.core.SystemInfo
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.previous.Component
 import org.kaddiya.grorchestrator.models.core.previous.GrorProject
 import org.kaddiya.grorchestrator.models.core.previous.Instance
-import org.kaddiya.grorchestrator.deserialisers.GrorProjectDeserialiser
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -18,7 +17,7 @@ import spock.lang.Specification
 class GrorProjectDeserialiserImplSpec extends Specification {
 
     @Shared
-    GrorProjectDeserialiser serialiser = new GrorProjectDeserialiserImpl();
+    GrorProjectDeserialiserImpl serialiser = new GrorProjectDeserialiserImpl();
 
     def "constructGrorProject should thrown an exception on recieving a null file name"() {
         when:

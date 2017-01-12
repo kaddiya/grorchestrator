@@ -2,7 +2,7 @@ package org.kaddiya.grorchestrator.helpers.impl
 
 import groovy.transform.CompileStatic
 import org.kaddiya.grorchestrator.helpers.HostConfigBuilder
-import org.kaddiya.grorchestrator.models.core.previous.Instance
+import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.requests.HostConfig
 
 /**

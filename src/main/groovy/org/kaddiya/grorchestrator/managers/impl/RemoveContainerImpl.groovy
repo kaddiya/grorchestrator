@@ -6,7 +6,8 @@ import groovy.transform.CompileStatic
 import okhttp3.Request
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.interfaces.RemoveContainer
-import org.kaddiya.grorchestrator.models.core.previous.Instance
+import org.kaddiya.grorchestrator.models.core.latest.Host
+import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericOKResponse
 
 /**
@@ -16,8 +17,8 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGene
 class RemoveContainerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> implements RemoveContainer {
 
     @Inject
-    RemoveContainerImpl(@Assisted Instance instance) {
-        super(instance)
+    RemoveContainerImpl(@Assisted Instance instance,@Assisted Host host) {
+        super(instance,host)
     }
 
     @Override

@@ -3,15 +3,14 @@ package org.kaddiya.grorchestrator.deserialisers.previous
 import com.fasterxml.jackson.databind.ObjectMapper
 import groovy.transform.CompileStatic
 import org.kaddiya.grorchestrator.models.core.previous.GrorProject
-import org.kaddiya.grorchestrator.deserialisers.GrorProjectDeserialiser
 
 /**
  * Created by Webonise on 24/06/16.
  */
 @CompileStatic
-class GrorProjectDeserialiserImpl implements GrorProjectDeserialiser {
+class GrorProjectDeserialiserImpl {
 
-    @Override
+
     GrorProject constructGrorProject(File name) {
         if (!name)
             throw new IllegalStateException("Filename cant be null")

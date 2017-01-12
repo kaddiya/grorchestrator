@@ -1,9 +1,7 @@
 package org.kaddiya.grorchestrator.serialiser.impl
 
 import groovy.json.JsonBuilder
-
 import groovy.transform.CompileStatic
-import org.kaddiya.grorchestrator.models.core.latest.GrorProject
 import org.kaddiya.grorchestrator.serialiser.GrorProjectSerialiser
 
 /**

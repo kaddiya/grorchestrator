@@ -1,6 +1,7 @@
 package org.kaddiya.grorchestrator.updators.impl
 
 import groovy.transform.CompileStatic
+import org.kaddiya.grorchestrator.Grorchestrator
 import org.kaddiya.grorchestrator.models.core.SystemInfo
 import org.kaddiya.grorchestrator.models.core.latest.GrorProject
 import org.kaddiya.grorchestrator.models.core.latest.Host
@@ -20,7 +21,7 @@ class PreviousToLatestSchemaUpdatorImpl implements PreviousToLatestSchemaUpdator
         //etract the component list
         List<org.kaddiya.grorchestrator.models.core.latest.Component> newComponents = getLatestComponentsListFromPreviousGrorProject(previousProject)
         //return the new project
-        return new GrorProject(new SystemInfo(previousProject.getSystemInfo().getName(),"0.0.3"), newComponents, newHostList)
+        return new GrorProject(new SystemInfo(previousProject.getSystemInfo().getName(),Grorchestrator.CURRENT_GROR_VERSION), newComponents, newHostList)
     }
 
     @Override

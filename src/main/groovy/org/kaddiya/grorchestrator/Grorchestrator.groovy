@@ -23,7 +23,9 @@ class Grorchestrator {
 
     final static String DEFAULT_GROR_FILE_NAME = "gror.json"
 
-    final static String CURRENT_GROR_VERSION = "0.0.3"
+    final static String CURRENT_GROR_VERSION = "3"
+
+    final static String ACTUAL_GROR_FILE_NAME = "v"+CURRENT_GROR_VERSION+"_"+DEFAULT_GROR_FILE_NAME
 
     public static void main(String[] args) {
 
@@ -34,11 +36,20 @@ class Grorchestrator {
 
         GrorProjectDeserialiser deserialiser = grorchestratorInjector.getInstance(GrorProjectDeserialiser)
 
-
+        //attempt to get a handle on the gror file of the current version
         File grorFile = new File(System.getProperty("user.dir")).listFiles().find { File it ->
-            it.name.equals(DEFAULT_GROR_FILE_NAME)
+            it.name.equals(ACTUAL_GROR_FILE_NAME)
+
         }
-        assert grorFile: "$DEFAULT_GROR_FILE_NAME file not found"
+        //if the gror file for the current version is not found then try to get a handle on the default one
+        if(!grorFile) {
+             grorFile = new File(System.getProperty("user.dir")).listFiles().find { File it ->
+                it.name.equals(DEFAULT_GROR_FILE_NAME)
+            }
+        }
+
+        assert grorFile : "You dont seem to have a valid gror.json file in this folder"
+
         GrorProject project = deserialiser.constructGrorProject(grorFile)
         assert project: "project cant be constructed"
 
@@ -50,7 +61,7 @@ class Grorchestrator {
             switch (action.toUpperCase()) {
                 case SupportedSystemActions.GROR_UPDATE.name():
                     org.kaddiya.grorchestrator.models.core.latest.GrorProject newProject = updator.updateFromPreviousProject(project)
-                    serialiser.serialiseProjectToFile(newProject, "v2_gror.json")
+                    serialiser.serialiseProjectToFile(newProject, ACTUAL_GROR_FILE_NAME)
                     println("Done with updating to the new version")
                     break;
 

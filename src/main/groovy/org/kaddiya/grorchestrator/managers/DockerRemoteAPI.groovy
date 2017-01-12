@@ -90,9 +90,10 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
     def scrubResponse = { Response res ->
         switch (res.code()) {
             case 404:
-                throw new IllegalStateException("not found")
+                this.notFoundHandler()
+                break;
             case 409:
-                throw new IllegalStateException("conflict")
+                this.conflictHander()
             case 200:
             case 201:
                 return parseResponseJson(res)
@@ -120,5 +121,16 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
     }
 
     protected abstract Request constructRequest()
+
+    protected Object notFoundHandler(){
+        throw new IllegalStateException("not found")
+    }
+
+    protected Object conflictHander(){
+        throw new IllegalStateException("conflict!")
+    }
+
+
+
 
 }

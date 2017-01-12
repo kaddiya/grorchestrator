@@ -50,5 +50,12 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
                 .build();
     }
 
+    @Override
+    protected Object notFoundHandler(){
+        //if container creation throws a 404 error then it means that we need to pull the iamge
+        pullImageImpl.pullImage();
+        return createContainer()
+    }
+
 
 }

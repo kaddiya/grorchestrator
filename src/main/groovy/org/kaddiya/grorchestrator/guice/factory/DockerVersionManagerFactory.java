@@ -9,5 +9,5 @@ import org.kaddiya.grorchestrator.models.core.latest.Instance;
  */
 public interface DockerVersionManagerFactory {
 
-    public DockerVersionManager create(Instance instance,Host host);
+    public DockerVersionManager create(Instance instance, Host host);
 }

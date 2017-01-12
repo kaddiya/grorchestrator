@@ -28,10 +28,11 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
 
     @Inject
     public CreateContainerImpl(
-            @Assisted Instance instance, @Assisted Host host,PullImageFactory pullImageFactory, DockerContainerCreationRequestBuilder containerCreationRequestBuilder) {
-        super(instance,host)
+            @Assisted Instance instance,
+            @Assisted Host host, PullImageFactory pullImageFactory, DockerContainerCreationRequestBuilder containerCreationRequestBuilder) {
+        super(instance, host)
         this.containerCreationRequestBuilder = containerCreationRequestBuilder
-        this.pullImageImpl = pullImageFactory.create(instance,host)
+        this.pullImageImpl = pullImageFactory.create(instance, host)
     }
 
     @Override
@@ -51,8 +52,9 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
     }
 
     @Override
-    protected Object notFoundHandler(){
+    protected Object notFoundHandler() {
         //if container creation throws a 404 error then it means that we need to pull the iamge
+        println("The iamge with #$instance.name with tag $instance.tag is not found.Going to attempt to pull it" )
         pullImageImpl.pullImage();
         return createContainer()
     }

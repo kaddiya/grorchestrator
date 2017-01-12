@@ -1,7 +1,6 @@
 package org.kaddiya.grorchestrator.deserialisers.previous
 
 import groovy.util.logging.Log
-import org.kaddiya.grorchestrator.deserialisers.previous.GrorProjectDeserialiserImpl
 import org.kaddiya.grorchestrator.models.core.SystemInfo
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.previous.Component

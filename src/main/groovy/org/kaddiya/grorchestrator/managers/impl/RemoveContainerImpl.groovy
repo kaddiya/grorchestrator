@@ -17,8 +17,8 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGene
 class RemoveContainerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> implements RemoveContainer {
 
     @Inject
-    RemoveContainerImpl(@Assisted Instance instance,@Assisted Host host) {
-        super(instance,host)
+    RemoveContainerImpl(@Assisted Instance instance, @Assisted Host host) {
+        super(instance, host)
     }
 
     @Override

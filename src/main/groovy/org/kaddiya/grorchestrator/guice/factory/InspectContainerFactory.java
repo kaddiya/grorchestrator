@@ -9,6 +9,6 @@ import org.kaddiya.grorchestrator.models.core.latest.Instance;
  */
 public interface InspectContainerFactory {
 
-    public InspectContainer create(Instance instance,Host host);
+    public InspectContainer create(Instance instance, Host host);
 }
 

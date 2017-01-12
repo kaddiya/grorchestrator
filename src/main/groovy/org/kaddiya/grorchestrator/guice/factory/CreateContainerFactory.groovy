@@ -8,5 +8,5 @@ import org.kaddiya.grorchestrator.models.core.latest.Instance
  * Created by Webonise on 05/07/16.
  */
 public interface CreateContainerFactory {
-    public CreateContainer create(Instance instance,Host host);
+    public CreateContainer create(Instance instance, Host host);
 }

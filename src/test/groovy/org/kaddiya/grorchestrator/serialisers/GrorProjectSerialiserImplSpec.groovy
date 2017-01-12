@@ -8,13 +8,14 @@ import spock.lang.Specification
 /**
  * Created by Webonise on 11/01/17.
  */
-class GrorProjectSerialiserImplSpec extends Specification{
+class GrorProjectSerialiserImplSpec extends Specification {
 
     @Shared
     GrorProjectSerialiserImpl impl = new GrorProjectSerialiserImpl()
-    def "serialiseProjectToFile should write out the json File"(){
+
+    def "serialiseProjectToFile should write out the json File"() {
         when:
-        impl.serialiseProjectToFile(new GrorProject(),"something.json")
+        impl.serialiseProjectToFile(new GrorProject(), "something.json")
         then:
         assert true
     }

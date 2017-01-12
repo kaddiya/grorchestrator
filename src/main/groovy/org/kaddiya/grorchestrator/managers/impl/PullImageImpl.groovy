@@ -26,8 +26,8 @@ class PullImageImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> imple
 
 
     @Inject
-    public PullImageImpl(@Assisted Instance instance,@Assisted Host host) {
-        super(instance,host)
+    public PullImageImpl(@Assisted Instance instance, @Assisted Host host) {
+        super(instance, host)
     }
 
 

@@ -8,14 +8,12 @@ import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
 import org.kaddiya.grorchestrator.guice.factory.CreateContainerFactory
-import org.kaddiya.grorchestrator.guice.factory.PullImageFactory
 import org.kaddiya.grorchestrator.helpers.HostConfigBuilder
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.interfaces.CreateContainer
-import org.kaddiya.grorchestrator.managers.interfaces.PullImage
 import org.kaddiya.grorchestrator.managers.interfaces.RunContainer
-import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.core.latest.Host
+import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.requests.HostConfig
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerCreationResponse
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericOKResponse
@@ -32,9 +30,10 @@ class RunContainerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> im
 
     @Inject
     RunContainerImpl(
-            @Assisted Instance instance, @Assisted Host host,CreateContainerFactory creatorFactory, HostConfigBuilder hostConfigBuilder) {
-        super(instance,host)
-        containerCreatorImpl = creatorFactory.create(this.instance,this.host)
+            @Assisted Instance instance,
+            @Assisted Host host, CreateContainerFactory creatorFactory, HostConfigBuilder hostConfigBuilder) {
+        super(instance, host)
+        containerCreatorImpl = creatorFactory.create(this.instance, this.host)
         this.hostConfigBuilder = hostConfigBuilder
     }
 

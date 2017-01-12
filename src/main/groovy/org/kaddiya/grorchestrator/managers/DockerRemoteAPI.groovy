@@ -33,7 +33,7 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     final Class aClass
 
-    public DockerRemoteAPI(Instance instance,Host host) {
+    public DockerRemoteAPI(Instance instance, Host host) {
 
         String protocol = derieveProtocol(host)
         this.host = host
@@ -122,15 +122,13 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     protected abstract Request constructRequest()
 
-    protected Object notFoundHandler(){
+    protected Object notFoundHandler() {
         throw new IllegalStateException("not found")
     }
 
-    protected Object conflictHander(){
+    protected Object conflictHander() {
         throw new IllegalStateException("conflict!")
     }
-
-
 
 
 }

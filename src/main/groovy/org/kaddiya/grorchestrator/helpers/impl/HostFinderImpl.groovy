@@ -8,12 +8,12 @@ import org.kaddiya.grorchestrator.models.core.latest.Host
  */
 class HostFinderImpl {
 
-    public Host getHostToInteractWith(GrorProject project,String hostId){
-       Host host = project.hosts.find{ it->
+    public Host getHostToInteractWith(GrorProject project, String hostId) {
+        Host host = project.hosts.find { it ->
             it.alias == hostId
         }
 
-        if(!host){
+        if (!host) {
             throw new IllegalStateException("In the current project no host with alias $hostId is referenced.Are you sure you configured the instances properly?")
         }
 

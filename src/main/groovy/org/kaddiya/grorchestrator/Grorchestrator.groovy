@@ -15,8 +15,8 @@ import org.kaddiya.grorchestrator.managers.interfaces.*
 import org.kaddiya.grorchestrator.models.core.SupportedContainerActions
 import org.kaddiya.grorchestrator.models.core.SupportedSystemActions
 import org.kaddiya.grorchestrator.models.core.latest.Host
-import org.kaddiya.grorchestrator.models.core.previous.GrorProject
 import org.kaddiya.grorchestrator.models.core.latest.Instance
+import org.kaddiya.grorchestrator.models.core.previous.GrorProject
 import org.kaddiya.grorchestrator.serialiser.GrorProjectSerialiser
 import org.kaddiya.grorchestrator.updators.PreviousToLatestSchemaUpdator
 
@@ -27,7 +27,7 @@ class Grorchestrator {
 
     final static String CURRENT_GROR_VERSION = "0.0.3"
 
-    final static String ACTUAL_GROR_FILE_NAME = "v"+CURRENT_GROR_VERSION+"_"+DEFAULT_GROR_FILE_NAME
+    final static String ACTUAL_GROR_FILE_NAME = "v" + CURRENT_GROR_VERSION + "_" + DEFAULT_GROR_FILE_NAME
 
     public static void main(String[] args) {
 
@@ -46,14 +46,14 @@ class Grorchestrator {
         }
 
         //if the gror file for the current version is not found then try to get a handle on the default one
-        if(!grorFile) {
-             grorFile = new File(System.getProperty("user.dir")).listFiles().find { File it ->
+        if (!grorFile) {
+            grorFile = new File(System.getProperty("user.dir")).listFiles().find { File it ->
                 it.name.equals(DEFAULT_GROR_FILE_NAME)
             }
             GrorProject project = previousDeserialiser.constructGrorProject(grorFile)
             assert project: "project cant be constructed"
 
-            if(SupportedSystemActions.values().any{SupportedSystemActions it -> it.name().equalsIgnoreCase(args[0])}){
+            if (SupportedSystemActions.values().any { SupportedSystemActions it -> it.name().equalsIgnoreCase(args[0]) }) {
                 GrorProjectSerialiser serialiser = grorchestratorInjector.getInstance(GrorProjectSerialiser)
                 PreviousToLatestSchemaUpdator updator = grorchestratorInjector.getInstance(PreviousToLatestSchemaUpdator)
                 String action = args[0]
@@ -69,12 +69,11 @@ class Grorchestrator {
                         throw new IllegalArgumentException("Unsupported Actions")
                         break
                 }
-            }
-            else{
+            } else {
                 throw new IllegalStateException("You have attemped to run a command with incorrect gror file format.Please run gror_update")
             }
         }
-        if(grorFile) {
+        if (grorFile) {
             org.kaddiya.grorchestrator.models.core.latest.GrorProject project = latestDeserialiser.constructGrorProject(grorFile)
             if (SupportedContainerActions.values().any { SupportedContainerActions it -> it.name().equalsIgnoreCase(args[0]) }) {
 
@@ -104,14 +103,14 @@ class Grorchestrator {
                 HostFinderImpl hostFinderImpl = grorchestratorInjector.getInstance(HostFinderImpl)
                 Instance requestedInstance = instanceFinderImpl.getInstanceToInteractWith(project, instanceName)
                 requestedInstance.tag = tag
-                Host requestedHost = hostFinderImpl.getHostToInteractWith(project,requestedInstance.hostId)
+                Host requestedHost = hostFinderImpl.getHostToInteractWith(project, requestedInstance.hostId)
 
                 //conditionally create the remote api managers if the action has something to do with container actions
-                PullImage pullManager = dockerImagePullManagerFactory.create(requestedInstance,requestedHost)
-                RunContainer dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance,requestedHost)
-                KillContainer dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance,requestedHost)
-                RemoveContainer removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance,requestedHost)
-                InspectContainer infoManager = infoManagerFactory.create(requestedInstance,requestedHost)
+                PullImage pullManager = dockerImagePullManagerFactory.create(requestedInstance, requestedHost)
+                RunContainer dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance, requestedHost)
+                KillContainer dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance, requestedHost)
+                RemoveContainer removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance, requestedHost)
+                InspectContainer infoManager = infoManagerFactory.create(requestedInstance, requestedHost)
 
                 switch (action.toUpperCase()) {
                     case SupportedContainerActions.PULL.name():
@@ -139,7 +138,7 @@ class Grorchestrator {
                         break
                 }
             }
-        }else{
+        } else {
             throw new IllegalStateException("YOu dont seem to have a gror.json file in the current folkder")
         }
     }

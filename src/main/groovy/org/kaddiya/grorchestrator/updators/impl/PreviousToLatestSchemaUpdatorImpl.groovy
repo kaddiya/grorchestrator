@@ -21,7 +21,7 @@ class PreviousToLatestSchemaUpdatorImpl implements PreviousToLatestSchemaUpdator
         //etract the component list
         List<org.kaddiya.grorchestrator.models.core.latest.Component> newComponents = getLatestComponentsListFromPreviousGrorProject(previousProject)
         //return the new project
-        return new GrorProject(new SystemInfo(previousProject.getSystemInfo().getName(),Grorchestrator.CURRENT_GROR_VERSION), newComponents, newHostList)
+        return new GrorProject(new SystemInfo(previousProject.getSystemInfo().getName(), Grorchestrator.CURRENT_GROR_VERSION), newComponents, newHostList)
     }
 
     @Override
@@ -39,8 +39,8 @@ class PreviousToLatestSchemaUpdatorImpl implements PreviousToLatestSchemaUpdator
 
     @Override
     List<org.kaddiya.grorchestrator.models.core.latest.Component> getLatestComponentsListFromPreviousGrorProject(org.kaddiya.grorchestrator.models.core.previous.GrorProject previousProject) {
-        List<org.kaddiya.grorchestrator.models.core.latest.Component> newComponentList = previousProject.components.collect{ it->
-             new org.kaddiya.grorchestrator.models.core.latest.Component(it.name,getLatestInstancesListFromPreviousComponents(it))
+        List<org.kaddiya.grorchestrator.models.core.latest.Component> newComponentList = previousProject.components.collect { it ->
+            new org.kaddiya.grorchestrator.models.core.latest.Component(it.name, getLatestInstancesListFromPreviousComponents(it))
         }
         return newComponentList
     }
@@ -48,10 +48,10 @@ class PreviousToLatestSchemaUpdatorImpl implements PreviousToLatestSchemaUpdator
     @Override
     List<org.kaddiya.grorchestrator.models.core.latest.Instance> getLatestInstancesListFromPreviousComponents(org.kaddiya.grorchestrator.models.core.previous.Component previousComponent) {
         List<org.kaddiya.grorchestrator.models.core.latest.Instance> newInstancesList = previousComponent.instances.collect { previousInstance ->
-                    new org.kaddiya.grorchestrator.models.core.latest.Instance(previousInstance.name, previousInstance.imageName,
-                            previousInstance.tag, previousInstance.host.alias, previousInstance.volumeMapping,
-                            previousInstance.portMapping, previousInstance.hostsMapping, previousInstance.envMap,
-                            previousInstance.links, previousInstance.volumesFrom, previousInstance.commandToBeExecuted)
+            new org.kaddiya.grorchestrator.models.core.latest.Instance(previousInstance.name, previousInstance.imageName,
+                    previousInstance.tag, previousInstance.host.alias, previousInstance.volumeMapping,
+                    previousInstance.portMapping, previousInstance.hostsMapping, previousInstance.envMap,
+                    previousInstance.links, previousInstance.volumesFrom, previousInstance.commandToBeExecuted)
 
         }
 

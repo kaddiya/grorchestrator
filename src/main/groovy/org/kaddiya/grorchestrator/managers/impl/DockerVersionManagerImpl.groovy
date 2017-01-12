@@ -15,8 +15,8 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.dockermetadata.V
 class DockerVersionManagerImpl extends DockerRemoteAPI<VersionResponse> implements DockerVersionManager {
 
     @Inject
-    DockerVersionManagerImpl(Instance instance,Host host) {
-        super(instance,host)
+    DockerVersionManagerImpl(Instance instance, Host host) {
+        super(instance, host)
     }
 
     @Override

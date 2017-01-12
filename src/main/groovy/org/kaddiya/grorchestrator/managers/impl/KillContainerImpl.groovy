@@ -28,8 +28,8 @@ class KillContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResp
     @Inject
     KillContainerImpl(
             @Assisted Instance instance, @Assisted Host host, RemoveContainerFactory containerRemoveMangerFactory) {
-        super(instance,host)
-        this.containerRemoveManager = containerRemoveMangerFactory.create(instance,host)
+        super(instance, host)
+        this.containerRemoveManager = containerRemoveMangerFactory.create(instance, host)
     }
 
     @Override

@@ -9,5 +9,5 @@ import org.kaddiya.grorchestrator.models.core.latest.Instance;
  */
 public interface KillContainerFactory {
 
-    public KillContainer create(Instance instance,Host host);
+    public KillContainer create(Instance instance, Host host);
 }

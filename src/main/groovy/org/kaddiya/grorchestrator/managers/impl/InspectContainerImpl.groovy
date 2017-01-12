@@ -15,8 +15,8 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.containerinfo.Do
 class InspectContainerImpl extends DockerRemoteAPI<DockerContainerInspectionResponse> implements InspectContainer {
 
     @Inject
-    InspectContainerImpl(@Assisted Instance instance,@Assisted Host host) {
-        super(instance,host)
+    InspectContainerImpl(@Assisted Instance instance, @Assisted Host host) {
+        super(instance, host)
     }
 
     @Override

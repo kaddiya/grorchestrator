@@ -25,7 +25,7 @@ class Grorchestrator {
 
     final static String DEFAULT_GROR_FILE_NAME = "gror.json"
 
-    final static String CURRENT_GROR_VERSION = "0.0.3"
+    final static String CURRENT_GROR_VERSION = "1.0.0"
 
     final static String ACTUAL_GROR_FILE_NAME = "v" + CURRENT_GROR_VERSION + "_" + DEFAULT_GROR_FILE_NAME
 

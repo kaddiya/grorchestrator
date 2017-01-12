@@ -3,9 +3,9 @@ package org.kaddiya.grorchestrator.helpers
 import org.kaddiya.grorchestrator.helpers.impl.InstanceFinderImpl
 import org.kaddiya.grorchestrator.models.core.SystemInfo
 import org.kaddiya.grorchestrator.models.core.latest.Host
-import org.kaddiya.grorchestrator.models.core.previous.Component
-import org.kaddiya.grorchestrator.models.core.previous.GrorProject
-import org.kaddiya.grorchestrator.models.core.previous.Instance
+import org.kaddiya.grorchestrator.models.core.latest.Component
+import org.kaddiya.grorchestrator.models.core.latest.GrorProject
+import org.kaddiya.grorchestrator.models.core.latest.Instance
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -52,7 +52,7 @@ class InstanceFinderImplSpec extends Specification {
         List<Component> components = Arrays.asList(
                 new Component("redis-cache", Arrays.asList(
                         new Instance("redis.proof.com", "redis", "latest",
-                                new Host("127.0.0.1", "redis-vm-1", 2376),
+                                "redis-vm-1",
                                 Collections.unmodifiableMap(["/home/deploy/cache-data": "/data"]), Collections.unmodifiableMap([6379: 6379]) as Map<Integer, Integer>,
                                 Collections.unmodifiableMap([:])
                         )
@@ -74,12 +74,12 @@ class InstanceFinderImplSpec extends Specification {
         List<Component> components = Arrays.asList(
                 new Component("redis-cache", Arrays.asList(
                         new Instance("redis.proof.com", "redis", "latest",
-                                new Host("127.0.0.1", "redis-vm-1", 2376),
+                                "redis-vm-1",
                                 Collections.unmodifiableMap(["/home/deploy/cache-data": "/data"]), Collections.unmodifiableMap([6379: 6379]) as Map<Integer, Integer>,
                                 Collections.unmodifiableMap([:])
                         ),
                         new Instance("redis.proof.com", "redis", "latest",
-                                new Host("127.0.0.1", "redis-vm-1", 2376),
+                                "redis-vm-1",
                                 Collections.unmodifiableMap(["/home/deploy/cache-data": "/data"]), Collections.unmodifiableMap([6379: 6379]) as Map<Integer, Integer>,
                                 Collections.unmodifiableMap([:])
                         )

@@ -4,7 +4,8 @@ import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
-import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.core.latest.Host
+import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericNoContentResponse
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericOKResponse
 import org.kaddiya.grorchestrator.models.ssl.DockerSslSocket
@@ -20,6 +21,8 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     final Instance instance;
 
+    final Host host;
+
     final String baseUrl;
 
     final OkHttpClient httpClient
@@ -30,11 +33,13 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     final Class aClass
 
-    public DockerRemoteAPI(Instance instance) {
-        String protocol = derieveProtocol(instance)
+    public DockerRemoteAPI(Instance instance, Host host) {
+
+        String protocol = derieveProtocol(host)
+        this.host = host
         this.instance = instance
         //construct the baseURL
-        this.baseUrl = "$protocol://$instance.host.ip:$instance.host.dockerPort"
+        this.baseUrl = "$protocol://$host.ip:$host.dockerPort"
         //initialise the OkHTTPCLient
         this.httpClient = initialiseOkHTTPClient()
         this.aClass = DOCKER_REMOTE_RESPONSE_CLASS.class
@@ -42,22 +47,33 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
     }
 
 
-    String derieveProtocol(Instance instance) {
-        instance.host.protocol ? instance.host.protocol : "http"
+    String derieveProtocol(Host host) {
+        host.protocol ? host.protocol : "http"
     }
 
     public OkHttpClient initialiseOkHTTPClient() {
-        SslSocketConfigFactory socketConfigFactory = new SslSocketConfigFactory()
-        DockerSslSocket socket = socketConfigFactory.createDockerSslSocket(System.getenv("cert_path"))
-        //this client has got AllowAllHostNameConfig.Need to change it soon
-        OkHttpClient okClient = new OkHttpClient.Builder()
-                .sslSocketFactory(socket.sslSocketFactory, socket.trustManager)
-                .hostnameVerifier(new HostnameVerifier() {
-            @Override
-            boolean verify(String s, SSLSession sslSession) {
-                return true
+        OkHttpClient okClient
+        if (this.host.protocol == 'https') {
+            String certPath = this.host.certPathForDockerDaemon
+            if (!certPath) {
+                throw new IllegalStateException("protocol specified is https for host $host.ip but the certificate path is not supplied")
             }
-        }).build();
+            SslSocketConfigFactory socketConfigFactory = new SslSocketConfigFactory()
+            DockerSslSocket socket = socketConfigFactory.createDockerSslSocket(certPath)
+            //this client has got AllowAllHostNameConfig.Need to change it soon
+            okClient = new OkHttpClient.Builder()
+                    .sslSocketFactory(socket.sslSocketFactory, socket.trustManager)
+                    .hostnameVerifier(new HostnameVerifier() {
+                @Override
+                boolean verify(String s, SSLSession sslSession) {
+                    return true
+                }
+            }).build();
+
+            return okClient
+        } else {
+            okClient = new OkHttpClient.Builder().build()
+        }
 
         return okClient
     }
@@ -74,9 +90,10 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
     def scrubResponse = { Response res ->
         switch (res.code()) {
             case 404:
-                throw new IllegalStateException("not found")
+                this.notFoundHandler()
+                break;
             case 409:
-                throw new IllegalStateException("conflict")
+                this.conflictHander()
             case 200:
             case 201:
                 return parseResponseJson(res)
@@ -104,5 +121,14 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
     }
 
     protected abstract Request constructRequest()
+
+    protected Object notFoundHandler() {
+        throw new IllegalStateException("not found")
+    }
+
+    protected Object conflictHander() {
+        throw new IllegalStateException("conflict!")
+    }
+
 
 }

@@ -5,7 +5,8 @@ import com.google.inject.assistedinject.Assisted
 import okhttp3.Request
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.interfaces.InspectContainer
-import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.core.latest.Host
+import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.containerinfo.DockerContainerInspectionResponse
 
 /**
@@ -14,8 +15,8 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.containerinfo.Do
 class InspectContainerImpl extends DockerRemoteAPI<DockerContainerInspectionResponse> implements InspectContainer {
 
     @Inject
-    InspectContainerImpl(@Assisted Instance instance) {
-        super(instance)
+    InspectContainerImpl(@Assisted Instance instance, @Assisted Host host) {
+        super(instance, host)
     }
 
     @Override

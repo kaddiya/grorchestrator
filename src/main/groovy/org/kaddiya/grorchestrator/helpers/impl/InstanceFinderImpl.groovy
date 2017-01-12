@@ -1,14 +1,15 @@
 package org.kaddiya.grorchestrator.helpers.impl
 
 import org.kaddiya.grorchestrator.helpers.InstanceFinder
-import org.kaddiya.grorchestrator.models.core.Component
-import org.kaddiya.grorchestrator.models.core.GrorProject
-import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.core.latest.Component
+import org.kaddiya.grorchestrator.models.core.latest.GrorProject
+import org.kaddiya.grorchestrator.models.core.latest.Instance
 
 /**
  * Created by Webonise on 02/07/16.
  */
 class InstanceFinderImpl implements InstanceFinder {
+
     @Override
     Instance getInstanceToInteractWith(GrorProject project, String instanceName) {
         List<Instance> requestedInstances = project.components.collectNested { Component it ->

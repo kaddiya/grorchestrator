@@ -1,4 +1,4 @@
-package org.kaddiya.grorchestrator.models.core
+package org.kaddiya.grorchestrator.models.core.previous
 
 import groovy.transform.Canonical
 

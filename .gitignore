@@ -6,4 +6,4 @@
 .idea/libraries
 build/
 .DS_Store
-gror.json
+*gror.json

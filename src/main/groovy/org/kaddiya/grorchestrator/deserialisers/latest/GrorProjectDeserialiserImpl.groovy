@@ -1,17 +1,16 @@
-package org.kaddiya.grorchestrator.serialisers
+package org.kaddiya.grorchestrator.deserialisers.latest
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import groovy.transform.CompileStatic
-import org.kaddiya.grorchestrator.models.core.GrorProject
+import org.kaddiya.grorchestrator.models.core.latest.GrorProject
 
 /**
- * Created by Webonise on 24/06/16.
+ * Created by Webonise on 11/01/17.
  */
-@CompileStatic
-class GrorProjectSerialiserImpl implements GrorProjectSerialiser {
+class GrorProjectDeserialiserImpl {
 
-    @Override
+
     GrorProject constructGrorProject(File name) {
+
         if (!name)
             throw new IllegalStateException("Filename cant be null")
         if (!name.exists())
@@ -29,6 +28,5 @@ class GrorProjectSerialiserImpl implements GrorProjectSerialiser {
         return grorProject;
 
     }
-
 
 }

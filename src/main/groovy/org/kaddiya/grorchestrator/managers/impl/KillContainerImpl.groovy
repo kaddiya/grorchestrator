@@ -10,7 +10,8 @@ import org.kaddiya.grorchestrator.guice.factory.RemoveContainerFactory
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.interfaces.KillContainer
 import org.kaddiya.grorchestrator.managers.interfaces.RemoveContainer
-import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.core.latest.Host
+import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericNoContentResponse
 
 /**
@@ -26,9 +27,9 @@ class KillContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResp
 
     @Inject
     KillContainerImpl(
-            @Assisted Instance instance, RemoveContainerFactory containerRemoveMangerFactory) {
-        super(instance)
-        this.containerRemoveManager = containerRemoveMangerFactory.create(instance)
+            @Assisted Instance instance, @Assisted Host host, RemoveContainerFactory containerRemoveMangerFactory) {
+        super(instance, host)
+        this.containerRemoveManager = containerRemoveMangerFactory.create(instance, host)
     }
 
     @Override

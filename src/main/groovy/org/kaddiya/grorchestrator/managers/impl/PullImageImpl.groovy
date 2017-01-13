@@ -6,9 +6,10 @@ import groovy.transform.CompileStatic
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
-import org.kaddiya.grorchestrator.helpers.DockerAuthCredentialsBuilder
+import org.kaddiya.grorchestrator.helpers.impl.DockerhubAuthCredentialsBuilder
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.interfaces.PullImage
+import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericOKResponse
@@ -22,12 +23,13 @@ class PullImageImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> imple
     String authHeaderKey = "X-Registry-Auth"
 
     @Inject
-    DockerAuthCredentialsBuilder builder
-
+    private DockerhubAuthCredentialsBuilder builder
+    private final DockerHubAuth auth
 
     @Inject
-    public PullImageImpl(@Assisted Instance instance, @Assisted Host host) {
+    public PullImageImpl(@Assisted Instance instance, @Assisted Host host, @Assisted DockerHubAuth auth) {
         super(instance, host)
+        this.auth = auth
     }
 
 
@@ -43,7 +45,7 @@ class PullImageImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> imple
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         return new Request.Builder()
                 .url("$baseUrl/images/create?fromImage=$instance.imageName:$instance.tag")
-                .header("X-Registry-Auth", builder.getbase64EncodedValueForCredentials())
+                .header("X-Registry-Auth", builder.getbase64EncodedValueForCredentials(auth))
                 .post(RequestBody.create(JSON, ""))  //this requires an empty request body
                 .build();
     }

@@ -53,6 +53,7 @@ class InstanceFinderImplSpec extends Specification {
                 new Component("redis-cache", Arrays.asList(
                         new Instance("redis.proof.com", "redis", "latest",
                                 "redis-vm-1",
+                                "Default-key",
                                 Collections.unmodifiableMap(["/home/deploy/cache-data": "/data"]), Collections.unmodifiableMap([6379: 6379]) as Map<Integer, Integer>,
                                 Collections.unmodifiableMap([:])
                         )
@@ -75,11 +76,13 @@ class InstanceFinderImplSpec extends Specification {
                 new Component("redis-cache", Arrays.asList(
                         new Instance("redis.proof.com", "redis", "latest",
                                 "redis-vm-1",
+                                "Default-key",
                                 Collections.unmodifiableMap(["/home/deploy/cache-data": "/data"]), Collections.unmodifiableMap([6379: 6379]) as Map<Integer, Integer>,
                                 Collections.unmodifiableMap([:])
                         ),
                         new Instance("redis.proof.com", "redis", "latest",
                                 "redis-vm-1",
+                                "Default-key",
                                 Collections.unmodifiableMap(["/home/deploy/cache-data": "/data"]), Collections.unmodifiableMap([6379: 6379]) as Map<Integer, Integer>,
                                 Collections.unmodifiableMap([:])
                         )

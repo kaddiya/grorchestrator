@@ -49,7 +49,7 @@ class PreviousToLatestSchemaUpdatorImpl implements PreviousToLatestSchemaUpdator
     List<org.kaddiya.grorchestrator.models.core.latest.Instance> getLatestInstancesListFromPreviousComponents(org.kaddiya.grorchestrator.models.core.previous.Component previousComponent) {
         List<org.kaddiya.grorchestrator.models.core.latest.Instance> newInstancesList = previousComponent.instances.collect { previousInstance ->
             new org.kaddiya.grorchestrator.models.core.latest.Instance(previousInstance.name, previousInstance.imageName,
-                    previousInstance.tag, previousInstance.host.alias, previousInstance.volumeMapping,
+                    previousInstance.tag, previousInstance.host.alias, "update-your-auth-key", previousInstance.volumeMapping,
                     previousInstance.portMapping, previousInstance.hostsMapping, previousInstance.envMap,
                     previousInstance.links, previousInstance.volumesFrom, previousInstance.commandToBeExecuted)
 

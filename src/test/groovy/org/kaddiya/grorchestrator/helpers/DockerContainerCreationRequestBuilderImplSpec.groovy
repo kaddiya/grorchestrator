@@ -57,6 +57,7 @@ class DockerContainerCreationRequestBuilderImplSpec extends Specification {
     Instance getDummyInstanceForVOnePointNineteen() {
         return new Instance("redis.proof.com", "redis", "latest",
                 "redis-vm-1",
+                "default-auth-key",
                 Collections.unmodifiableMap(["/home/deploy/cache-data-1": "/data-1", "/home/deploy/cache-data-2": "/data-2"]), Collections.unmodifiableMap([10222: 22]) as Map<Integer, Integer>,
                 Collections.unmodifiableMap([:]),
                 Collections.unmodifiableMap(["env": "test", "number": "3"]
@@ -66,6 +67,7 @@ class DockerContainerCreationRequestBuilderImplSpec extends Specification {
     Instance getDummyInstanceForVOnePointTwentyFour() {
         return new Instance("redis.proof.com", "redis", "latest",
                 "redis-vm-1",
+                "default-auth-key",
                 Collections.unmodifiableMap(["/home/deploy/cache-data-1": "/data-1", "/home/deploy/cache-data-2": "/data-2"]), Collections.unmodifiableMap([10222: 22]) as Map<Integer, Integer>,
                 Collections.unmodifiableMap([:]),
                 Collections.unmodifiableMap(["env": "test", "number": "3"]),

@@ -12,6 +12,7 @@ import org.kaddiya.grorchestrator.helpers.DockerContainerCreationRequestBuilder
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.interfaces.CreateContainer
 import org.kaddiya.grorchestrator.managers.interfaces.PullImage
+import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.requests.DockerContainerCreationRequest
@@ -29,10 +30,11 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
     @Inject
     public CreateContainerImpl(
             @Assisted Instance instance,
-            @Assisted Host host, PullImageFactory pullImageFactory, DockerContainerCreationRequestBuilder containerCreationRequestBuilder) {
+            @Assisted Host host,
+            @Assisted DockerHubAuth auth, PullImageFactory pullImageFactory, DockerContainerCreationRequestBuilder containerCreationRequestBuilder) {
         super(instance, host)
         this.containerCreationRequestBuilder = containerCreationRequestBuilder
-        this.pullImageImpl = pullImageFactory.create(instance, host)
+        this.pullImageImpl = pullImageFactory.create(instance, host, auth)
     }
 
     @Override

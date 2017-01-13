@@ -12,6 +12,7 @@ import org.kaddiya.grorchestrator.helpers.HostConfigBuilder
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.interfaces.CreateContainer
 import org.kaddiya.grorchestrator.managers.interfaces.RunContainer
+import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.requests.HostConfig
@@ -31,9 +32,10 @@ class RunContainerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> im
     @Inject
     RunContainerImpl(
             @Assisted Instance instance,
-            @Assisted Host host, CreateContainerFactory creatorFactory, HostConfigBuilder hostConfigBuilder) {
+            @Assisted Host host,
+            @Assisted DockerHubAuth authObject, CreateContainerFactory creatorFactory, HostConfigBuilder hostConfigBuilder) {
         super(instance, host)
-        containerCreatorImpl = creatorFactory.create(this.instance, this.host)
+        containerCreatorImpl = creatorFactory.create(this.instance, this.host, authObject)
         this.hostConfigBuilder = hostConfigBuilder
     }
 

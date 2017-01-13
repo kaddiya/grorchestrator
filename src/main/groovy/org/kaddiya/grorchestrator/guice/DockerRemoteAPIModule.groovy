@@ -38,6 +38,8 @@ class DockerRemoteAPIModule extends AbstractModule {
         this.install(new FactoryModuleBuilder()
                 .implement(InstancesLister.class, InstanceListerImpl.class)
                 .build(InstanceListerFactory))
+        this.install(new FactoryModuleBuilder()
+                .build(DockerhubAuthCredetialsBuilderFactory))
 
     }
 }

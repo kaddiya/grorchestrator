@@ -9,6 +9,7 @@ import org.kaddiya.grorchestrator.models.core.latest.Host
 class HostFinderImpl {
 
     public Host getHostToInteractWith(GrorProject project, String hostId) {
+
         Host host = project.hosts.find { it ->
             it.alias == hostId
         }

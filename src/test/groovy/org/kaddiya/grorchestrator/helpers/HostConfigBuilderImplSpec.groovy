@@ -62,6 +62,7 @@ class HostConfigBuilderImplSpec extends Specification {
     Instance getDummyInstance() {
         return new Instance("redis.proof.com", "redis", "latest",
                 "redis-vm-1",
+                "default-key",
                 Collections.unmodifiableMap(["1": "2", "3": "4"]), Collections.unmodifiableMap([11022: 22]) as Map<Integer, Integer>,
                 Collections.unmodifiableMap(["some.hostname-1.on.container": "ip.for.host-1", "some.hostname-2.on.container": "ip.for.host-2"]),
                 Collections.unmodifiableMap(["": ""]),

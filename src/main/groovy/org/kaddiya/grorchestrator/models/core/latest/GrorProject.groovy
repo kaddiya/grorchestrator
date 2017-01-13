@@ -1,6 +1,7 @@
 package org.kaddiya.grorchestrator.models.core.latest
 
 import groovy.transform.Canonical
+import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 import org.kaddiya.grorchestrator.models.core.SystemInfo
 
 /**
@@ -11,4 +12,5 @@ class GrorProject {
     SystemInfo systemInfo
     List<Component> components
     List<Host> hosts
+    List<DockerHubAuth> authData = Arrays.asList(new DockerHubAuth())
 }

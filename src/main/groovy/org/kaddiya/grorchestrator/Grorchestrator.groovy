@@ -10,9 +10,11 @@ import org.kaddiya.grorchestrator.guice.GrorchestratorModule
 import org.kaddiya.grorchestrator.guice.HelperModule
 import org.kaddiya.grorchestrator.guice.factory.*
 import org.kaddiya.grorchestrator.helpers.InstanceFinder
+import org.kaddiya.grorchestrator.helpers.impl.DockerhubAuthFinderImpl
 import org.kaddiya.grorchestrator.helpers.impl.HostFinderImpl
 import org.kaddiya.grorchestrator.managers.interfaces.*
 import org.kaddiya.grorchestrator.managers.interfaces.monitoringactions.InstancesLister
+import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 import org.kaddiya.grorchestrator.models.core.SupportedContainerActions
 import org.kaddiya.grorchestrator.models.core.SupportedMonitoringActions
 import org.kaddiya.grorchestrator.models.core.SupportedSystemActions
@@ -104,18 +106,23 @@ class Grorchestrator {
                 KillContainerFactory dockerContainerKillManagerFactory = grorchestratorInjector.getInstance(KillContainerFactory)
                 RemoveContainerFactory dockerContainerRemoveManagerFactory = grorchestratorInjector.getInstance(RemoveContainerFactory)
                 InspectContainerFactory infoManagerFactory = grorchestratorInjector.getInstance(InspectContainerFactory)
+
+
                 InstanceFinder instanceFinderImpl = grorchestratorInjector.getInstance(InstanceFinder)
                 HostFinderImpl hostFinderImpl = grorchestratorInjector.getInstance(HostFinderImpl)
 
 
                 Instance requestedInstance = instanceFinderImpl.getInstanceToInteractWith(project, instanceName)
+                Host requestedHost = hostFinderImpl.getHostToInteractWith(project, requestedInstance.hostId)
+                DockerhubAuthFinderImpl dockerhubAuthFinderImpl = grorchestratorInjector.getInstance(DockerhubAuthFinderImpl)
 
                 requestedInstance.tag = tag
-                Host requestedHost = hostFinderImpl.getHostToInteractWith(project, requestedInstance.hostId)
+
+                DockerHubAuth authObject = dockerhubAuthFinderImpl.getAuthObjectFrom(project, requestedInstance.getAuthId())
 
                 //conditionally create the remote api managers if the action has something to do with container actions
-                PullImage pullManager = dockerImagePullManagerFactory.create(requestedInstance, requestedHost)
-                RunContainer dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance, requestedHost)
+                PullImage pullManager = dockerImagePullManagerFactory.create(requestedInstance, requestedHost, authObject)
+                RunContainer dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance, requestedHost, authObject)
                 KillContainer dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance, requestedHost)
                 RemoveContainer removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance, requestedHost)
                 InspectContainer infoManager = infoManagerFactory.create(requestedInstance, requestedHost)

@@ -2,9 +2,9 @@ package org.kaddiya.grorchestrator.helpers
 
 import org.kaddiya.grorchestrator.helpers.impl.InstanceFinderImpl
 import org.kaddiya.grorchestrator.models.core.SystemInfo
-import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Component
 import org.kaddiya.grorchestrator.models.core.latest.GrorProject
+import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
 import spock.lang.Shared
 import spock.lang.Specification

@@ -12,12 +12,14 @@ import org.kaddiya.grorchestrator.guice.factory.*
 import org.kaddiya.grorchestrator.helpers.InstanceFinder
 import org.kaddiya.grorchestrator.helpers.impl.HostFinderImpl
 import org.kaddiya.grorchestrator.managers.interfaces.*
+import org.kaddiya.grorchestrator.managers.interfaces.monitoringactions.InstancesLister
 import org.kaddiya.grorchestrator.models.core.SupportedContainerActions
 import org.kaddiya.grorchestrator.models.core.SupportedMonitoringActions
 import org.kaddiya.grorchestrator.models.core.SupportedSystemActions
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.core.previous.GrorProject
+import org.kaddiya.grorchestrator.models.monitoringactions.InstanceSummary
 import org.kaddiya.grorchestrator.serialiser.GrorProjectSerialiser
 import org.kaddiya.grorchestrator.updators.PreviousToLatestSchemaUpdator
 
@@ -77,8 +79,8 @@ class Grorchestrator {
         if (grorFile) {
             org.kaddiya.grorchestrator.models.core.latest.GrorProject project = latestDeserialiser.constructGrorProject(grorFile)
             String action = args[0]
-            String instanceName = args[1]
             String tag
+
 
             if (args.size() > 2) {
                 tag = args[2]
@@ -86,6 +88,7 @@ class Grorchestrator {
                 tag = "latest"
             }
             if (SupportedContainerActions.values().any { SupportedContainerActions it -> it.name().equalsIgnoreCase(args[0]) }) {
+                String instanceName = args[1]
 
                 if (!project.getSystemInfo().getGrorVersion().equals(CURRENT_GROR_VERSION)) {
                     throw new IllegalStateException("Gror versions dont match.Kindly run the command gror update to generate the new file for your configuration")
@@ -103,7 +106,10 @@ class Grorchestrator {
                 InspectContainerFactory infoManagerFactory = grorchestratorInjector.getInstance(InspectContainerFactory)
                 InstanceFinder instanceFinderImpl = grorchestratorInjector.getInstance(InstanceFinder)
                 HostFinderImpl hostFinderImpl = grorchestratorInjector.getInstance(HostFinderImpl)
+
+
                 Instance requestedInstance = instanceFinderImpl.getInstanceToInteractWith(project, instanceName)
+
                 requestedInstance.tag = tag
                 Host requestedHost = hostFinderImpl.getHostToInteractWith(project, requestedInstance.hostId)
 
@@ -142,9 +148,16 @@ class Grorchestrator {
                 }
             }
             else if (SupportedMonitoringActions.values().any { SupportedMonitoringActions it -> it.name().equalsIgnoreCase(args[0]) }) {
+                InstanceListerFactory instanceListerFactory  = grorchestratorInjector.getInstance(InstanceListerFactory)
+                InstancesLister instancesListerImpl = instanceListerFactory.create()
+
                 switch (action.toUpperCase()) {
                     case SupportedMonitoringActions.LIST.name():
-                        
+                        List<InstanceSummary> result = instancesListerImpl.getSummaryOfAllInstances(project)
+                            println("Instance Name\t\t\tHostIp\t\t\tImageName \n")
+                            result.each { it->
+                                println("$it.instanceName\t\t\t$it.hostIp\t\t\t$it.imageName")
+                            }
                     break
 
                     default:

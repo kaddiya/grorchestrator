@@ -22,11 +22,11 @@ class InstanceListerImpl implements InstancesLister {
     @Override
     List<InstanceSummary> getSummaryOfAllInstances(GrorProject project) {
         List<InstanceSummary> result = project.components.collectNested { Component c ->
-            c.instances.collect { Instance it->
-                Host host = hostFinder.getHostToInteractWith(project,it.hostId)
-                new InstanceSummary(it.name,it.hostId,host.getIp(),it.imageName)
+            c.instances.collect { Instance it ->
+                Host host = hostFinder.getHostToInteractWith(project, it.hostId)
+                new InstanceSummary(it.name, it.hostId, host.getIp(), it.imageName)
             }
         }
-        return  result.flatten() as ArrayList<InstanceSummary>
+        return result.flatten() as ArrayList<InstanceSummary>
     }
 }

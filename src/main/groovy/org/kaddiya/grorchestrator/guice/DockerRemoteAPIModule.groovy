@@ -36,8 +36,8 @@ class DockerRemoteAPIModule extends AbstractModule {
                 .implement(InspectContainer.class, InspectContainerImpl.class)
                 .build(InspectContainerFactory))
         this.install(new FactoryModuleBuilder()
-                    .implement(InstancesLister.class,InstanceListerImpl.class)
-                    .build(InstanceListerFactory))
+                .implement(InstancesLister.class, InstanceListerImpl.class)
+                .build(InstanceListerFactory))
 
     }
 }

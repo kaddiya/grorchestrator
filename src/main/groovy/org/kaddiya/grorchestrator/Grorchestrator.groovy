@@ -146,23 +146,22 @@ class Grorchestrator {
                         throw new IllegalArgumentException("Unsupported Container Action requested")
                         break
                 }
-            }
-            else if (SupportedMonitoringActions.values().any { SupportedMonitoringActions it -> it.name().equalsIgnoreCase(args[0]) }) {
-                InstanceListerFactory instanceListerFactory  = grorchestratorInjector.getInstance(InstanceListerFactory)
+            } else if (SupportedMonitoringActions.values().any { SupportedMonitoringActions it -> it.name().equalsIgnoreCase(args[0]) }) {
+                InstanceListerFactory instanceListerFactory = grorchestratorInjector.getInstance(InstanceListerFactory)
                 InstancesLister instancesListerImpl = instanceListerFactory.create()
 
                 switch (action.toUpperCase()) {
                     case SupportedMonitoringActions.LIST.name():
                         List<InstanceSummary> result = instancesListerImpl.getSummaryOfAllInstances(project)
-                            println("Instance Name\t\t\tHostIp\t\t\tImageName \n")
-                            result.each { it->
-                                println("$it.instanceName\t\t\t$it.hostIp\t\t\t$it.imageName")
-                            }
-                    break
+                        println("Instance Name\t\t\tHostIp\t\t\tImageName \n")
+                        result.each { it ->
+                            println("$it.instanceName\t\t\t$it.hostIp\t\t\t$it.imageName")
+                        }
+                        break
 
                     default:
                         throw new IllegalArgumentException("Unsupported Monitoring Action requested")
-                    break
+                        break
                 }
 
             }

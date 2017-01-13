@@ -3,6 +3,7 @@ package org.kaddiya.grorchestrator.guice
 import com.google.inject.AbstractModule
 import org.kaddiya.grorchestrator.helpers.*
 import org.kaddiya.grorchestrator.helpers.impl.DockerContainerCreationRequestBuilderImpl
+import org.kaddiya.grorchestrator.helpers.impl.DockerhubAuthFinderImpl
 import org.kaddiya.grorchestrator.helpers.impl.HostConfigBuilderImpl
 import org.kaddiya.grorchestrator.helpers.impl.HostFinderImpl
 import org.kaddiya.grorchestrator.helpers.impl.InstanceFinderImpl
@@ -22,6 +23,7 @@ class HelperModule extends AbstractModule {
         bind(EnvironmentVarsResolver)
         bind(PreviousToLatestSchemaUpdator).to(PreviousToLatestSchemaUpdatorImpl)
         bind(HostFinderImpl)
+        bind(DockerhubAuthFinderImpl)
     }
 
 }

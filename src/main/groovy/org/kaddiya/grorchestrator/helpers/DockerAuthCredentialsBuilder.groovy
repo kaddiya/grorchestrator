@@ -1,6 +1,7 @@
 package org.kaddiya.grorchestrator.helpers
 
 import com.google.inject.Inject
+import com.google.inject.assistedinject.Assisted
 import groovy.json.JsonBuilder
 import groovy.transform.CompileStatic
 import org.kaddiya.grorchestrator.models.core.DockerHubAuth
@@ -12,18 +13,20 @@ import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 class DockerAuthCredentialsBuilder {
 
     final EnvironmentVarsResolver environmentVarsResolver
+    private final  DockerHubAuth authObject
+    final static String DEFAULT_AUTH_STRING_VALUE = " "
 
     @Inject
-    public DockerAuthCredentialsBuilder(EnvironmentVarsResolver resolver) {
-        this.environmentVarsResolver = resolver
+    public DockerAuthCredentialsBuilder(@Assisted DockerHubAuth authObject) {
+        this.authObject = authObject;
     }
 
     DockerHubAuth constructDockerHubAuthenticationCredentials() {
 
-        String registryUsername = environmentVarsResolver.getEnvironmentVarValueForKey("registry_username")
-        String registryPassword = environmentVarsResolver.getEnvironmentVarValueForKey("registry_password")
-        String registryEmail = environmentVarsResolver.getEnvironmentVarValueForKey("registry_email")
-        String registryAuth = environmentVarsResolver.getEnvironmentVarValueForKey("registry_auth")
+        String registryUsername = authObject.username
+        String registryPassword = authObject.password
+        String registryEmail = authObject.email
+        String registryAuth = DEFAULT_AUTH_STRING_VALUE
 
         return new DockerHubAuth(registryUsername, registryPassword, registryEmail, registryAuth)
     }

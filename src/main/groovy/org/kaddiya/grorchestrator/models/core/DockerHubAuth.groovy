@@ -7,6 +7,7 @@ import groovy.transform.Canonical
  */
 @Canonical
 class DockerHubAuth {
+    String key
     String username
     String password
     String email

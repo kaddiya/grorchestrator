@@ -11,6 +11,7 @@ class Instance {
     String imageName
     String tag
     String hostId
+    String authId
     Map<String, String> volumeMapping
     Map<Integer, Integer> portMapping
     Map<String, String> hostsMapping

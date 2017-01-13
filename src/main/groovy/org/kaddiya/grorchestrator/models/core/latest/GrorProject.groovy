@@ -12,5 +12,5 @@ class GrorProject {
     SystemInfo systemInfo
     List<Component> components
     List<Host> hosts
-    List<DockerHubAuth> authData
+    List<DockerHubAuth> authData = Arrays.asList(new DockerHubAuth())
 }

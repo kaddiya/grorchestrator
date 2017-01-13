@@ -14,6 +14,9 @@ import org.kaddiya.grorchestrator.updators.PreviousToLatestSchemaUpdator
  */
 @CompileStatic
 class PreviousToLatestSchemaUpdatorImpl implements PreviousToLatestSchemaUpdator {
+
+    final static String DEFAULT_AUTH_ID = "default-dockerhub-auth-1"
+
     @Override
     GrorProject updateFromPreviousProject(org.kaddiya.grorchestrator.models.core.previous.GrorProject previousProject) {
         //extract the host list
@@ -49,7 +52,7 @@ class PreviousToLatestSchemaUpdatorImpl implements PreviousToLatestSchemaUpdator
     List<org.kaddiya.grorchestrator.models.core.latest.Instance> getLatestInstancesListFromPreviousComponents(org.kaddiya.grorchestrator.models.core.previous.Component previousComponent) {
         List<org.kaddiya.grorchestrator.models.core.latest.Instance> newInstancesList = previousComponent.instances.collect { previousInstance ->
             new org.kaddiya.grorchestrator.models.core.latest.Instance(previousInstance.name, previousInstance.imageName,
-                    previousInstance.tag, previousInstance.host.alias, "update-your-auth-key", previousInstance.volumeMapping,
+                    previousInstance.tag, previousInstance.host.alias, DEFAULT_AUTH_ID, previousInstance.volumeMapping,
                     previousInstance.portMapping, previousInstance.hostsMapping, previousInstance.envMap,
                     previousInstance.links, previousInstance.volumesFrom, previousInstance.commandToBeExecuted)
 

@@ -53,7 +53,7 @@ class PreviousToLatestSchemaUpdatorImplSpec extends Specification {
                 "dockerhubid/image_name",
                 "latest",
                 "api-vm-1",
-                "update-your-auth-key",
+                updatorImpl.DEFAULT_AUTH_ID,
                 Collections.unmodifiableMap(["/home/ubuntu/api-data/some-api-data": "/root/some-api-data",
                                              "/home/ubuntu/api-data/logs"         : "/opt/appData/api-logs/logs/"]),
                 Collections.unmodifiableMap([8080: 8080]) as Map<Integer, Integer>,

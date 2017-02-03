@@ -15,7 +15,7 @@ import org.kaddiya.grorchestrator.updators.PreviousToLatestSchemaUpdator
 @CompileStatic
 class PreviousToLatestSchemaUpdatorImpl implements PreviousToLatestSchemaUpdator {
 
-    final static String DEFAULT_AUTH_ID = "default-dockerhub-auth-1"
+    public final static String DEFAULT_AUTH_ID = "update-your-auth-key"
 
     @Override
     GrorProject updateFromPreviousProject(org.kaddiya.grorchestrator.models.core.previous.GrorProject previousProject) {

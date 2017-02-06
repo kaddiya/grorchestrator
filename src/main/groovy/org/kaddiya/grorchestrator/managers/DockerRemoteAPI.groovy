@@ -13,7 +13,7 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGene
 import org.kaddiya.grorchestrator.models.ssl.DockerSslSocket
 import org.kaddiya.grorchestrator.ssl.SslSocketConfigFactory
 import org.kaddiya.grorchestrator.unix.UnixSocketConnectionFactory
-import org.kaddiya.grorchestrator.unix.UnixSocket
+import org.kaddiya.grorchestrator.unix.UnixSocketUtils
 
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLSession
@@ -39,7 +39,7 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     final String protocol
 
-
+    final UnixSocketUtils utils = new UnixSocketUtils()
 
 
     public DockerRemoteAPI(Instance instance, Host host) {
@@ -66,37 +66,41 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     public OkHttpClient initialiseOkHTTPClient() {
         OkHttpClient okClient
-        if (this.host.protocol == 'https') {
-            String certPath = this.host.certPathForDockerDaemon
-            if (!certPath) {
-                throw new IllegalStateException("protocol specified is https for host $host.ip but the certificate path is not supplied")
-            }
-            SslSocketConfigFactory socketConfigFactory = new SslSocketConfigFactory()
-            DockerSslSocket socket = socketConfigFactory.createDockerSslSocket(certPath)
-            //this client has got AllowAllHostNameConfig.Need to change it soon
-            okClient = new OkHttpClient.Builder()
-                    .sslSocketFactory(socket.sslSocketFactory, socket.trustManager)
-                    .hostnameVerifier(new HostnameVerifier() {
-                @Override
-                boolean verify(String s, SSLSession sslSession) {
-                    return true
+        if (this.host.hostType == HostType.TCP) {
+            if(this.host.protocol == "https") {
+                String certPath = this.host.certPathForDockerDaemon
+                if (!certPath) {
+                    throw new IllegalStateException("protocol specified is https for host $host.ip but the certificate path is not supplied")
                 }
-            }).build();
+                SslSocketConfigFactory socketConfigFactory = new SslSocketConfigFactory()
+                DockerSslSocket socket = socketConfigFactory.createDockerSslSocket(certPath)
+                //this client has got AllowAllHostNameConfig.Need to change it soon
+                okClient = new OkHttpClient.Builder()
+                        .sslSocketFactory(socket.sslSocketFactory, socket.trustManager)
+                        .hostnameVerifier(new HostnameVerifier() {
+                    @Override
+                    boolean verify(String s, SSLSession sslSession) {
+                        return true
+                    }
+                }).build();
 
-            return okClient
-        }else if(this.host.protocol == 'unix'){
-            UnixSocketConnectionFactory unixConnectionFactory = new UnixSocketConnectionFactory("/var/run/docker.sock")
+                return okClient
+            }
+            else {
+                okClient = new OkHttpClient.Builder().build()
+            }
+        }else if(this.host.hostType == HostType.UNIX){
+            UnixSocketConnectionFactory unixConnectionFactory = new UnixSocketConnectionFactory()
             okClient =  new OkHttpClient.Builder()
                 .socketFactory(unixConnectionFactory)
+                .dns(unixConnectionFactory)
                 .build()
 
             return okClient
 
         }
 
-        else {
-            okClient = new OkHttpClient.Builder().build()
-        }
+
 
         return okClient
     }
@@ -163,14 +167,14 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
         if(this.host.hostType == HostType.TCP || this.host.hostType == null){
             return  new HttpUrl.Builder()
                     .scheme(this.host.protocol)
-                    .host(this.host.protocol)
+                    .host(this.host.ip)
                     .port(this.host.dockerPort)
                     .addPathSegment(path).build()
         }
         else if (this.host.hostType == HostType.UNIX){
             return new HttpUrl.Builder()
-                    .scheme(this.host.protocol)
-                    .host(UnixSocket.encodeHostname("/var/run/docker.sock"))
+                    .scheme("http")
+                    .host(utils.encodeHostname("/var/run/docker.sock"))
                     .addPathSegment(path)
                     .build();
         }

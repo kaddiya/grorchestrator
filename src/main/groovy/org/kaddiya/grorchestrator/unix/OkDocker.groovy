@@ -37,7 +37,7 @@ public class OkDocker {
 
         String unixSocketPath = "/var/run/docker.sock";
         println("creating httpUrl")
-        HttpUrl url = socketFactory.urlForUnixSocketPath(unixSocketPath, "containers/redis.proof.com/kill");
+        HttpUrl url = socketFactory.urlForUnixSocketPath(unixSocketPath, "/images/create?fromImage=redis:latest");
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         Request request = new Request.Builder()
                 .url(url)

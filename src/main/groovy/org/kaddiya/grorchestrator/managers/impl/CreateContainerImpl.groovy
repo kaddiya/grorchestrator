@@ -48,7 +48,7 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
         println("creating a new container for $instance.name with image $request.image")
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         return new Request.Builder()
-                .url("$baseUrl/containers/create?name=$instance.name")
+                .url(getCanonicalURL('/containers/create?name=$instance.name'))
                 .post(RequestBody.create(JSON, JsonOutput.toJson(request)))
                 .build();
     }

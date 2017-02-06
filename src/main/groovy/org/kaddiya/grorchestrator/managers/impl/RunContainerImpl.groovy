@@ -63,7 +63,7 @@ class RunContainerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> im
         */
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         return new Request.Builder()
-                .url("$baseUrl/containers/$instance.name/start")
+                .url(getCanonicalURL("/containers/$instance.name/start"))
                 .post(RequestBody.create(JSON, request))
                 .build();
     }

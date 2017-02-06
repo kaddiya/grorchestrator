@@ -57,6 +57,10 @@ class RunContainerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> im
         } else {
             request = ""
         }
+        /*need to call
+        this.getCanonicalURL("/containers/$instance.name/start")
+        and pass it to URL
+        */
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         return new Request.Builder()
                 .url("$baseUrl/containers/$instance.name/start")

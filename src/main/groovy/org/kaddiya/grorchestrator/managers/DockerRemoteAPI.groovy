@@ -1,15 +1,19 @@
 package org.kaddiya.grorchestrator.managers
 
 import com.google.gson.Gson
+import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
+import org.kaddiya.grorchestrator.models.HostType
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericNoContentResponse
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericOKResponse
 import org.kaddiya.grorchestrator.models.ssl.DockerSslSocket
 import org.kaddiya.grorchestrator.ssl.SslSocketConfigFactory
+import org.kaddiya.grorchestrator.unix.UnixSocketConnectionFactory
+import org.kaddiya.grorchestrator.unix.UnixSocket
 
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLSession
@@ -33,23 +37,32 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     final Class aClass
 
+    final String protocol
+
+
+
+
     public DockerRemoteAPI(Instance instance, Host host) {
 
-        String protocol = derieveProtocol(host)
         this.host = host
         this.instance = instance
         //construct the baseURL
-        this.baseUrl = "$protocol://$host.ip:$host.dockerPort"
+
+        /*
+
+        Need to remove the setting of the baseUrl.instead use derieve hostUrl
+         */
+        if(host.dockerPort){
+            this.baseUrl = "$protocol://$host.ip:$host.dockerPort"
+        }
+
+
         //initialise the OkHTTPCLient
         this.httpClient = initialiseOkHTTPClient()
         this.aClass = DOCKER_REMOTE_RESPONSE_CLASS.class
         this.doSynchonousHTTPCall = scrubResponse << apiCallClosure
     }
 
-
-    String derieveProtocol(Host host) {
-        host.protocol ? host.protocol : "http"
-    }
 
     public OkHttpClient initialiseOkHTTPClient() {
         OkHttpClient okClient
@@ -71,12 +84,28 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
             }).build();
 
             return okClient
-        } else {
+        }else if(this.host.protocol == 'unix'){
+            UnixSocketConnectionFactory unixConnectionFactory = new UnixSocketConnectionFactory("/var/run/docker.sock")
+            okClient =  new OkHttpClient.Builder()
+                .socketFactory(unixConnectionFactory)
+                .build()
+
+            return okClient
+
+        }
+
+        else {
             okClient = new OkHttpClient.Builder().build()
         }
 
         return okClient
     }
+
+
+    protected HttpUrl getCanonical(String path) {
+
+    }
+
 
     public <DOCKER_REMOTE_RESPONSE_CLASS> DOCKER_REMOTE_RESPONSE_CLASS doWork() {
         doSynchonousHTTPCall.call()
@@ -130,5 +159,24 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
         throw new IllegalStateException("conflict!")
     }
 
+    protected HttpUrl getCanonicalURL(String path){
+        if(this.host.hostType == HostType.TCP || this.host.hostType == null){
+            return  new HttpUrl.Builder()
+                    .scheme(this.host.protocol)
+                    .host(this.host.protocol)
+                    .port(this.host.dockerPort)
+                    .addPathSegment(path).build()
+        }
+        else if (this.host.hostType == HostType.UNIX){
+            return new HttpUrl.Builder()
+                    .scheme(this.host.protocol)
+                    .host(UnixSocket.encodeHostname("/var/run/docker.sock"))
+                    .addPathSegment(path)
+                    .build();
+        }
+        else{
+            throw new UnsupportedOperationException("$host.hostType is not yet supported")
+        }
+    }
 
 }

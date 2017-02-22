@@ -7,10 +7,14 @@ import groovy.transform.CompileStatic
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
+import org.kaddiya.grorchestrator.guice.factory.PullImageFactory
 import org.kaddiya.grorchestrator.helpers.DockerContainerCreationRequestBuilder
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.interfaces.CreateContainer
-import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.managers.interfaces.PullImage
+import org.kaddiya.grorchestrator.models.core.DockerHubAuth
+import org.kaddiya.grorchestrator.models.core.latest.Host
+import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.requests.DockerContainerCreationRequest
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerCreationResponse
 
@@ -21,12 +25,16 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerC
 class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationResponse> implements CreateContainer {
 
     final DockerContainerCreationRequestBuilder containerCreationRequestBuilder;
+    final PullImage pullImageImpl
 
     @Inject
     public CreateContainerImpl(
-            @Assisted Instance instance, DockerContainerCreationRequestBuilder containerCreationRequestBuilder) {
-        super(instance)
+            @Assisted Instance instance,
+            @Assisted Host host,
+            @Assisted DockerHubAuth auth, PullImageFactory pullImageFactory, DockerContainerCreationRequestBuilder containerCreationRequestBuilder) {
+        super(instance, host)
         this.containerCreationRequestBuilder = containerCreationRequestBuilder
+        this.pullImageImpl = pullImageFactory.create(instance, host, auth)
     }
 
     @Override
@@ -36,13 +44,21 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
 
     @Override
     Request constructRequest() {
-        DockerContainerCreationRequest request = containerCreationRequestBuilder.getContainerCreationRequest(this.instance)
+        DockerContainerCreationRequest request = containerCreationRequestBuilder.getContainerCreationRequest(this.instance);
         println("creating a new container for $instance.name with image $request.image")
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         return new Request.Builder()
                 .url("$baseUrl/containers/create?name=$instance.name")
                 .post(RequestBody.create(JSON, JsonOutput.toJson(request)))
                 .build();
+    }
+
+    @Override
+    protected Object notFoundHandler() {
+        //if container creation throws a 404 error then it means that we need to pull the iamge
+        println("The iamge with #$instance.name with tag $instance.tag is not found.Going to attempt to pull it")
+        pullImageImpl.pullImage();
+        return createContainer()
     }
 
 

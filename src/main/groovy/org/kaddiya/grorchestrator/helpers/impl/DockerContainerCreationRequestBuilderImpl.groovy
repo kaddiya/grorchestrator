@@ -4,7 +4,7 @@ import com.google.inject.Inject
 import groovy.transform.CompileStatic
 import org.kaddiya.grorchestrator.helpers.DockerContainerCreationRequestBuilder
 import org.kaddiya.grorchestrator.helpers.HostConfigBuilder
-import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.requests.DockerContainerCreationRequest
 
 /**
@@ -55,11 +55,10 @@ class DockerContainerCreationRequestBuilderImpl implements DockerContainerCreati
         }
     }
 
-    List<String>getCommandToBeExecuted(String command){
-        if(command){
+    List<String> getCommandToBeExecuted(String command) {
+        if (command) {
             return Arrays.asList(command.split(" "))
-        }
-        else return null;
+        } else return null;
 
     }
 

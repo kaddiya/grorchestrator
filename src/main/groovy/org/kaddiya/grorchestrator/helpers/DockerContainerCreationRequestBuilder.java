@@ -1,6 +1,6 @@
 package org.kaddiya.grorchestrator.helpers;
 
-import org.kaddiya.grorchestrator.models.core.Instance;
+import org.kaddiya.grorchestrator.models.core.latest.Instance;
 import org.kaddiya.grorchestrator.models.remotedocker.requests.DockerContainerCreationRequest;
 
 import java.util.List;
@@ -18,7 +18,6 @@ public interface DockerContainerCreationRequestBuilder {
     public Map<String, Object> getVolumes(Instance instance);
 
     public List<String> getCommandToBeExecuted(String command);
-
 
 
 }

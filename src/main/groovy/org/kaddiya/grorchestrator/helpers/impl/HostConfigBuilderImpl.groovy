@@ -2,7 +2,7 @@ package org.kaddiya.grorchestrator.helpers.impl
 
 import groovy.transform.CompileStatic
 import org.kaddiya.grorchestrator.helpers.HostConfigBuilder
-import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.requests.HostConfig
 
 /**
@@ -16,7 +16,7 @@ class HostConfigBuilderImpl implements HostConfigBuilder {
         List<String> Links = getLinks(instance)
         Map<String, Map<String, String>> PortBindings = getPortBindings(instance)
         List<String> ExtraHosts = getExtraHostsMapping(instance)
-        if(binds.isEmpty() && Links.isEmpty() && PortBindings.isEmpty() && ExtraHosts.isEmpty()){
+        if (binds.isEmpty() && Links.isEmpty() && PortBindings.isEmpty() && ExtraHosts.isEmpty()) {
             return null
         }
         HostConfig config = new HostConfig(binds, Links, PortBindings, ExtraHosts)

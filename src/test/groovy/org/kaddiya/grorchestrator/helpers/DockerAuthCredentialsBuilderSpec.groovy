@@ -1,5 +1,6 @@
 package org.kaddiya.grorchestrator.helpers
 
+import org.kaddiya.grorchestrator.helpers.impl.DockerhubAuthCredentialsBuilder
 import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 import spock.lang.Shared
 import spock.lang.Specification
@@ -10,38 +11,18 @@ import spock.lang.Specification
 class DockerAuthCredentialsBuilderSpec extends Specification {
 
     @Shared
-    DockerAuthCredentialsBuilder builder
+    DockerhubAuthCredentialsBuilder builder = new DockerhubAuthCredentialsBuilder()
 
-    def setup() {
-        System.setProperty("registry_username", "username")
-        System.setProperty("registry_password", "password")
-        System.setProperty("registry_auth", "")
-        System.setProperty("registry_email", "example@email.com")
-    }
-
-    def "constructDockerHubAuthenticationCredentials should return a proper DockerHubAuth model"() {
-        given:
-        builder = new DockerAuthCredentialsBuilder(new EnvironmentVarsResolver())
-        when:
-        DockerHubAuth actualAuth = builder.constructDockerHubAuthenticationCredentials()
-        DockerHubAuth expectedAuth = new DockerHubAuth("username", "password", "example@email.com", "")
-        then:
-        assert actualAuth == expectedAuth
-    }
 
     def "getbase64EncodedValueForCredentials should return a proper base64 encoded String"() {
         given:
-        builder = new DockerAuthCredentialsBuilder(new EnvironmentVarsResolver())
+
+        DockerHubAuth acutalAuth = new DockerHubAuth("default-key", "username", "password", "email@example.com", "")
         when:
-        String result = builder.getbase64EncodedValueForCredentials()
+        String result = builder.getbase64EncodedValueForCredentials(acutalAuth)
         then:
-        assert result == "eyJwYXNzd29yZCI6InBhc3N3b3JkIiwidXNlcm5hbWUiOiJ1c2VybmFtZSIsImF1dGgiOiIiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwuY29tIn0="
+        assert result == "eyJwYXNzd29yZCI6InBhc3N3b3JkIiwia2V5IjoiZGVmYXVsdC1rZXkiLCJ1c2VybmFtZSI6InVzZXJuYW1lIiwiYXV0aCI6IiIsImVtYWlsIjoiZW1haWxAZXhhbXBsZS5jb20ifQ=="
     }
 
-    def cleanup() {
-        System.setProperty("registry_username", "")
-        System.setProperty("registry_password", "")
-        System.setProperty("registry_auth", "")
-        System.setProperty("registry_email", "")
-    }
+
 }

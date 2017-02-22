@@ -5,7 +5,9 @@ import com.google.inject.assistedinject.FactoryModuleBuilder
 import groovy.transform.CompileStatic
 import org.kaddiya.grorchestrator.guice.factory.*
 import org.kaddiya.grorchestrator.managers.impl.*
+import org.kaddiya.grorchestrator.managers.impl.monitoringactions.InstanceListerImpl
 import org.kaddiya.grorchestrator.managers.interfaces.*
+import org.kaddiya.grorchestrator.managers.interfaces.monitoringactions.InstancesLister
 
 /**
  * Created by Webonise on 01/07/16.
@@ -33,6 +35,11 @@ class DockerRemoteAPIModule extends AbstractModule {
         this.install(new FactoryModuleBuilder()
                 .implement(InspectContainer.class, InspectContainerImpl.class)
                 .build(InspectContainerFactory))
+        this.install(new FactoryModuleBuilder()
+                .implement(InstancesLister.class, InstanceListerImpl.class)
+                .build(InstanceListerFactory))
+        this.install(new FactoryModuleBuilder()
+                .build(DockerhubAuthCredetialsBuilderFactory))
 
     }
 }

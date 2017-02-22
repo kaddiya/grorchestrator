@@ -2,8 +2,7 @@ package org.kaddiya.grorchestrator.helpers
 
 import groovy.json.JsonOutput
 import org.kaddiya.grorchestrator.helpers.impl.HostConfigBuilderImpl
-import org.kaddiya.grorchestrator.models.core.Host
-import org.kaddiya.grorchestrator.models.core.Instance
+import org.kaddiya.grorchestrator.models.core.latest.Instance
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -62,7 +61,8 @@ class HostConfigBuilderImplSpec extends Specification {
 
     Instance getDummyInstance() {
         return new Instance("redis.proof.com", "redis", "latest",
-                new Host("127.0.0.1", "redis-vm-1", 2376),
+                "redis-vm-1",
+                "default-key",
                 Collections.unmodifiableMap(["1": "2", "3": "4"]), Collections.unmodifiableMap([11022: 22]) as Map<Integer, Integer>,
                 Collections.unmodifiableMap(["some.hostname-1.on.container": "ip.for.host-1", "some.hostname-2.on.container": "ip.for.host-2"]),
                 Collections.unmodifiableMap(["": ""]),

@@ -10,6 +10,8 @@ import javax.net.SocketFactory
 
 /**
  * Created by Webonise on 03/02/17.
+ *  Special thanks to Gesellix for this awesome lifecyle hook.
+ *  https://github.com/gesellix/okhttp/commit/5d3d491afd6a6f6ba80985bb6f0749dbed88436c
  */
 public class UnixSocketConnectionFactory extends SocketFactory implements Dns {
 

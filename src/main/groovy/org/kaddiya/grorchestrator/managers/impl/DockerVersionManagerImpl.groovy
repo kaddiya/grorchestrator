@@ -24,7 +24,6 @@ class DockerVersionManagerImpl extends DockerRemoteAPI<VersionResponse> implemen
 
     @Override
     protected Request constructRequest() {
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         return new Request.Builder()
                 .url(getCanonicalURL(this.pathUrl))
                 .get()

@@ -4,6 +4,7 @@ import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
 import groovy.transform.CompileStatic
 import groovy.util.logging.Log4j
+import okhttp3.HttpUrl
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
@@ -32,20 +33,21 @@ class KillContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResp
             @Assisted Instance instance, @Assisted Host host, RemoveContainerFactory containerRemoveMangerFactory) {
         super(instance, host)
         this.containerRemoveManager = containerRemoveMangerFactory.create(instance, host)
-        this.pathUrl = "/containers/$instance.name/kill"
+        this.pathUrl = "containers/$instance.name/kill"
     }
 
     @Override
     void killContainer() {
         log.info("going to kill the container $instance.name")
-        DockerRemoteGenericNoContentResponse response = doWork()
-        log.info(response.toString())
+      //  DockerRemoteGenericNoContentResponse response = doWork()
+        //log.info(response.toString())
         containerRemoveManager.removeContainer()
     }
 
     @Override
     Request constructRequest() {
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
         return new Request.Builder()
                 .url(getCanonicalURL(this.pathUrl))
                 .post(RequestBody.create(JSON, "")) //this requires an empty request body

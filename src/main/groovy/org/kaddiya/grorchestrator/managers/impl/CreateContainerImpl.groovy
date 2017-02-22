@@ -5,6 +5,7 @@ import com.google.inject.assistedinject.Assisted
 import groovy.json.JsonOutput
 import groovy.transform.CompileStatic
 import groovy.util.logging.Log4j
+import okhttp3.HttpUrl
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
@@ -37,7 +38,7 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
         super(instance, host)
         this.containerCreationRequestBuilder = containerCreationRequestBuilder
         this.pullImageImpl = pullImageFactory.create(instance, host, auth)
-        this.pathUrl = "/containers/create?name=$instance.name"
+        this.pathUrl = "containers/create?name=$instance.name"
     }
 
     @Override
@@ -47,8 +48,10 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
 
     @Override
     Request constructRequest() {
+
         DockerContainerCreationRequest request = containerCreationRequestBuilder.getContainerCreationRequest(this.instance);
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
         return new Request.Builder()
                 .url(getCanonicalURL(this.pathUrl))
                 .post(RequestBody.create(JSON, JsonOutput.toJson(request)))

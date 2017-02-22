@@ -157,22 +157,28 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
         throw new IllegalStateException("conflict!")
     }
 
-    protected HttpUrl getCanonicalURL(String path) {
+    protected String getCanonicalURL(String path) {
+
+
         if (this.host.hostType == HostType.TCP || this.host.hostType == null) {
-            return new HttpUrl.Builder()
+            return getDecodedUrl(new HttpUrl.Builder()
                     .scheme(this.host.protocol)
                     .host(this.host.ip)
                     .port(this.host.dockerPort)
-                    .addPathSegment(path).build()
+                    .addPathSegment(path).build())
         } else if (this.host.hostType == HostType.UNIX) {
-            return new HttpUrl.Builder()
+            return getDecodedUrl( new HttpUrl.Builder()
                     .scheme(this.host.protocol)
                     .host(utils.encodeHostname("/var/run/docker.sock"))
                     .addPathSegment(path)
-                    .build();
+                    .build());
         } else {
             throw new UnsupportedOperationException("$host.hostType is not yet supported")
         }
+
     }
 
+    private String getDecodedUrl(HttpUrl encodedUrl) {
+        return java.net.URLDecoder.decode(encodedUrl.toString(), "UTF-8")
+    }
 }

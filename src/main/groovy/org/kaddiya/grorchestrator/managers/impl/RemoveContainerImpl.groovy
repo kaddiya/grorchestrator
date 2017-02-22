@@ -21,7 +21,7 @@ class RemoveContainerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse>
     @Inject
     RemoveContainerImpl(@Assisted Instance instance, @Assisted Host host) {
         super(instance, host)
-        this.pathUrl = "/containers/$instance.name"
+        this.pathUrl = "containers/$instance.name"
     }
 
     @Override

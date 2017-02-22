@@ -167,7 +167,7 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
                     .port(this.host.dockerPort)
                     .addPathSegment(path).build())
         } else if (this.host.hostType == HostType.UNIX) {
-            return getDecodedUrl( new HttpUrl.Builder()
+            return getDecodedUrl(new HttpUrl.Builder()
                     .scheme(this.host.protocol)
                     .host(utils.encodeHostname("/var/run/docker.sock"))
                     .addPathSegment(path)

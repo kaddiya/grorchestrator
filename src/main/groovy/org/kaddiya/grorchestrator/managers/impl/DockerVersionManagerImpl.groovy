@@ -2,7 +2,6 @@ package org.kaddiya.grorchestrator.managers.impl
 
 import com.google.inject.Inject
 import groovy.util.logging.Log4j
-import okhttp3.MediaType
 import okhttp3.Request
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.interfaces.DockerVersionManager

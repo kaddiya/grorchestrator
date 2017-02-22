@@ -20,13 +20,13 @@ class DockerContainerCreationRequestBuilderImpl implements DockerContainerCreati
     @Override
     DockerContainerCreationRequest getContainerCreationRequest(Instance instance) {
         DockerContainerCreationRequest request = new DockerContainerCreationRequest()
-       // request.cmd = getCommandToBeExecuted(instance.commandToBeExecuted)
+        request.cmd = getCommandToBeExecuted(instance.commandToBeExecuted)
         request.image = instance.imageName + ":" + instance.tag
-        //request.exposedPorts = getPortMappingsFromInstance(instance)
-        //request.volumes = getVolumes(instance)
-        //request.env = getEnvironmentMappings(instance)
-        //request.hostConfig = hostConfigBuilderImpl.constructHostConfig(instance)
-        //request.volumesFrom = instance.volumesFrom
+        request.exposedPorts = getPortMappingsFromInstance(instance)
+        request.volumes = getVolumes(instance)
+        request.env = getEnvironmentMappings(instance)
+        request.hostConfig = hostConfigBuilderImpl.constructHostConfig(instance)
+        request.volumesFrom = instance.volumesFrom
         return request
     }
 
@@ -51,7 +51,7 @@ class DockerContainerCreationRequestBuilderImpl implements DockerContainerCreati
             List<String> result = instance.envMap.collect { k, v -> k + "=" + v }
             return result
         } else {
-            return Arrays.asList("")
+            return null
         }
     }
 

@@ -4,7 +4,6 @@ import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
 import groovy.transform.CompileStatic
 import groovy.util.logging.Log4j
-import okhttp3.HttpUrl
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
@@ -39,8 +38,7 @@ class KillContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResp
     @Override
     void killContainer() {
         log.info("going to kill the container $instance.name")
-      //  DockerRemoteGenericNoContentResponse response = doWork()
-        //log.info(response.toString())
+        DockerRemoteGenericNoContentResponse response = doWork()
         containerRemoveManager.removeContainer()
     }
 

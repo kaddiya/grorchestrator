@@ -1,30 +1,11 @@
 package org.kaddiya.grorchestrator.unix
 
-import net.sf.json.JSON
-import okhttp3.Dns;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-import okio.ByteString;
-import org.newsclub.net.unix.AFUNIXSocket;
-import org.newsclub.net.unix.AFUNIXSocketAddress;
+import okhttp3.*
+import okio.ByteString
+import org.newsclub.net.unix.AFUNIXSocket
+import org.newsclub.net.unix.AFUNIXSocketAddress
 
-import javax.net.SocketFactory;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
-import java.net.UnknownHostException;
-import java.util.Collections;
-import java.util.List;
-import okhttp3.MediaType
+import javax.net.SocketFactory
 
 public class OkDocker {
 
@@ -41,7 +22,7 @@ public class OkDocker {
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         Request request = new Request.Builder()
                 .url(url)
-                .post(RequestBody.create(JSON,""))
+                .post(RequestBody.create(JSON, ""))
                 .build();
 
         Response response = client
@@ -72,7 +53,7 @@ public class OkDocker {
 
         @Override
         public List<InetAddress> lookup(String hostname) throws UnknownHostException {
-            byte [] foo = [0,0,0,0]
+            byte[] foo = [0, 0, 0, 0]
             System.println("Lookedup?")
             return hostname.endsWith(".socket") ? Collections.singletonList(InetAddress.getByAddress(hostname, foo)) : Dns.SYSTEM.lookup(hostname);
         }

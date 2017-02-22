@@ -25,7 +25,7 @@ class PullImageImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> imple
     @Inject
     private DockerhubAuthCredentialsBuilder builder
     private final DockerHubAuth auth
-   // private String pathUrl
+    // private String pathUrl
 
     @Inject
     public PullImageImpl(@Assisted Instance instance, @Assisted Host host, @Assisted DockerHubAuth auth) {

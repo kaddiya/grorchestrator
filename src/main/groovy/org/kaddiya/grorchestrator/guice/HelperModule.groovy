@@ -6,7 +6,6 @@ import org.kaddiya.grorchestrator.helpers.EnvironmentVarsResolver
 import org.kaddiya.grorchestrator.helpers.HostConfigBuilder
 import org.kaddiya.grorchestrator.helpers.InstanceFinder
 import org.kaddiya.grorchestrator.helpers.impl.*
-import org.kaddiya.grorchestrator.unix.UnixSocketUtils
 import org.kaddiya.grorchestrator.updators.PreviousToLatestSchemaUpdator
 import org.kaddiya.grorchestrator.updators.impl.PreviousToLatestSchemaUpdatorImpl
 

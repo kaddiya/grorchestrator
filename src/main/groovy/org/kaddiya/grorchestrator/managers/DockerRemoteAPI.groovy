@@ -53,10 +53,9 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
 
         Need to remove the setting of the baseUrl.instead use derieve hostUrl
          */
-        if(host.dockerPort){
+        if (host.dockerPort) {
             this.baseUrl = "$protocol://$host.ip:$host.dockerPort"
         }
-
 
         //initialise the OkHTTPCLient
         this.httpClient = initialiseOkHTTPClient()
@@ -68,7 +67,7 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
     public OkHttpClient initialiseOkHTTPClient() {
         OkHttpClient okClient
         if (this.host.hostType == HostType.TCP) {
-            if(this.host.protocol == "https") {
+            if (this.host.protocol == "https") {
                 String certPath = this.host.certPathForDockerDaemon
                 if (!certPath) {
                     throw new IllegalStateException("protocol specified is https for host $host.ip but the certificate path is not supplied")
@@ -86,16 +85,15 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
                 }).build();
 
                 return okClient
-            }
-            else {
+            } else {
                 okClient = new OkHttpClient.Builder().build()
             }
-        }else if(this.host.hostType == HostType.UNIX){
+        } else if (this.host.hostType == HostType.UNIX) {
             UnixSocketConnectionFactory unixConnectionFactory = new UnixSocketConnectionFactory()
-            okClient =  new OkHttpClient.Builder()
-                .socketFactory(unixConnectionFactory)
-                .dns(unixConnectionFactory)
-                .build()
+            okClient = new OkHttpClient.Builder()
+                    .socketFactory(unixConnectionFactory)
+                    .dns(unixConnectionFactory)
+                    .build()
 
             return okClient
 
@@ -159,22 +157,20 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
         throw new IllegalStateException("conflict!")
     }
 
-    protected HttpUrl getCanonicalURL(String path){
-        if(this.host.hostType == HostType.TCP || this.host.hostType == null){
-            return  new HttpUrl.Builder()
+    protected HttpUrl getCanonicalURL(String path) {
+        if (this.host.hostType == HostType.TCP || this.host.hostType == null) {
+            return new HttpUrl.Builder()
                     .scheme(this.host.protocol)
                     .host(this.host.ip)
                     .port(this.host.dockerPort)
                     .addPathSegment(path).build()
-        }
-        else if (this.host.hostType == HostType.UNIX){
+        } else if (this.host.hostType == HostType.UNIX) {
             return new HttpUrl.Builder()
                     .scheme(this.host.protocol)
                     .host(utils.encodeHostname("/var/run/docker.sock"))
                     .addPathSegment(path)
                     .build();
-        }
-        else{
+        } else {
             throw new UnsupportedOperationException("$host.hostType is not yet supported")
         }
     }

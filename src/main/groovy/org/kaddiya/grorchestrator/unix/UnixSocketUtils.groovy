@@ -7,7 +7,7 @@ import okio.ByteString
  */
 public class UnixSocketUtils {
 
-    public  String encodeHostname(String path) {
+    public String encodeHostname(String path) {
         return Encoder.encode(path) + ".socket/";
     }
 

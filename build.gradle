@@ -53,5 +53,4 @@ dependencies {
     compile 'com.kohlschutter.junixsocket:junixsocket-native-common:2.0.4'
 
 
-
 }

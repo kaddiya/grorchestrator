@@ -4,7 +4,6 @@ import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
 import groovy.transform.CompileStatic
 import groovy.util.logging.Log4j
-import groovy.util.logging.Slf4j
 import okhttp3.Request
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.interfaces.RemoveContainer

@@ -22,7 +22,7 @@ public class UnixSocketConnectionFactory extends SocketFactory implements Dns {
 
     @Override
     public List<InetAddress> lookup(String hostname) throws UnknownHostException {
-        byte [] arrayOfBytes = [0,0,0,0]
+        byte[] arrayOfBytes = [0, 0, 0, 0]
         return hostname.endsWith(".socket") ? Collections.singletonList(InetAddress.getByAddress(hostname, arrayOfBytes)) : Dns.SYSTEM.lookup(hostname);
     }
 
@@ -72,7 +72,7 @@ public class UnixSocketConnectionFactory extends SocketFactory implements Dns {
 
         @Override
         public List<InetAddress> lookup(String hostname) throws UnknownHostException {
-            byte [] arrayOfBytes = [0,0,0,0]
+            byte[] arrayOfBytes = [0, 0, 0, 0]
 
             return hostname.endsWith(".socket") ? Collections.singletonList(InetAddress.getByAddress(hostname, arrayOfBytes)) : Dns.SYSTEM.lookup(hostname);
         }

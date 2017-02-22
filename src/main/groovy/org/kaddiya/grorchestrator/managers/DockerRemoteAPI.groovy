@@ -106,11 +106,6 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
     }
 
 
-    protected HttpUrl getCanonical(String path) {
-
-    }
-
-
     public <DOCKER_REMOTE_RESPONSE_CLASS> DOCKER_REMOTE_RESPONSE_CLASS doWork() {
         doSynchonousHTTPCall.call()
     }
@@ -173,7 +168,7 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
         }
         else if (this.host.hostType == HostType.UNIX){
             return new HttpUrl.Builder()
-                    .scheme("http")
+                    .scheme(this.host.protocol)
                     .host(utils.encodeHostname("/var/run/docker.sock"))
                     .addPathSegment(path)
                     .build();

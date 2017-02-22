@@ -46,8 +46,9 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
     Request constructRequest() {
         DockerContainerCreationRequest request = containerCreationRequestBuilder.getContainerCreationRequest(this.instance);
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        String path = "/containers/create?name=foo"
         return new Request.Builder()
-                .url(getCanonicalURL('/containers/create?name=$instance.name'))
+                .url(getCanonicalURL(path))
                 .post(RequestBody.create(JSON, JsonOutput.toJson(request)))
                 .build();
     }
@@ -55,7 +56,7 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
     @Override
     protected Object notFoundHandler() {
         //if container creation throws a 404 error then it means that we need to pull the iamge
-        println("The iamge with #$instance.name with tag $instance.tag is not found.Going to attempt to pull it")
+        println("The iamge with #$instance.imageName with tag $instance.tag is not found.Going to attempt to pull it")
         pullImageImpl.pullImage();
         return createContainer()
     }

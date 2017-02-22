@@ -41,6 +41,7 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     final UnixSocketUtils utils = new UnixSocketUtils()
 
+    protected String pathUrl
 
     public DockerRemoteAPI(Instance instance, Host host) {
 

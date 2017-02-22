@@ -30,6 +30,7 @@ class KillContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResp
             @Assisted Instance instance, @Assisted Host host, RemoveContainerFactory containerRemoveMangerFactory) {
         super(instance, host)
         this.containerRemoveManager = containerRemoveMangerFactory.create(instance, host)
+        this.pathUrl = "containers/$instance.name/kill"
     }
 
     @Override
@@ -44,7 +45,7 @@ class KillContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResp
     Request constructRequest() {
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         return new Request.Builder()
-                .url("$baseUrl/containers/$instance.name/kill")
+                .url(getCanonicalURL(pathUrl))
                 .post(RequestBody.create(JSON, "")) //this requires an empty request body
                 .build();
     }

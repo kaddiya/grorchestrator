@@ -25,13 +25,13 @@ class PullImageImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> imple
     @Inject
     private DockerhubAuthCredentialsBuilder builder
     private final DockerHubAuth auth
-    private String pathUrl
+   // private String pathUrl
 
     @Inject
     public PullImageImpl(@Assisted Instance instance, @Assisted Host host, @Assisted DockerHubAuth auth) {
         super(instance, host)
         this.auth = auth
-        this.pathUrl = "images/create?fromImage=$instance.imageName&tag=$instance.tag"
+        this.pathUrl = "/images/create=$instance.imageName&tag=$instance.tag"
     }
 
 
@@ -46,7 +46,7 @@ class PullImageImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> imple
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         System.out.println(getCanonicalURL(this.pathUrl))
         return new Request.Builder()
-                .url(getCanonicalURL(this.pathUrl))
+                .url(getCanonicalURL(pathUrl))
                 .header("X-Registry-Auth", builder.getbase64EncodedValueForCredentials(auth))
                 .post(RequestBody.create(JSON, ""))  //this requires an empty request body
                 .build();

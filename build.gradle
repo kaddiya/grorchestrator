@@ -12,7 +12,10 @@ apply plugin: 'groovy'
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'application'
+apply plugin: 'maven'
 mainClassName = "org.kaddiya.grorchestrator.Grorchestrator"
+group = "org.kaddiya"
+version = "1.0.1-SNAPSHOT"
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Use 'jcenter' for resolving your dependencies.
@@ -51,6 +54,8 @@ dependencies {
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.3.6'
     compile 'com.kohlschutter.junixsocket:junixsocket-common:2.0.4'
     compile 'com.kohlschutter.junixsocket:junixsocket-native-common:2.0.4'
+
+
 
 
 }

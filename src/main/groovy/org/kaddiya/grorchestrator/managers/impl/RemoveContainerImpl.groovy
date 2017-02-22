@@ -33,7 +33,7 @@ class RemoveContainerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse>
     @Override
     Request constructRequest() {
         return new Request.Builder()
-                .url(getCanonicalURL(pathUrl))
+                .url(getCanonicalURL(this.pathUrl))
                 .delete()
                 .build();
     }

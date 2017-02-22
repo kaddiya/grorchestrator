@@ -18,7 +18,7 @@ class DockerVersionManagerImpl extends DockerRemoteAPI<VersionResponse> implemen
     @Inject
     DockerVersionManagerImpl(Instance instance, Host host) {
         super(instance, host)
-        this.pathUrl = "/version"
+        this.pathUrl = "version"
     }
 
     @Override
@@ -31,7 +31,6 @@ class DockerVersionManagerImpl extends DockerRemoteAPI<VersionResponse> implemen
 
     @Override
     VersionResponse getDockerVersion() {
-        log.info("getting the docker version")
         return doWork()
     }
 }

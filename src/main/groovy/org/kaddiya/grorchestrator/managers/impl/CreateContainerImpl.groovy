@@ -59,7 +59,6 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
 
     @Override
     protected Object notFoundHandler() {
-        //if container creation throws a 404 error then it means that we need to pull the iamge
         log.info("The image with #$instance.imageName with tag $instance.tag is not found.Going to attempt to pull it")
         pullImageImpl.pullImage();
         return createContainer()

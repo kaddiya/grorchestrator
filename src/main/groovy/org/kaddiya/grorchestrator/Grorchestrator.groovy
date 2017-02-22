@@ -3,6 +3,8 @@ package org.kaddiya.grorchestrator
 import com.google.inject.Guice
 import com.google.inject.Injector
 import groovy.transform.CompileStatic
+import groovy.util.logging.Log4j
+import groovy.util.logging.Slf4j
 import org.kaddiya.grorchestrator.deserialisers.latest.GrorProjectDeserialiserImpl
 import org.kaddiya.grorchestrator.guice.DeserialiserModule
 import org.kaddiya.grorchestrator.guice.DockerRemoteAPIModule
@@ -26,6 +28,7 @@ import org.kaddiya.grorchestrator.serialiser.GrorProjectSerialiser
 import org.kaddiya.grorchestrator.updators.PreviousToLatestSchemaUpdator
 
 @CompileStatic
+@Slf4j
 class Grorchestrator {
 
     final static String DEFAULT_GROR_FILE_NAME = "gror.json"
@@ -67,7 +70,7 @@ class Grorchestrator {
                     case SupportedSystemActions.GROR_UPDATE.name():
                         org.kaddiya.grorchestrator.models.core.latest.GrorProject newProject = updator.updateFromPreviousProject(project)
                         serialiser.serialiseProjectToFile(newProject, ACTUAL_GROR_FILE_NAME)
-                        println("Done with updating to the new version")
+                        log.info("Done with updating to the new version")
                         System.exit(0)
                         break;
                     default:
@@ -130,23 +133,23 @@ class Grorchestrator {
                 switch (action.toUpperCase()) {
                     case SupportedContainerActions.PULL.name():
                         pullManager.pullImage()
-                        println("finished pulling the image for $requestedInstance.imageName:$requestedInstance.tag ")
+                        log.info("finished pulling the image for $requestedInstance.imageName:$requestedInstance.tag ")
                         break
                     case SupportedContainerActions.RUN.name():
                         dockerContainerRunnerManager.runContainer();
-                        println("finished running the container $requestedInstance.imageName:$requestedInstance.tag ")
+                        log.info("finished running the container $requestedInstance.imageName:$requestedInstance.tag ")
                         break
                     case SupportedContainerActions.KILL.name():
                         dockerContainerKillManager.killContainer();
-                        println("finished killing the container $requestedInstance.imageName:$requestedInstance.tag ")
+                        log.info("finished killing the container $requestedInstance.imageName:$requestedInstance.tag ")
                         break
                     case SupportedContainerActions.STATUS.name():
                         String result = infoManager.getInfo();
-                        println(result)
+                        log.info(result)
                         break
                     case SupportedContainerActions.REMOVE.name():
                         removeManager.removeContainer()
-                        println("finished removing the container $requestedInstance.imageName:$requestedInstance.tag ")
+                        log.info("finished removing the container $requestedInstance.imageName:$requestedInstance.tag ")
                         break
 
                     default:
@@ -160,9 +163,9 @@ class Grorchestrator {
                 switch (action.toUpperCase()) {
                     case SupportedMonitoringActions.LIST.name():
                         List<InstanceSummary> result = instancesListerImpl.getSummaryOfAllInstances(project)
-                        println("Instance Name\t\t\tHostIp\t\t\tImageName \n")
+                        log.info("Instance Name\t\t\tHostIp\t\t\tImageName \n")
                         result.each { it ->
-                            println("$it.instanceName\t\t\t$it.hostIp\t\t\t$it.imageName")
+                            log.info("$it.instanceName\t\t\t$it.hostIp\t\t\t$it.imageName")
                         }
                         break
 

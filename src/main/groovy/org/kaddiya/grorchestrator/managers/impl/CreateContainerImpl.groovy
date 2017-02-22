@@ -4,6 +4,7 @@ import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
 import groovy.json.JsonOutput
 import groovy.transform.CompileStatic
+import groovy.util.logging.Log4j
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
@@ -22,6 +23,7 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerC
  * Created by Webonise on 05/07/16.
  */
 @CompileStatic
+@Log4j
 class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationResponse> implements CreateContainer {
 
     final DockerContainerCreationRequestBuilder containerCreationRequestBuilder;
@@ -35,6 +37,7 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
         super(instance, host)
         this.containerCreationRequestBuilder = containerCreationRequestBuilder
         this.pullImageImpl = pullImageFactory.create(instance, host, auth)
+        this.pathUrl = "/containers/create?name=$instance.name"
     }
 
     @Override
@@ -46,9 +49,8 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
     Request constructRequest() {
         DockerContainerCreationRequest request = containerCreationRequestBuilder.getContainerCreationRequest(this.instance);
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        String path = "/containers/create?name=foo"
         return new Request.Builder()
-                .url(getCanonicalURL(path))
+                .url(getCanonicalURL(this.pathUrl))
                 .post(RequestBody.create(JSON, JsonOutput.toJson(request)))
                 .build();
     }
@@ -56,7 +58,7 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
     @Override
     protected Object notFoundHandler() {
         //if container creation throws a 404 error then it means that we need to pull the iamge
-        println("The iamge with #$instance.imageName with tag $instance.tag is not found.Going to attempt to pull it")
+        log.info("The image with #$instance.imageName with tag $instance.tag is not found.Going to attempt to pull it")
         pullImageImpl.pullImage();
         return createContainer()
     }

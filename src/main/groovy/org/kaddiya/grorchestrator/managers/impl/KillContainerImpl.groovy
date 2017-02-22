@@ -3,6 +3,7 @@ package org.kaddiya.grorchestrator.managers.impl
 import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
 import groovy.transform.CompileStatic
+import groovy.util.logging.Log4j
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
@@ -18,6 +19,7 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGene
  * Created by Webonise on 12/07/16.
  */
 @CompileStatic
+@Log4j
 class KillContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResponse> implements KillContainer {
 
     @Inject
@@ -30,14 +32,14 @@ class KillContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResp
             @Assisted Instance instance, @Assisted Host host, RemoveContainerFactory containerRemoveMangerFactory) {
         super(instance, host)
         this.containerRemoveManager = containerRemoveMangerFactory.create(instance, host)
-        this.pathUrl = "containers/$instance.name/kill"
+        this.pathUrl = "/containers/$instance.name/kill"
     }
 
     @Override
     void killContainer() {
-        println("going to kill the container $instance.name")
+        log.info("going to kill the container $instance.name")
         DockerRemoteGenericNoContentResponse response = doWork()
-        println(response.toString())
+        log.info(response.toString())
         containerRemoveManager.removeContainer()
     }
 
@@ -45,7 +47,7 @@ class KillContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResp
     Request constructRequest() {
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         return new Request.Builder()
-                .url(getCanonicalURL(pathUrl))
+                .url(getCanonicalURL(this.pathUrl))
                 .post(RequestBody.create(JSON, "")) //this requires an empty request body
                 .build();
     }

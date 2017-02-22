@@ -51,7 +51,7 @@ class DockerContainerCreationRequestBuilderImpl implements DockerContainerCreati
             List<String> result = instance.envMap.collect { k, v -> k + "=" + v }
             return result
         } else {
-            return Arrays.asList("")
+            return null
         }
     }
 

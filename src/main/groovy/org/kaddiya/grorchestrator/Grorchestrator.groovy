@@ -2,6 +2,8 @@ package org.kaddiya.grorchestrator
 
 import com.google.inject.Guice
 import com.google.inject.Injector
+import com.google.inject.Key
+import com.google.inject.name.Names
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
 import org.kaddiya.grorchestrator.deserialisers.latest.GrorProjectDeserialiserImpl
@@ -14,6 +16,7 @@ import org.kaddiya.grorchestrator.helpers.InstanceFinder
 import org.kaddiya.grorchestrator.helpers.impl.DockerhubAuthFinderImpl
 import org.kaddiya.grorchestrator.helpers.impl.HostFinderImpl
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
+import org.kaddiya.grorchestrator.managers.impl.PullImageImpl
 import org.kaddiya.grorchestrator.managers.interfaces.monitoringactions.InstancesLister
 import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 import org.kaddiya.grorchestrator.models.core.SupportedContainerActions
@@ -108,7 +111,7 @@ class Grorchestrator {
                 KillContainerFactory dockerContainerKillManagerFactory = grorchestratorInjector.getInstance(KillContainerFactory)
                 RemoveContainerFactory dockerContainerRemoveManagerFactory = grorchestratorInjector.getInstance(RemoveContainerFactory)
                 InspectContainerFactory infoManagerFactory = grorchestratorInjector.getInstance(InspectContainerFactory)
-
+                NamedDockerRemoteApiFactory namedDockerRemoteApiFactory = grorchestratorInjector.getInstance(NamedDockerRemoteApiFactory)
 
                 InstanceFinder instanceFinderImpl = grorchestratorInjector.getInstance(InstanceFinder)
                 HostFinderImpl hostFinderImpl = grorchestratorInjector.getInstance(HostFinderImpl)
@@ -129,8 +132,13 @@ class Grorchestrator {
                 DockerRemoteAPI removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance, requestedHost)
                 DockerRemoteAPI infoManager = infoManagerFactory.create(requestedInstance, requestedHost)
 
+                //this named puller is not being initialised.If this can happed then it is very easy!
+                DockerRemoteAPI namedPuller =  grorchestratorInjector.getInstance(Key.get(PullImageImpl.class, Names.named("PullImage")));
+
                 switch (action.toUpperCase()) {
                     case SupportedContainerActions.PULL.name():
+                       // namedPuller.doWork()
+
                         pullManager.doWork()
                         log.info("finished pulling the image for $requestedInstance.imageName:$requestedInstance.tag ")
                         break

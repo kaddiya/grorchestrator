@@ -3,12 +3,12 @@ package org.kaddiya.grorchestrator.managers.impl
 import com.google.inject.Inject
 import com.google.inject.assistedinject.Assisted
 import groovy.transform.CompileStatic
+import groovy.util.logging.Slf4j
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
 import org.kaddiya.grorchestrator.helpers.impl.DockerhubAuthCredentialsBuilder
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
-import org.kaddiya.grorchestrator.managers.interfaces.PullImage
 import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
@@ -18,7 +18,8 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGene
  * Created by Webonise on 24/06/16.
  */
 @CompileStatic
-class PullImageImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> implements PullImage {
+@Slf4j
+class PullImageImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> {
 
     String authHeaderKey = "X-Registry-Auth"
 
@@ -34,12 +35,6 @@ class PullImageImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> imple
         this.pathUrl = "images/create?fromImage=$instance.imageName&tag=$instance.tag"
     }
 
-
-    @Override
-    String pullImage() {
-        String result = doWork()
-        result
-    }
 
     @Override
     Request constructRequest() {

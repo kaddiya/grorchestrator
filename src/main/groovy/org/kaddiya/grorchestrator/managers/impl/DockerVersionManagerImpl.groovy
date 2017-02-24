@@ -21,6 +21,7 @@ class DockerVersionManagerImpl extends DockerRemoteAPI<VersionResponse> implemen
         this.pathUrl = "version"
     }
 
+
     @Override
     protected Request constructRequest() {
         return new Request.Builder()

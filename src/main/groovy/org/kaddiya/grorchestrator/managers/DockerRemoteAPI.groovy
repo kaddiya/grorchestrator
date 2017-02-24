@@ -1,6 +1,7 @@
 package org.kaddiya.grorchestrator.managers
 
 import com.google.gson.Gson
+import groovy.util.logging.Slf4j
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -21,6 +22,7 @@ import javax.net.ssl.SSLSession
 /**
  * Created by Webonise on 24/06/16.
  */
+@Slf4j
 abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     final Instance instance;
@@ -106,7 +108,19 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
 
 
     public <DOCKER_REMOTE_RESPONSE_CLASS> DOCKER_REMOTE_RESPONSE_CLASS doWork() {
-        doSynchonousHTTPCall.call()
+        this.preHook()
+        DOCKER_REMOTE_RESPONSE_CLASS result =  doSynchonousHTTPCall.call()
+        this.postHook()
+        return result
+    }
+
+
+    protected void preHook() {
+        log.info("Doing the pre hook work for")
+    }
+
+    protected void postHook() {
+        log.info("Doing the post hook work for")
     }
 
 

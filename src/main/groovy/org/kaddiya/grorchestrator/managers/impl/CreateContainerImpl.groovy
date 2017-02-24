@@ -12,7 +12,6 @@ import org.kaddiya.grorchestrator.guice.factory.PullImageFactory
 import org.kaddiya.grorchestrator.helpers.DockerContainerCreationRequestBuilder
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.interfaces.CreateContainer
-import org.kaddiya.grorchestrator.managers.interfaces.PullImage
 import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
@@ -44,6 +43,7 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
     DockerContainerCreationResponse createContainer() {
         return doWork()
     }
+
 
     @Override
     Request constructRequest() {

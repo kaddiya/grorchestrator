@@ -7,7 +7,6 @@ import org.kaddiya.grorchestrator.guice.factory.*
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.impl.*
 import org.kaddiya.grorchestrator.managers.impl.monitoringactions.InstanceListerImpl
-import org.kaddiya.grorchestrator.managers.interfaces.*
 import org.kaddiya.grorchestrator.managers.interfaces.monitoringactions.InstancesLister
 
 /**
@@ -22,10 +21,10 @@ class DockerRemoteAPIModule extends AbstractModule {
                 .implement(DockerRemoteAPI.class, PullImageImpl.class)
                 .build(PullImageFactory.class));
         this.install(new FactoryModuleBuilder()
-                .implement(CreateContainer.class, CreateContainerImpl.class)
+                .implement(DockerRemoteAPI.class, CreateContainerImpl.class)
                 .build(CreateContainerFactory))
         this.install(new FactoryModuleBuilder()
-                .implement(RunContainer.class, RunContainerImpl.class)
+                .implement(DockerRemoteAPI.class, RunContainerImpl.class)
                 .build(RunContainerFactory))
         this.install(new FactoryModuleBuilder()
                 .implement(DockerRemoteAPI.class, KillContainerImpl.class)
@@ -33,9 +32,11 @@ class DockerRemoteAPIModule extends AbstractModule {
         this.install(new FactoryModuleBuilder()
                 .implement(DockerRemoteAPI.class, RemoveContainerImpl.class)
                 .build(RemoveContainerFactory))
+
         this.install(new FactoryModuleBuilder()
-                .implement(InspectContainer.class, InspectContainerImpl.class)
+                .implement(DockerRemoteAPI.class, InspectContainerImpl.class)
                 .build(InspectContainerFactory))
+
         this.install(new FactoryModuleBuilder()
                 .implement(InstancesLister.class, InstanceListerImpl.class)
                 .build(InstanceListerFactory))

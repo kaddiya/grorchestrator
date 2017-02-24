@@ -22,6 +22,7 @@ class InspectContainerImpl extends DockerRemoteAPI<DockerContainerInspectionResp
         this.pathUrl = "/containers/$instance.name/json"
     }
 
+
     @Override
     Request constructRequest() {
         return new Request.Builder()

@@ -36,7 +36,7 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
         super(instance, host)
         this.containerCreationRequestBuilder = containerCreationRequestBuilder
         this.pullImageImpl = pullImageFactory.create(instance, host, auth)
-        this.pathUrl = "containers/create?name=$instance.name"
+        this.pathSegment = "containers/create?name=$instance.name"
     }
 
     @Override
@@ -52,7 +52,7 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
         return new Request.Builder()
-                .url(getCanonicalURL(this.pathUrl))
+                .url(getCanonicalURL(this.pathSegment))
                 .post(RequestBody.create(JSON, JsonOutput.toJson(request)))
                 .build();
     }

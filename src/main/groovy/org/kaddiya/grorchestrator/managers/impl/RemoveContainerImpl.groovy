@@ -20,7 +20,7 @@ class RemoveContainerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse>
     @Inject
     RemoveContainerImpl(@Assisted Instance instance, @Assisted Host host) {
         super(instance, host)
-        this.pathUrl = "containers/$instance.name"
+        this.pathSegment = "containers/$instance.name"
     }
 
     @Override
@@ -36,7 +36,7 @@ class RemoveContainerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse>
     @Override
     Request constructRequest() {
         return new Request.Builder()
-                .url(getCanonicalURL(this.pathUrl))
+                .url(getCanonicalURL(this.pathSegment))
                 .delete()
                 .build();
     }

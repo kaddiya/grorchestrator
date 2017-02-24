@@ -34,7 +34,7 @@ class RunContainerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> {
         super(instance, host)
         containerCreatorImpl = creatorFactory.create(this.instance, this.host, authObject)
         this.hostConfigBuilder = hostConfigBuilder
-        this.pathUrl = "containers/$instance.name/start"
+        this.pathSegment = "containers/$instance.name/start"
     }
 
     @Override
@@ -54,7 +54,7 @@ class RunContainerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> {
 
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         return new Request.Builder()
-                .url(getCanonicalURL(this.pathUrl))
+                .url(getCanonicalURL(this.pathSegment))
                 .post(RequestBody.create(JSON, request))
                 .build();
     }

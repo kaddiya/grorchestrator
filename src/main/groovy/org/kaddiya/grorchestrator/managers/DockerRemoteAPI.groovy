@@ -29,39 +29,23 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     final Host host;
 
-    final String baseUrl;
-
     final OkHttpClient httpClient
 
     def Closure<DOCKER_REMOTE_RESPONSE_CLASS> doSynchonousHTTPCall
 
     final Gson gson = new Gson()
 
-    final Class aClass
-
-    final String protocol
-
     final UnixSocketUtils utils = new UnixSocketUtils()
 
-    protected String pathUrl
+    protected String pathSegment
 
     public DockerRemoteAPI(Instance instance, Host host) {
 
         this.host = host
         this.instance = instance
-        //construct the baseURL
-
-        /*
-
-        Need to remove the setting of the baseUrl.instead use derieve hostUrl
-         */
-        if (host.dockerPort) {
-            this.baseUrl = "$protocol://$host.ip:$host.dockerPort"
-        }
 
         //initialise the OkHTTPCLient
         this.httpClient = initialiseOkHTTPClient()
-        this.aClass = DOCKER_REMOTE_RESPONSE_CLASS.class
         this.doSynchonousHTTPCall = scrubResponse << apiCallClosure
     }
 
@@ -147,7 +131,6 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     protected <DOCKER_REMOTE_RESPONSE_CLASS> DOCKER_REMOTE_RESPONSE_CLASS parseResponseJson(Response response) {
         def value = response.body().string()
-        println(value)
         //first try to attempt to parse the json into the known class.If it throws an exception wrap the response as a string into a genric ok response and send it back
         try {
             return gson.fromJson(value, DOCKER_REMOTE_RESPONSE_CLASS.class);
@@ -172,7 +155,6 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
     }
 
     protected String getCanonicalURL(String path) {
-
 
         if (this.host.hostType == HostType.TCP || this.host.hostType == null) {
             return getDecodedUrl(new HttpUrl.Builder()

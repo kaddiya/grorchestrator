@@ -18,14 +18,14 @@ class DockerVersionManagerImpl extends DockerRemoteAPI<VersionResponse> implemen
     @Inject
     DockerVersionManagerImpl(Instance instance, Host host) {
         super(instance, host)
-        this.pathUrl = "version"
+        this.pathSegment = "version"
     }
 
 
     @Override
     protected Request constructRequest() {
         return new Request.Builder()
-                .url(getCanonicalURL(this.pathUrl))
+                .url(getCanonicalURL(this.pathSegment))
                 .get()
                 .build();
     }

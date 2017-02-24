@@ -4,6 +4,7 @@ import com.google.inject.AbstractModule
 import com.google.inject.assistedinject.FactoryModuleBuilder
 import groovy.transform.CompileStatic
 import org.kaddiya.grorchestrator.guice.factory.*
+import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.impl.*
 import org.kaddiya.grorchestrator.managers.impl.monitoringactions.InstanceListerImpl
 import org.kaddiya.grorchestrator.managers.interfaces.*
@@ -18,7 +19,7 @@ class DockerRemoteAPIModule extends AbstractModule {
     @Override
     protected void configure() {
         this.install(new FactoryModuleBuilder()
-                .implement(PullImage.class, PullImageImpl.class)
+                .implement(DockerRemoteAPI.class, PullImageImpl.class)
                 .build(PullImageFactory.class));
         this.install(new FactoryModuleBuilder()
                 .implement(CreateContainer.class, CreateContainerImpl.class)
@@ -27,10 +28,10 @@ class DockerRemoteAPIModule extends AbstractModule {
                 .implement(RunContainer.class, RunContainerImpl.class)
                 .build(RunContainerFactory))
         this.install(new FactoryModuleBuilder()
-                .implement(KillContainer.class, KillContainerImpl.class)
+                .implement(DockerRemoteAPI.class, KillContainerImpl.class)
                 .build(KillContainerFactory))
         this.install(new FactoryModuleBuilder()
-                .implement(RemoveContainer.class, RemoveContainerImpl.class)
+                .implement(DockerRemoteAPI.class, RemoveContainerImpl.class)
                 .build(RemoveContainerFactory))
         this.install(new FactoryModuleBuilder()
                 .implement(InspectContainer.class, InspectContainerImpl.class)

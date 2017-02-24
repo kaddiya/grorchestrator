@@ -164,7 +164,7 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
             return getDecodedUrl(new HttpUrl.Builder()
                     .scheme(this.host.protocol)
                     .host(this.host.ip)
-                    .port(this.host.dockerPort)
+                    .port(this.host.dockerPort as int)
                     .addPathSegment(path).build())
         } else if (this.host.hostType == HostType.UNIX) {
             return getDecodedUrl(new HttpUrl.Builder()

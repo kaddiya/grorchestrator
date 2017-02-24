@@ -25,7 +25,7 @@ class KillContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResp
     @Inject
     RemoveContainerFactory containerRemoveMangerFactory
 
-    final RemoveContainer containerRemoveManager;
+    final DockerRemoteAPI containerRemoveManager;
 
     @Inject
     KillContainerImpl(
@@ -39,7 +39,7 @@ class KillContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResp
     void killContainer() {
         log.info("going to kill the container $instance.name")
         DockerRemoteGenericNoContentResponse response = doWork()
-        containerRemoveManager.removeContainer()
+        containerRemoveManager.doWork()
     }
 
     @Override

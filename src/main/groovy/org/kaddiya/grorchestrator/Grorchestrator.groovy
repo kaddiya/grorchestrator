@@ -14,6 +14,7 @@ import org.kaddiya.grorchestrator.guice.factory.*
 import org.kaddiya.grorchestrator.helpers.InstanceFinder
 import org.kaddiya.grorchestrator.helpers.impl.DockerhubAuthFinderImpl
 import org.kaddiya.grorchestrator.helpers.impl.HostFinderImpl
+import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.interfaces.*
 import org.kaddiya.grorchestrator.managers.interfaces.monitoringactions.InstancesLister
 import org.kaddiya.grorchestrator.models.core.DockerHubAuth
@@ -124,15 +125,15 @@ class Grorchestrator {
                 DockerHubAuth authObject = dockerhubAuthFinderImpl.getAuthObjectFrom(project, requestedInstance.getAuthId())
 
                 //conditionally create the remote api managers if the action has something to do with container actions
-                PullImage pullManager = dockerImagePullManagerFactory.create(requestedInstance, requestedHost, authObject)
+                DockerRemoteAPI pullManager = dockerImagePullManagerFactory.create(requestedInstance, requestedHost, authObject)
                 RunContainer dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance, requestedHost, authObject)
-                KillContainer dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance, requestedHost)
-                RemoveContainer removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance, requestedHost)
+                DockerRemoteAPI dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance, requestedHost)
+                DockerRemoteAPI removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance, requestedHost)
                 InspectContainer infoManager = infoManagerFactory.create(requestedInstance, requestedHost)
 
                 switch (action.toUpperCase()) {
                     case SupportedContainerActions.PULL.name():
-                        pullManager.pullImage()
+                        pullManager.doWork()
                         log.info("finished pulling the image for $requestedInstance.imageName:$requestedInstance.tag ")
                         break
                     case SupportedContainerActions.RUN.name():
@@ -140,7 +141,7 @@ class Grorchestrator {
                         log.info("finished running the container $requestedInstance.imageName:$requestedInstance.tag ")
                         break
                     case SupportedContainerActions.KILL.name():
-                        dockerContainerKillManager.killContainer();
+                        dockerContainerKillManager.doWork();
                         log.info("finished killing the container $requestedInstance.imageName:$requestedInstance.tag ")
                         break
                     case SupportedContainerActions.STATUS.name():
@@ -148,7 +149,7 @@ class Grorchestrator {
                         log.info(result)
                         break
                     case SupportedContainerActions.REMOVE.name():
-                        removeManager.removeContainer()
+                        removeManager.doWork()
                         log.info("finished removing the container $requestedInstance.imageName:$requestedInstance.tag ")
                         break
 

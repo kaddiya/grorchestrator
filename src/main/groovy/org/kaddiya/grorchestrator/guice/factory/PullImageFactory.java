@@ -1,5 +1,6 @@
 package org.kaddiya.grorchestrator.guice.factory;
 
+import org.kaddiya.grorchestrator.managers.DockerRemoteAPI;
 import org.kaddiya.grorchestrator.managers.interfaces.PullImage;
 import org.kaddiya.grorchestrator.models.core.DockerHubAuth;
 import org.kaddiya.grorchestrator.models.core.latest.Host;
@@ -10,6 +11,6 @@ import org.kaddiya.grorchestrator.models.core.latest.Instance;
  */
 public interface PullImageFactory {
 
-    public PullImage create(Instance instance, Host host, DockerHubAuth auth);
+    public DockerRemoteAPI create(Instance instance, Host host, DockerHubAuth auth);
 
 }

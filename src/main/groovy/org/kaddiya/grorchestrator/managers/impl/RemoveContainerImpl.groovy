@@ -8,14 +8,14 @@ import okhttp3.Request
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
-import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericOKResponse
+import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericNoContentResponse
 
 /**
  * Created by Webonise on 14/07/16.
  */
 @CompileStatic
 @Slf4j
-class RemoveContainerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> {
+class RemoveContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResponse> {
 
     @Inject
     RemoveContainerImpl(@Assisted Instance instance, @Assisted Host host) {
@@ -42,7 +42,7 @@ class RemoveContainerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse>
     }
 
     @Override
-    DockerRemoteGenericOKResponse doWork() {
-        return (super.doInternalWork() as DockerRemoteGenericOKResponse)
+    DockerRemoteGenericNoContentResponse doWork() {
+        return (super.doInternalWork() as DockerRemoteGenericNoContentResponse)
     }
 }

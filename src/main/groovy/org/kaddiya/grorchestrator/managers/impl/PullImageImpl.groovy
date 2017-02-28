@@ -12,6 +12,7 @@ import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
+import org.kaddiya.grorchestrator.models.remotedocker.responses.AbstractDockerInteractionResponse
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericOKResponse
 
 /**
@@ -49,7 +50,7 @@ class PullImageImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> {
     }
 
     @Override
-    DockerRemoteGenericOKResponse doWork() {
-        return (super.doInternalWork() as DockerRemoteGenericOKResponse)
+    AbstractDockerInteractionResponse doWork() {
+        return (super.doInternalWork() as AbstractDockerInteractionResponse)
     }
 }

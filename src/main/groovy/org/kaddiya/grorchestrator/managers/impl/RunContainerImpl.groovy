@@ -14,13 +14,13 @@ import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.requests.HostConfig
-import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericOKResponse
+import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericNoContentResponse
 
 /**
  * Created by Webonise on 11/07/16.
  */
 @CompileStatic
-class RunContainerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> {
+class RunContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResponse> {
 
     final DockerRemoteAPI containerCreatorImpl
     final HostConfigBuilder hostConfigBuilder
@@ -60,8 +60,8 @@ class RunContainerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> {
     }
 
     @Override
-    DockerRemoteGenericOKResponse doWork() {
-        return (super.doInternalWork() as DockerRemoteGenericOKResponse)
+    DockerRemoteGenericNoContentResponse doWork() {
+        return (super.doInternalWork() as DockerRemoteGenericNoContentResponse)
     }
 }
 

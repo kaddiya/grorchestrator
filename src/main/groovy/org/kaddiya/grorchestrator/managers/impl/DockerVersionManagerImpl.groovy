@@ -6,6 +6,7 @@ import okhttp3.Request
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.previous.Instance
+import org.kaddiya.grorchestrator.models.remotedocker.responses.AbstractDockerInteractionResponse
 import org.kaddiya.grorchestrator.models.remotedocker.responses.dockermetadata.VersionResponse
 
 /**
@@ -30,8 +31,8 @@ class DockerVersionManagerImpl extends DockerRemoteAPI<VersionResponse> {
     }
 
     @Override
-    VersionResponse doWork() {
-        return (super.doInternalWork() as VersionResponse)
+    AbstractDockerInteractionResponse doWork() {
+        return (super.doInternalWork() as AbstractDockerInteractionResponse)
     }
 
 

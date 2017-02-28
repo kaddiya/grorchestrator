@@ -11,7 +11,6 @@ import okhttp3.RequestBody
 import org.kaddiya.grorchestrator.guice.factory.PullImageFactory
 import org.kaddiya.grorchestrator.helpers.DockerContainerCreationRequestBuilder
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
-import org.kaddiya.grorchestrator.managers.interfaces.CreateContainer
 import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
@@ -23,7 +22,7 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerC
  */
 @CompileStatic
 @Log4j
-class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationResponse> implements CreateContainer {
+class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationResponse>{
 
     final DockerContainerCreationRequestBuilder containerCreationRequestBuilder;
     final DockerRemoteAPI pullImageImpl
@@ -38,12 +37,6 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
         this.pullImageImpl = pullImageFactory.create(instance, host)
         this.pathSegment = "containers/create?name=$instance.name"
     }
-
-    @Override
-    DockerContainerCreationResponse createContainer() {
-        return (super.doInternalWork() as DockerContainerCreationResponse)
-    }
-
 
     @Override
     Request constructRequest() {
@@ -61,11 +54,12 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
     protected Object notFoundHandler() {
         log.info("The image with #$instance.imageName with tag $instance.tag is not found.Going to attempt to pull it")
         pullImageImpl.doWork();
-        return createContainer()
+        return (this.doWork() as DockerContainerCreationResponse)
     }
 
     @Override
     DockerContainerCreationResponse doWork() {
-        return null
+            return (super.doInternalWork() as DockerContainerCreationResponse)
+
     }
 }

@@ -56,7 +56,8 @@ class KillContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResp
 
     @Override
     DockerRemoteGenericNoContentResponse doWork() {
-        return (super.doInternalWork() as DockerRemoteGenericNoContentResponse)
+        DockerRemoteGenericNoContentResponse res =   DockerRemoteGenericNoContentResponse.cast(super.doInternalWork())
+        return res
     }
 }
 

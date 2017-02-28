@@ -10,9 +10,7 @@ import org.kaddiya.grorchestrator.managers.interfaces.DockerRemoteInterface
 import org.kaddiya.grorchestrator.models.HostType
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
-import org.kaddiya.grorchestrator.models.remotedocker.responses.AbstractDockerInteractionResponse
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericNoContentResponse
-import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericOKResponse
 import org.kaddiya.grorchestrator.models.ssl.DockerSslSocket
 import org.kaddiya.grorchestrator.ssl.SslSocketConfigFactory
 import org.kaddiya.grorchestrator.unix.UnixSocketConnectionFactory
@@ -25,7 +23,7 @@ import javax.net.ssl.SSLSession
  * Created by Webonise on 24/06/16.
  */
 @Slf4j
-abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> implements DockerRemoteInterface<DOCKER_REMOTE_RESPONSE_CLASS> {
+abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> implements DockerRemoteInterface {//<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     final Instance instance;
 
@@ -96,7 +94,7 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> implements DockerRe
         this.preHook()
         DOCKER_REMOTE_RESPONSE_CLASS result = doSynchonousHTTPCall.call()
         this.postHook()
-        return result as AbstractDockerInteractionResponse
+        return result
     }
 
 
@@ -137,7 +135,7 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> implements DockerRe
             return gson.fromJson(value, DOCKER_REMOTE_RESPONSE_CLASS.class);
         } catch (Exception e) {
             println("Something went wrong in the parsing of the response.Going to return a Generic response with actual response wrapped in")
-            return new DockerRemoteGenericOKResponse(value)
+            return new DockerRemoteGenericNoContentResponse(value)
         }
     }
 

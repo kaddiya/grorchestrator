@@ -23,6 +23,7 @@ import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.core.previous.GrorProject
 import org.kaddiya.grorchestrator.models.monitoringactions.InstanceSummary
+import org.kaddiya.grorchestrator.models.remotedocker.responses.AbstractDockerInteractionResponse
 import org.kaddiya.grorchestrator.serialiser.GrorProjectSerialiser
 import org.kaddiya.grorchestrator.updators.PreviousToLatestSchemaUpdator
 
@@ -135,22 +136,22 @@ class Grorchestrator {
 
                 switch (action.toUpperCase()) {
                     case SupportedContainerActions.PULL.name():
-                        pullManager.doWork()
+                        AbstractDockerInteractionResponse resp = pullManager.doWork()
                         log.info("finished pulling the image for $requestedInstance.imageName:$requestedInstance.tag")
                         break;
                     case SupportedContainerActions.RUN.name():
-                        dockerContainerRunnerManager.doWork()
+                        AbstractDockerInteractionResponse resp = dockerContainerRunnerManager.doWork()
                         log.info("finished running the container $requestedInstance.imageName:$requestedInstance.tag ")
                         break
                     case SupportedContainerActions.KILL.name():
-                        dockerContainerKillManager.doWork()
+                        AbstractDockerInteractionResponse resp = dockerContainerKillManager.doWork()
                         log.info("finished killing the container $requestedInstance.imageName:$requestedInstance.tag ")
                         break
                     case SupportedContainerActions.STATUS.name():
-                        infoManager.doWork()
+                        AbstractDockerInteractionResponse resp = infoManager.doWork()
                         break
                     case SupportedContainerActions.REMOVE.name():
-                        removeManager.doWork()
+                        AbstractDockerInteractionResponse resp = removeManager.doWork()
                         log.info("finished removing the container $requestedInstance.imageName:$requestedInstance.tag ")
                         break
 

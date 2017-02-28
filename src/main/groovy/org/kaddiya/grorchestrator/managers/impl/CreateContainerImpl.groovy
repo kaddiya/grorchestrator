@@ -23,7 +23,7 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerC
  */
 @CompileStatic
 @Log4j
-class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationResponse>{
+class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationResponse> {
 
     final DockerContainerCreationRequestBuilder containerCreationRequestBuilder;
     final DockerRemoteAPI pullImageImpl
@@ -55,12 +55,12 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
     protected Object notFoundHandler() {
         log.info("The image with #$instance.imageName with tag $instance.tag is not found.Going to attempt to pull it")
         pullImageImpl.doWork();
-        return (this.doWork() as DockerContainerCreationResponse)
+        return (this.doWork() as AbstractDockerInteractionResponse)
     }
 
     @Override
     AbstractDockerInteractionResponse doWork() {
-            return (super.doInternalWork() as AbstractDockerInteractionResponse)
+        return (super.doInternalWork() as AbstractDockerInteractionResponse)
 
     }
 }

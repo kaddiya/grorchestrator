@@ -35,6 +35,7 @@ class PullImageImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> {
         this.auth = auth
         this.auth = new DockerHubAuth("default-dockerhub-auth-1", "proofadmin", "1529.Vienna.1683", "developers@get-proof.com", "")
         this.pathSegment = "images/create?fromImage=$instance.imageName&tag=$instance.tag"
+
     }
 
 

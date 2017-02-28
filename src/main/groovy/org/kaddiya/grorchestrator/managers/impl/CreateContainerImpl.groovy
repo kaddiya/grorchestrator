@@ -15,6 +15,7 @@ import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.requests.DockerContainerCreationRequest
+import org.kaddiya.grorchestrator.models.remotedocker.responses.AbstractDockerInteractionResponse
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerCreationResponse
 
 /**
@@ -58,8 +59,8 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
     }
 
     @Override
-    DockerContainerCreationResponse doWork() {
-            return (super.doInternalWork() as DockerContainerCreationResponse)
+    AbstractDockerInteractionResponse doWork() {
+            return (super.doInternalWork() as AbstractDockerInteractionResponse)
 
     }
 }

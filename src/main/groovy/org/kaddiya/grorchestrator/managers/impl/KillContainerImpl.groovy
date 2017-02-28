@@ -12,6 +12,7 @@ import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.interfaces.DockerRemoteInterface
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
+import org.kaddiya.grorchestrator.models.remotedocker.responses.AbstractDockerInteractionResponse
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericNoContentResponse
 
 /**
@@ -55,9 +56,8 @@ class KillContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResp
     }
 
     @Override
-    DockerRemoteGenericNoContentResponse doWork() {
-        DockerRemoteGenericNoContentResponse res =   DockerRemoteGenericNoContentResponse.cast(super.doInternalWork())
-        return res
+    AbstractDockerInteractionResponse doWork() {
+        return (super.doInternalWork() as AbstractDockerInteractionResponse)
     }
 }
 

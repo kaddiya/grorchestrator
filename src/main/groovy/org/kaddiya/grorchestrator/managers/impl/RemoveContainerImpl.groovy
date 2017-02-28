@@ -8,6 +8,7 @@ import okhttp3.Request
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
+import org.kaddiya.grorchestrator.models.remotedocker.responses.AbstractDockerInteractionResponse
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericNoContentResponse
 
 /**
@@ -42,7 +43,7 @@ class RemoveContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentRe
     }
 
     @Override
-    DockerRemoteGenericNoContentResponse doWork() {
-        return (super.doInternalWork() as DockerRemoteGenericNoContentResponse)
+    AbstractDockerInteractionResponse doWork() {
+        return (super.doInternalWork() as AbstractDockerInteractionResponse)
     }
 }

@@ -14,6 +14,7 @@ import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.requests.HostConfig
+import org.kaddiya.grorchestrator.models.remotedocker.responses.AbstractDockerInteractionResponse
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericNoContentResponse
 
 /**
@@ -60,8 +61,8 @@ class RunContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentRespo
     }
 
     @Override
-    DockerRemoteGenericNoContentResponse doWork() {
-        return (super.doInternalWork() as DockerRemoteGenericNoContentResponse)
+    AbstractDockerInteractionResponse doWork() {
+        return (super.doInternalWork() as AbstractDockerInteractionResponse)
     }
 }
 

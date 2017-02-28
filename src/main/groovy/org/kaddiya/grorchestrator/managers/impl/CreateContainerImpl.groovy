@@ -41,7 +41,7 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
 
     @Override
     DockerContainerCreationResponse createContainer() {
-        return doWork()
+        return (super.doInternalWork() as DockerContainerCreationResponse)
     }
 
 
@@ -64,5 +64,8 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
         return createContainer()
     }
 
-
+    @Override
+    DockerContainerCreationResponse doWork() {
+        return null
+    }
 }

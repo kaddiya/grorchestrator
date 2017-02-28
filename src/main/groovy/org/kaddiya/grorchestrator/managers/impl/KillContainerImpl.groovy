@@ -9,6 +9,7 @@ import okhttp3.Request
 import okhttp3.RequestBody
 import org.kaddiya.grorchestrator.guice.factory.RemoveContainerFactory
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
+import org.kaddiya.grorchestrator.managers.interfaces.DockerRemoteInterface
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericNoContentResponse
@@ -20,7 +21,7 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGene
 @Slf4j
 class KillContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResponse> {
 
-    final DockerRemoteAPI containerRemoveManager;
+    final DockerRemoteInterface containerRemoveManager;
 
     @Inject
     KillContainerImpl(
@@ -53,5 +54,9 @@ class KillContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResp
                 .build();
     }
 
+    @Override
+    DockerRemoteGenericNoContentResponse doWork() {
+        return (super.doInternalWork() as DockerRemoteGenericNoContentResponse)
+    }
 }
 

@@ -1,7 +1,6 @@
 package org.kaddiya.grorchestrator.guice.factory;
 
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI;
-import org.kaddiya.grorchestrator.models.core.DockerHubAuth;
 import org.kaddiya.grorchestrator.models.core.latest.Host;
 import org.kaddiya.grorchestrator.models.core.latest.Instance;
 

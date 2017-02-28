@@ -24,7 +24,7 @@ import javax.net.ssl.SSLSession
  * Created by Webonise on 24/06/16.
  */
 @Slf4j
-abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> implements DockerRemoteInterface {
+abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> implements DockerRemoteInterface<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     final Instance instance;
 
@@ -91,8 +91,7 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> implements DockerRe
         return okClient
     }
 
-
-    public <DOCKER_REMOTE_RESPONSE_CLASS> DOCKER_REMOTE_RESPONSE_CLASS doWork() {
+    public <DOCKER_REMOTE_RESPONSE_CLASS> DOCKER_REMOTE_RESPONSE_CLASS doInternalWork() {
         this.preHook()
         DOCKER_REMOTE_RESPONSE_CLASS result =  doSynchonousHTTPCall.call()
         this.postHook()

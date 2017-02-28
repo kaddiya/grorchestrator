@@ -5,7 +5,6 @@ import com.google.inject.assistedinject.Assisted
 import groovy.util.logging.Log4j
 import okhttp3.Request
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
-import org.kaddiya.grorchestrator.managers.interfaces.InspectContainer
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.containerinfo.DockerContainerInspectionResponse
@@ -14,7 +13,7 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.containerinfo.Do
  * Created by Webonise on 22/07/16.
  */
 @Log4j
-class InspectContainerImpl extends DockerRemoteAPI<DockerContainerInspectionResponse> implements InspectContainer {
+class InspectContainerImpl extends DockerRemoteAPI<DockerContainerInspectionResponse>{
 
     @Inject
     InspectContainerImpl(@Assisted Instance instance, @Assisted Host host) {
@@ -33,9 +32,7 @@ class InspectContainerImpl extends DockerRemoteAPI<DockerContainerInspectionResp
 
 
     @Override
-    String getInfo() {
-        DockerContainerInspectionResponse result = doWork()
-        return "status of $instance.name is $result.State.Status and has been started at $result.State.StartedAt"
-
+    DockerContainerInspectionResponse doWork() {
+        return (super.doWork() as DockerContainerInspectionResponse)
     }
 }

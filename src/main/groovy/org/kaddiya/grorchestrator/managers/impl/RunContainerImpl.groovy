@@ -59,6 +59,9 @@ class RunContainerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> {
                 .build();
     }
 
-
+    @Override
+    DockerRemoteGenericOKResponse doWork() {
+        return (super.doInternalWork() as DockerRemoteGenericOKResponse)
+    }
 }
 

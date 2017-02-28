@@ -23,6 +23,7 @@ class HelperModule extends AbstractModule {
         bind(PreviousToLatestSchemaUpdator).to(PreviousToLatestSchemaUpdatorImpl)
         bind(HostFinderImpl)
         bind(DockerhubAuthFinderImpl)
+
     }
 
 }

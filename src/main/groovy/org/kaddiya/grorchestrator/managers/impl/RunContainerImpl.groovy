@@ -37,10 +37,12 @@ class RunContainerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> im
         super(instance, host)
         containerCreatorImpl = creatorFactory.create(this.instance, this.host, authObject)
         this.hostConfigBuilder = hostConfigBuilder
+        this.pathUrl = "containers/$instance.name/start"
     }
 
     @Override
     void runContainer() {
+
         DockerContainerCreationResponse containerCreationResponse = containerCreatorImpl.createContainer()
         if (!containerCreationResponse) {
             throw new IllegalStateException("Something has gone wrong in the creating the container")
@@ -57,9 +59,10 @@ class RunContainerImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> im
         } else {
             request = ""
         }
+
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         return new Request.Builder()
-                .url("$baseUrl/containers/$instance.name/start")
+                .url(getCanonicalURL(this.pathUrl))
                 .post(RequestBody.create(JSON, request))
                 .build();
     }

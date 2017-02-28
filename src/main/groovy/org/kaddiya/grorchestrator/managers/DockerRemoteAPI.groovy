@@ -10,6 +10,7 @@ import org.kaddiya.grorchestrator.managers.interfaces.DockerRemoteInterface
 import org.kaddiya.grorchestrator.models.HostType
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
+import org.kaddiya.grorchestrator.models.remotedocker.responses.AbstractDockerInteractionResponse
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericNoContentResponse
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericOKResponse
 import org.kaddiya.grorchestrator.models.ssl.DockerSslSocket
@@ -93,9 +94,9 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> implements DockerRe
 
     public <DOCKER_REMOTE_RESPONSE_CLASS> DOCKER_REMOTE_RESPONSE_CLASS doInternalWork() {
         this.preHook()
-        DOCKER_REMOTE_RESPONSE_CLASS result =  doSynchonousHTTPCall.call()
+        DOCKER_REMOTE_RESPONSE_CLASS result = doSynchonousHTTPCall.call()
         this.postHook()
-        return result
+        return result as AbstractDockerInteractionResponse
     }
 
 

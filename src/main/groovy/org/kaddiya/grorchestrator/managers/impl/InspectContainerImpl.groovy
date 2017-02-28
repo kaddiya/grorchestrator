@@ -13,7 +13,7 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.containerinfo.Do
  * Created by Webonise on 22/07/16.
  */
 @Log4j
-class InspectContainerImpl extends DockerRemoteAPI<DockerContainerInspectionResponse>{
+class InspectContainerImpl extends DockerRemoteAPI<DockerContainerInspectionResponse> {
 
     @Inject
     InspectContainerImpl(@Assisted Instance instance, @Assisted Host host) {

@@ -113,7 +113,7 @@ class Grorchestrator {
                 InstanceFinder instanceFinderImpl = grorchestratorInjector.getInstance(InstanceFinder)
                 HostFinderImpl hostFinderImpl = grorchestratorInjector.getInstance(HostFinderImpl)
 
-              //  namedDockerRemoteApiFactory.createPuller()
+                //  namedDockerRemoteApiFactory.createPuller()
 
                 Instance requestedInstance = instanceFinderImpl.getInstanceToInteractWith(project, instanceName)
                 Host requestedHost = hostFinderImpl.getHostToInteractWith(project, requestedInstance.hostId)
@@ -129,13 +129,12 @@ class Grorchestrator {
                 DockerRemoteInterface dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance, requestedHost)
                 DockerRemoteInterface removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance, requestedHost)
                 DockerRemoteInterface infoManager = infoManagerFactory.create(requestedInstance, requestedHost)
-                DockerRemoteInterface namedPuller =   namedDockerRemoteApiFactory.createPuller(requestedInstance,requestedHost)
+
 
 
 
                 switch (action.toUpperCase()) {
                     case SupportedContainerActions.PULL.name():
-
                         pullManager.doWork()
                         log.info("finished pulling the image for $requestedInstance.imageName:$requestedInstance.tag")
                         break;

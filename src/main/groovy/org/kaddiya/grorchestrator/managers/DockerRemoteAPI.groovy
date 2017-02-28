@@ -102,11 +102,11 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> implements DockerRe
 
 
     protected void preHook() {
-        log.info("Doing the pre hook work for")
+
     }
 
     protected void postHook() {
-        log.info("Doing the post hook work for")
+        
     }
 
 

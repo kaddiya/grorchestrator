@@ -1,15 +1,12 @@
 package org.kaddiya.grorchestrator.guice
 
 import com.google.inject.AbstractModule
-import com.google.inject.Key
 import com.google.inject.assistedinject.FactoryModuleBuilder
-import com.google.inject.name.Names
 import groovy.transform.CompileStatic
 import org.kaddiya.grorchestrator.guice.factory.*
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.impl.*
 import org.kaddiya.grorchestrator.managers.impl.monitoringactions.InstanceListerImpl
-import org.kaddiya.grorchestrator.managers.interfaces.DockerRemoteInterface
 import org.kaddiya.grorchestrator.managers.interfaces.monitoringactions.InstancesLister
 
 /**
@@ -46,9 +43,9 @@ class DockerRemoteAPIModule extends AbstractModule {
         this.install(new FactoryModuleBuilder()
                 .build(DockerhubAuthCredetialsBuilderFactory))
 
-        this.install(new FactoryModuleBuilder()
+      /*  this.install(new FactoryModuleBuilder()
                 .implement(Key.get(DockerRemoteInterface.class, Names.named("PullImage")), PullImageImpl.class)
                 .build(NamedDockerRemoteApiFactory.class));
-
+        */
     }
 }

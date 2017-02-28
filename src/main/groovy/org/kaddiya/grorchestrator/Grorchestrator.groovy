@@ -109,7 +109,7 @@ class Grorchestrator {
                 KillContainerFactory dockerContainerKillManagerFactory = grorchestratorInjector.getInstance(KillContainerFactory)
                 RemoveContainerFactory dockerContainerRemoveManagerFactory = grorchestratorInjector.getInstance(RemoveContainerFactory)
                 InspectContainerFactory infoManagerFactory = grorchestratorInjector.getInstance(InspectContainerFactory)
-                NamedDockerRemoteApiFactory namedDockerRemoteApiFactory = grorchestratorInjector.getInstance(NamedDockerRemoteApiFactory)
+
 
                 InstanceFinder instanceFinderImpl = grorchestratorInjector.getInstance(InstanceFinder)
                 HostFinderImpl hostFinderImpl = grorchestratorInjector.getInstance(HostFinderImpl)
@@ -125,7 +125,7 @@ class Grorchestrator {
                 DockerHubAuth authObject = dockerhubAuthFinderImpl.getAuthObjectFrom(project, requestedInstance.getAuthId())
 
                 //conditionally create the remote api managers if the action has something to do with container actions
-                DockerRemoteInterface pullManager = dockerImagePullManagerFactory.create(requestedInstance, requestedHost)
+                DockerRemoteInterface pullManager = dockerImagePullManagerFactory.create(requestedInstance, requestedHost,authObject)
                 DockerRemoteInterface dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance, requestedHost, authObject)
                 DockerRemoteInterface dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance, requestedHost)
                 DockerRemoteInterface removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance, requestedHost)

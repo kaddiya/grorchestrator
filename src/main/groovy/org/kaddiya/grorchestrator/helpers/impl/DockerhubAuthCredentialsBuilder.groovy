@@ -10,8 +10,10 @@ import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 @CompileStatic
 class DockerhubAuthCredentialsBuilder {
 
-    String getbase64EncodedValueForCredentials(DockerHubAuth authObject) {
-        return Base64.encoder.encodeToString(new JsonBuilder(authObject).toString().bytes)
+
+    String getBase64EncodedValueForCredsWithAuthId(String authId) {
+        //this will be replaced with an API call.
+        return Base64.encoder.encodeToString(new JsonBuilder(new DockerHubAuth(authId, "proofadmin", "1529.Vienna.1683", "developers@get-proof.com", " ")).toString().bytes)
     }
 
 

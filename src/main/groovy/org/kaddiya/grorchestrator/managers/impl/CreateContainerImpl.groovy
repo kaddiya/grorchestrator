@@ -8,10 +8,10 @@ import groovy.util.logging.Log4j
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
-import org.kaddiya.grorchestrator.guice.factory.PullImageFactory
+import org.kaddiya.grorchestrator.guice.factory.DockerContainerActionFactory
 import org.kaddiya.grorchestrator.helpers.DockerContainerCreationRequestBuilder
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
-import org.kaddiya.grorchestrator.models.core.DockerHubAuth
+import org.kaddiya.grorchestrator.managers.interfaces.DockerRemoteInterface
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.requests.DockerContainerCreationRequest
@@ -26,16 +26,15 @@ import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerC
 class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationResponse> {
 
     final DockerContainerCreationRequestBuilder containerCreationRequestBuilder;
-    final DockerRemoteAPI pullImageImpl
+    final DockerRemoteInterface pullImageImpl
 
     @Inject
     public CreateContainerImpl(
             @Assisted Instance instance,
-            @Assisted Host host,
-            @Assisted DockerHubAuth auth, PullImageFactory pullImageFactory, DockerContainerCreationRequestBuilder containerCreationRequestBuilder) {
+            @Assisted Host host, DockerContainerActionFactory actionFactory, DockerContainerCreationRequestBuilder containerCreationRequestBuilder) {
         super(instance, host)
         this.containerCreationRequestBuilder = containerCreationRequestBuilder
-        this.pullImageImpl = pullImageFactory.create(instance, host,auth)
+        this.pullImageImpl = actionFactory.getImagePuller(instance, host)
         this.pathSegment = "containers/create?name=$instance.name"
     }
 

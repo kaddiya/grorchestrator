@@ -9,13 +9,12 @@ import org.kaddiya.grorchestrator.guice.DeserialiserModule
 import org.kaddiya.grorchestrator.guice.DockerRemoteAPIModule
 import org.kaddiya.grorchestrator.guice.GrorchestratorModule
 import org.kaddiya.grorchestrator.guice.HelperModule
-import org.kaddiya.grorchestrator.guice.factory.*
+import org.kaddiya.grorchestrator.guice.factory.DockerContainerActionFactory
+import org.kaddiya.grorchestrator.guice.factory.InstanceListerFactory
 import org.kaddiya.grorchestrator.helpers.InstanceFinder
-import org.kaddiya.grorchestrator.helpers.impl.DockerhubAuthFinderImpl
 import org.kaddiya.grorchestrator.helpers.impl.HostFinderImpl
 import org.kaddiya.grorchestrator.managers.interfaces.DockerRemoteInterface
 import org.kaddiya.grorchestrator.managers.interfaces.monitoringactions.InstancesLister
-import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 import org.kaddiya.grorchestrator.models.core.SupportedContainerActions
 import org.kaddiya.grorchestrator.models.core.SupportedMonitoringActions
 import org.kaddiya.grorchestrator.models.core.SupportedSystemActions
@@ -103,54 +102,39 @@ class Grorchestrator {
                     throw new IllegalStateException("Please mention the instance to deal with")
                 }
 
-                //once the arguments and the environment is prepared load the context
-                PullImageFactory dockerImagePullManagerFactory = grorchestratorInjector.getInstance(PullImageFactory)
-                RunContainerFactory dockerContainerRunnerFactory = grorchestratorInjector.getInstance(RunContainerFactory)
-                KillContainerFactory dockerContainerKillManagerFactory = grorchestratorInjector.getInstance(KillContainerFactory)
-                RemoveContainerFactory dockerContainerRemoveManagerFactory = grorchestratorInjector.getInstance(RemoveContainerFactory)
-                InspectContainerFactory infoManagerFactory = grorchestratorInjector.getInstance(InspectContainerFactory)
-
+                DockerContainerActionFactory actionFactory = grorchestratorInjector.getInstance(DockerContainerActionFactory)
 
                 InstanceFinder instanceFinderImpl = grorchestratorInjector.getInstance(InstanceFinder)
                 HostFinderImpl hostFinderImpl = grorchestratorInjector.getInstance(HostFinderImpl)
 
-                //  namedDockerRemoteApiFactory.createPuller()
-
                 Instance requestedInstance = instanceFinderImpl.getInstanceToInteractWith(project, instanceName)
                 Host requestedHost = hostFinderImpl.getHostToInteractWith(project, requestedInstance.hostId)
-                DockerhubAuthFinderImpl dockerhubAuthFinderImpl = grorchestratorInjector.getInstance(DockerhubAuthFinderImpl)
 
                 requestedInstance.tag = tag
-
-                DockerHubAuth authObject = dockerhubAuthFinderImpl.getAuthObjectFrom(project, requestedInstance.getAuthId())
-
-                //conditionally create the remote api managers if the action has something to do with container actions
-                DockerRemoteInterface pullManager = dockerImagePullManagerFactory.create(requestedInstance, requestedHost,authObject)
-                DockerRemoteInterface dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance, requestedHost, authObject)
-                DockerRemoteInterface dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance, requestedHost)
-                DockerRemoteInterface removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance, requestedHost)
-                DockerRemoteInterface infoManager = infoManagerFactory.create(requestedInstance, requestedHost)
-
-
 
 
                 switch (action.toUpperCase()) {
                     case SupportedContainerActions.PULL.name():
+                        DockerRemoteInterface pullManager = actionFactory.getImagePuller(requestedInstance, requestedHost)
                         AbstractDockerInteractionResponse resp = pullManager.doWork()
                         log.info("finished pulling the image for $requestedInstance.imageName:$requestedInstance.tag")
                         break;
                     case SupportedContainerActions.RUN.name():
+                        DockerRemoteInterface dockerContainerRunnerManager = actionFactory.getContainerRunner(requestedInstance, requestedHost)
                         AbstractDockerInteractionResponse resp = dockerContainerRunnerManager.doWork()
                         log.info("finished running the container $requestedInstance.imageName:$requestedInstance.tag ")
                         break
                     case SupportedContainerActions.KILL.name():
+                        DockerRemoteInterface dockerContainerKillManager = actionFactory.getContainerKiller(requestedInstance, requestedHost)
                         AbstractDockerInteractionResponse resp = dockerContainerKillManager.doWork()
                         log.info("finished killing the container $requestedInstance.imageName:$requestedInstance.tag ")
                         break
                     case SupportedContainerActions.STATUS.name():
+                        DockerRemoteInterface infoManager = actionFactory.getContainerInspector(requestedInstance, requestedHost)
                         AbstractDockerInteractionResponse resp = infoManager.doWork()
                         break
                     case SupportedContainerActions.REMOVE.name():
+                        DockerRemoteInterface removeManager = actionFactory.getContainerRemover(requestedInstance, requestedHost)
                         AbstractDockerInteractionResponse resp = removeManager.doWork()
                         log.info("finished removing the container $requestedInstance.imageName:$requestedInstance.tag ")
                         break

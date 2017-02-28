@@ -106,7 +106,7 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> implements DockerRe
     }
 
     protected void postHook() {
-        
+
     }
 
 
@@ -137,7 +137,7 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> implements DockerRe
         try {
             return gson.fromJson(value, DOCKER_REMOTE_RESPONSE_CLASS.class);
         } catch (Exception e) {
-            println("Something went wrong in the parsing of the response.Going to return a Generic response with actual response wrapped in")
+            log.warn("Something went wrong in the parsing of the response.Going to return a Generic response with actual response wrapped in a Generic Response")
             return new DockerRemoteGenericNoContentResponse(value)
         }
     }

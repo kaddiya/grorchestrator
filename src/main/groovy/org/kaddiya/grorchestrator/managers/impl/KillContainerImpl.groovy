@@ -7,7 +7,7 @@ import groovy.util.logging.Slf4j
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
-import org.kaddiya.grorchestrator.guice.factory.RemoveContainerFactory
+import org.kaddiya.grorchestrator.guice.factory.DockerContainerActionFactory
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.interfaces.DockerRemoteInterface
 import org.kaddiya.grorchestrator.models.core.latest.Host
@@ -26,9 +26,9 @@ class KillContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResp
 
     @Inject
     KillContainerImpl(
-            @Assisted Instance instance, @Assisted Host host, RemoveContainerFactory containerRemoveMangerFactory) {
+            @Assisted Instance instance, @Assisted Host host, DockerContainerActionFactory actionFactory) {
         super(instance, host)
-        this.containerRemoveManager = containerRemoveMangerFactory.create(instance, host)
+        this.containerRemoveManager = actionFactory.getContainerRemover(instance, host)
         this.pathSegment = "containers/$instance.name/kill"
     }
 

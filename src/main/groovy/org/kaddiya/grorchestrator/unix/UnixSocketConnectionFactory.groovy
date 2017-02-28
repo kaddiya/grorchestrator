@@ -1,5 +1,6 @@
 package org.kaddiya.grorchestrator.unix
 
+import groovy.util.logging.Slf4j
 import okhttp3.Dns
 import okhttp3.HttpUrl
 import okio.ByteString
@@ -13,6 +14,8 @@ import javax.net.SocketFactory
  *  Special thanks to Gesellix for this awesome lifecyle hook.
  *  https://github.com/gesellix/okhttp/commit/5d3d491afd6a6f6ba80985bb6f0749dbed88436c
  */
+
+@Slf4j
 public class UnixSocketConnectionFactory extends SocketFactory implements Dns {
 
 
@@ -114,7 +117,6 @@ public class UnixSocketConnectionFactory extends SocketFactory implements Dns {
             InetAddress address = ((InetSocketAddress) endpoint).getAddress();
             String socketPath = decodeHostname(address);
 
-            System.out.println("connect via '" + socketPath + "'...");
             File socketFile = new File(socketPath);
 
             socket = AFUNIXSocket.newInstance();

@@ -30,7 +30,7 @@ class PullImageImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> {
 
 
     @Inject
-    public PullImageImpl(@Assisted Instance instance, @Assisted Host host,@Assisted DockerHubAuth auth) {
+    public PullImageImpl(@Assisted Instance instance, @Assisted Host host) {
         super(instance, host)
         this.auth = auth
         this.pathSegment = "images/create?fromImage=$instance.imageName&tag=$instance.tag"
@@ -44,7 +44,7 @@ class PullImageImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> {
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         return new Request.Builder()
                 .url(getCanonicalURL(this.pathSegment))
-                .header("X-Registry-Auth", builder.getbase64EncodedValueForCredentials(auth))
+                .header("X-Registry-Auth", builder.getBase64EncodedValueForCredsWithAuthId(instance.authId))
                 .post(RequestBody.create(JSON, ""))  //this requires an empty request body
                 .build();
     }

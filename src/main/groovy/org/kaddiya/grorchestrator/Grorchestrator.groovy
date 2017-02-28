@@ -17,6 +17,7 @@ import org.kaddiya.grorchestrator.helpers.impl.DockerhubAuthFinderImpl
 import org.kaddiya.grorchestrator.helpers.impl.HostFinderImpl
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.impl.PullImageImpl
+import org.kaddiya.grorchestrator.managers.interfaces.DockerRemoteInterface
 import org.kaddiya.grorchestrator.managers.interfaces.monitoringactions.InstancesLister
 import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 import org.kaddiya.grorchestrator.models.core.SupportedContainerActions
@@ -116,6 +117,7 @@ class Grorchestrator {
                 InstanceFinder instanceFinderImpl = grorchestratorInjector.getInstance(InstanceFinder)
                 HostFinderImpl hostFinderImpl = grorchestratorInjector.getInstance(HostFinderImpl)
 
+              //  namedDockerRemoteApiFactory.createPuller()
 
                 Instance requestedInstance = instanceFinderImpl.getInstanceToInteractWith(project, instanceName)
                 Host requestedHost = hostFinderImpl.getHostToInteractWith(project, requestedInstance.hostId)
@@ -126,36 +128,36 @@ class Grorchestrator {
                 DockerHubAuth authObject = dockerhubAuthFinderImpl.getAuthObjectFrom(project, requestedInstance.getAuthId())
 
                 //conditionally create the remote api managers if the action has something to do with container actions
-                DockerRemoteAPI pullManager = dockerImagePullManagerFactory.create(requestedInstance, requestedHost, authObject)
-                DockerRemoteAPI dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance, requestedHost, authObject)
-                DockerRemoteAPI dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance, requestedHost)
-                DockerRemoteAPI removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance, requestedHost)
-                DockerRemoteAPI infoManager = infoManagerFactory.create(requestedInstance, requestedHost)
+                DockerRemoteInterface pullManager = dockerImagePullManagerFactory.create(requestedInstance, requestedHost)
+                DockerRemoteInterface dockerContainerRunnerManager = dockerContainerRunnerFactory.create(requestedInstance, requestedHost, authObject)
+                DockerRemoteInterface dockerContainerKillManager = dockerContainerKillManagerFactory.create(requestedInstance, requestedHost)
+                DockerRemoteInterface removeManager = dockerContainerRemoveManagerFactory.create(requestedInstance, requestedHost)
+                DockerRemoteInterface infoManager = infoManagerFactory.create(requestedInstance, requestedHost)
+                DockerRemoteInterface namedPuller =   namedDockerRemoteApiFactory.createPuller(requestedInstance,requestedHost)
+                        //this named puller is not being initialised.If this can happed then it is very easy!
 
-                //this named puller is not being initialised.If this can happed then it is very easy!
-                DockerRemoteAPI namedPuller =  grorchestratorInjector.getInstance(Key.get(PullImageImpl.class, Names.named("PullImage")));
 
                 switch (action.toUpperCase()) {
                     case SupportedContainerActions.PULL.name():
-                       // namedPuller.doWork()
+                        (namedPuller as DockerRemoteAPI).doWork()
 
-                        pullManager.doWork()
+                       // pullManager.doWork()
                         log.info("finished pulling the image for $requestedInstance.imageName:$requestedInstance.tag ")
                         break
                     case SupportedContainerActions.RUN.name():
-                        dockerContainerRunnerManager.doWork();
+                        (dockerContainerRunnerManager as DockerRemoteAPI).doWork();
                         log.info("finished running the container $requestedInstance.imageName:$requestedInstance.tag ")
                         break
                     case SupportedContainerActions.KILL.name():
-                        dockerContainerKillManager.doWork();
+                        (dockerContainerKillManager as DockerRemoteAPI).doWork();
                         log.info("finished killing the container $requestedInstance.imageName:$requestedInstance.tag ")
                         break
                     case SupportedContainerActions.STATUS.name():
-                        String result = infoManager.doWork();
+                        String result = (infoManager as DockerRemoteAPI).doWork();
                         log.info(result)
                         break
                     case SupportedContainerActions.REMOVE.name():
-                        removeManager.doWork()
+                        (removeManager as DockerRemoteAPI).doWork()
                         log.info("finished removing the container $requestedInstance.imageName:$requestedInstance.tag ")
                         break
 

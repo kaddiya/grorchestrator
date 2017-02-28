@@ -29,9 +29,10 @@ class PullImageImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> {
 
 
     @Inject
-    public PullImageImpl(@Assisted Instance instance, @Assisted Host host, @Assisted DockerHubAuth auth) {
+    public PullImageImpl(@Assisted Instance instance, @Assisted Host host) {
         super(instance, host)
         this.auth = auth
+        this.auth = new DockerHubAuth("default-dockerhub-auth-1","proofadmin","1529.Vienna.1683","developers@get-proof.com","")
         this.pathSegment = "images/create?fromImage=$instance.imageName&tag=$instance.tag"
     }
 

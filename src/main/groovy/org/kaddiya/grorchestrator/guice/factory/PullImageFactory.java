@@ -10,6 +10,6 @@ import org.kaddiya.grorchestrator.models.core.latest.Instance;
  */
 public interface PullImageFactory {
 
-    public DockerRemoteAPI create(Instance instance, Host host, DockerHubAuth auth);
+    public DockerRemoteAPI create(Instance instance, Host host);
 
 }

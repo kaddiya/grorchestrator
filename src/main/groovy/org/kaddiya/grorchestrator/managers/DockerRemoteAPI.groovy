@@ -6,6 +6,7 @@ import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
+import org.kaddiya.grorchestrator.managers.interfaces.DockerRemoteInterface
 import org.kaddiya.grorchestrator.models.HostType
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
@@ -23,7 +24,7 @@ import javax.net.ssl.SSLSession
  * Created by Webonise on 24/06/16.
  */
 @Slf4j
-abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
+abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> implements DockerRemoteInterface {
 
     final Instance instance;
 

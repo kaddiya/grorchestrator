@@ -9,6 +9,7 @@ import org.kaddiya.grorchestrator.guice.factory.*
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
 import org.kaddiya.grorchestrator.managers.impl.*
 import org.kaddiya.grorchestrator.managers.impl.monitoringactions.InstanceListerImpl
+import org.kaddiya.grorchestrator.managers.interfaces.DockerRemoteInterface
 import org.kaddiya.grorchestrator.managers.interfaces.monitoringactions.InstancesLister
 
 /**
@@ -46,7 +47,7 @@ class DockerRemoteAPIModule extends AbstractModule {
                 .build(DockerhubAuthCredetialsBuilderFactory))
 
         this.install(new FactoryModuleBuilder()
-                .implement(Key.get(DockerRemoteAPI.class, Names.named("PullImage")), PullImageImpl.class)
+                .implement(Key.get(DockerRemoteInterface.class, Names.named("PullImage")), PullImageImpl.class)
                 .build(NamedDockerRemoteApiFactory.class));
 
     }

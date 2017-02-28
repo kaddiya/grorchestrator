@@ -35,7 +35,7 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
             @Assisted DockerHubAuth auth, PullImageFactory pullImageFactory, DockerContainerCreationRequestBuilder containerCreationRequestBuilder) {
         super(instance, host)
         this.containerCreationRequestBuilder = containerCreationRequestBuilder
-        this.pullImageImpl = pullImageFactory.create(instance, host, auth)
+        this.pullImageImpl = pullImageFactory.create(instance, host)
         this.pathSegment = "containers/create?name=$instance.name"
     }
 

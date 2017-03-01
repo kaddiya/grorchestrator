@@ -9,7 +9,6 @@ import okhttp3.Request
 import okhttp3.RequestBody
 import org.kaddiya.grorchestrator.helpers.impl.DockerhubAuthCredentialsBuilder
 import org.kaddiya.grorchestrator.managers.DockerRemoteAPI
-import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.AbstractDockerInteractionResponse
@@ -26,13 +25,10 @@ class PullImageImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> {
 
     @Inject
     private DockerhubAuthCredentialsBuilder builder
-    private final DockerHubAuth auth
-
 
     @Inject
     public PullImageImpl(@Assisted Instance instance, @Assisted Host host) {
         super(instance, host)
-        this.auth = auth
         this.pathSegment = "images/create?fromImage=$instance.imageName&tag=$instance.tag"
 
     }

@@ -1,5 +1,6 @@
 package org.kaddiya.grorchestrator
 
+import com.google.inject.AbstractModule
 import com.google.inject.Guice
 import com.google.inject.Injector
 import groovy.transform.CompileStatic
@@ -11,7 +12,9 @@ import org.kaddiya.grorchestrator.guice.GrorchestratorModule
 import org.kaddiya.grorchestrator.guice.HelperModule
 import org.kaddiya.grorchestrator.guice.factory.DockerContainerActionFactory
 import org.kaddiya.grorchestrator.guice.factory.InstanceListerFactory
+import org.kaddiya.grorchestrator.helpers.DockerRegistryAuthFinder
 import org.kaddiya.grorchestrator.helpers.InstanceFinder
+import org.kaddiya.grorchestrator.helpers.impl.FileDockerRegisteryAuthFinderImpl
 import org.kaddiya.grorchestrator.helpers.impl.HostFinderImpl
 import org.kaddiya.grorchestrator.managers.interfaces.DockerRemoteInterface
 import org.kaddiya.grorchestrator.managers.interfaces.monitoringactions.InstancesLister
@@ -39,9 +42,15 @@ class Grorchestrator {
     public static void main(String[] args) {
 
         Injector grorchestratorInjector = Guice.createInjector(new GrorchestratorModule(
-                new DeserialiserModule(), new DockerRemoteAPIModule(), new HelperModule()
+                new DeserialiserModule(), new DockerRemoteAPIModule(), new HelperModule() ,new AbstractModule() {
+            @Override
+            protected void configure() {
+                bind(DockerRegistryAuthFinder).to(FileDockerRegisteryAuthFinderImpl)
+            }
+        }
 
         ))
+
 
         GrorProjectDeserialiserImpl latestDeserialiser = grorchestratorInjector.getInstance(GrorProjectDeserialiserImpl)
         org.kaddiya.grorchestrator.deserialisers.previous.GrorProjectDeserialiserImpl previousDeserialiser = grorchestratorInjector.getInstance(org.kaddiya.grorchestrator.deserialisers.previous.GrorProjectDeserialiserImpl)

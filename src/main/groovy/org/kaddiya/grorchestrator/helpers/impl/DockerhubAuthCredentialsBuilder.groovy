@@ -1,7 +1,9 @@
 package org.kaddiya.grorchestrator.helpers.impl
 
+import com.google.inject.Inject
 import groovy.json.JsonBuilder
 import groovy.transform.CompileStatic
+import org.kaddiya.grorchestrator.helpers.DockerRegistryAuthFinder
 import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 
 /**
@@ -10,10 +12,13 @@ import org.kaddiya.grorchestrator.models.core.DockerHubAuth
 @CompileStatic
 class DockerhubAuthCredentialsBuilder {
 
+    @Inject
+    DockerRegistryAuthFinder finderImpl
 
     String getBase64EncodedValueForCredsWithAuthId(String authId) {
         //this will be replaced with an API call.
-        return Base64.encoder.encodeToString(new JsonBuilder(new DockerHubAuth(authId, "proofadmin", "1529.Vienna.1683", "developers@get-proof.com", " ")).toString().bytes)
+        DockerHubAuth auth = finderImpl.getDockerHubAuthForId(authId)
+        return Base64.encoder.encodeToString(new JsonBuilder(auth).toString().bytes)
     }
 
 

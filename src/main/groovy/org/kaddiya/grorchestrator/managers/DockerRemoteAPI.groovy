@@ -2,11 +2,7 @@ package org.kaddiya.grorchestrator.managers
 
 import com.google.gson.Gson
 import groovy.util.logging.Slf4j
-import okhttp3.HttpUrl
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
-import okhttp3.ResponseBody
+import okhttp3.*
 import org.kaddiya.grorchestrator.managers.interfaces.DockerRemoteInterface
 import org.kaddiya.grorchestrator.models.HostType
 import org.kaddiya.grorchestrator.models.core.latest.Host
@@ -134,6 +130,7 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> implements DockerRe
 
     protected <DOCKER_REMOTE_RESPONSE_CLASS> DOCKER_REMOTE_RESPONSE_CLASS parseResponseJson(Response response) {
         response.body().withCloseable { ResponseBody body ->
+            String value = body.string()
             //first try to attempt to parse the json into the known class.If it throws an exception wrap the response as a string into a genric ok response and send it back
             try {
                 return gson.fromJson(body.string(), DOCKER_REMOTE_RESPONSE_CLASS.class);

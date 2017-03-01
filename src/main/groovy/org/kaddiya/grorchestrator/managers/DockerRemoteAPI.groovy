@@ -6,6 +6,7 @@ import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
+import okhttp3.ResponseBody
 import org.kaddiya.grorchestrator.managers.interfaces.DockerRemoteInterface
 import org.kaddiya.grorchestrator.models.HostType
 import org.kaddiya.grorchestrator.models.core.latest.Host
@@ -132,13 +133,15 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> implements DockerRe
     }
 
     protected <DOCKER_REMOTE_RESPONSE_CLASS> DOCKER_REMOTE_RESPONSE_CLASS parseResponseJson(Response response) {
-        def value = response.body().string()
-        //first try to attempt to parse the json into the known class.If it throws an exception wrap the response as a string into a genric ok response and send it back
-        try {
-            return gson.fromJson(value, DOCKER_REMOTE_RESPONSE_CLASS.class);
-        } catch (Exception e) {
-            log.warn("Something went wrong in the parsing of the response.Going to return a Generic response with actual response wrapped in a Generic Response")
-            return new DockerRemoteGenericNoContentResponse(value)
+        response.body().withCloseable { ResponseBody body ->
+            //first try to attempt to parse the json into the known class.If it throws an exception wrap the response as a string into a genric ok response and send it back
+            try {
+                return gson.fromJson(body.string(), DOCKER_REMOTE_RESPONSE_CLASS.class);
+            } catch (Exception e) {
+                log.warn("Something went wrong in the parsing of the response.Going to return a Generic response with actual response wrapped in a Generic Response")
+                return new DockerRemoteGenericNoContentResponse(value)
+            }
+
         }
     }
 

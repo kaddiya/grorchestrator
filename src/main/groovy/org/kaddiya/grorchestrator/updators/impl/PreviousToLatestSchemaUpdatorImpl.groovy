@@ -1,7 +1,7 @@
 package org.kaddiya.grorchestrator.updators.impl
 
 import groovy.transform.CompileStatic
-import org.kaddiya.grorchestrator.Grorchestrator
+
 import org.kaddiya.grorchestrator.models.core.SystemInfo
 import org.kaddiya.grorchestrator.models.core.latest.GrorProject
 import org.kaddiya.grorchestrator.models.core.latest.Host
@@ -16,7 +16,7 @@ import org.kaddiya.grorchestrator.updators.PreviousToLatestSchemaUpdator
 class PreviousToLatestSchemaUpdatorImpl implements PreviousToLatestSchemaUpdator {
 
     public final static String DEFAULT_AUTH_ID = "update-your-auth-key"
-
+    public final static String CURRENT_GROR_VERSION ="1.0.0"
     @Override
     GrorProject updateFromPreviousProject(org.kaddiya.grorchestrator.models.core.previous.GrorProject previousProject) {
         //extract the host list
@@ -24,7 +24,7 @@ class PreviousToLatestSchemaUpdatorImpl implements PreviousToLatestSchemaUpdator
         //etract the component list
         List<org.kaddiya.grorchestrator.models.core.latest.Component> newComponents = getLatestComponentsListFromPreviousGrorProject(previousProject)
         //return the new project
-        return new GrorProject(new SystemInfo(previousProject.getSystemInfo().getName(), Grorchestrator.CURRENT_GROR_VERSION), newComponents, newHostList)
+        return new GrorProject(new SystemInfo(previousProject.getSystemInfo().getName(), CURRENT_GROR_VERSION), newComponents, newHostList)
     }
 
     @Override

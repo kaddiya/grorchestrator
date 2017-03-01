@@ -13,12 +13,8 @@ class HelperModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(DockerhubAuthCredentialsBuilder)
-        bind(InstanceFinder).to(InstanceFinderImpl)
         bind(DockerContainerCreationRequestBuilder).to(DockerContainerCreationRequestBuilderImpl)
         bind(HostConfigBuilder).to(HostConfigBuilderImpl)
-        bind(EnvironmentVarsResolver)
-        bind(PreviousToLatestSchemaUpdator).to(PreviousToLatestSchemaUpdatorImpl)
-        bind(HostFinderImpl)
     }
 
 }

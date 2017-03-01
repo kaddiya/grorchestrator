@@ -35,12 +35,12 @@ class KillContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResp
 
     @Override
     protected void preHook() {
-        log.info("going to kill the container $instance.name")
+        log.info("killing the instance with $instance.name")
     }
 
     @Override
     protected void postHook() {
-        log.info("going to remove the container $instance.name")
+        log.info("killed the instance with $instance.name")
         containerRemoveManager.doWork()
     }
 

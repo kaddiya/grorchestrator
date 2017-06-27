@@ -1,15 +1,13 @@
 package org.kaddiya.grorchestrator.managers
 
 import com.google.gson.Gson
-import okhttp3.HttpUrl
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
+import groovy.util.logging.Slf4j
+import okhttp3.*
+import org.kaddiya.grorchestrator.managers.interfaces.DockerRemoteInterface
 import org.kaddiya.grorchestrator.models.HostType
 import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericNoContentResponse
-import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericOKResponse
 import org.kaddiya.grorchestrator.models.ssl.DockerSslSocket
 import org.kaddiya.grorchestrator.ssl.SslSocketConfigFactory
 import org.kaddiya.grorchestrator.unix.UnixSocketConnectionFactory
@@ -21,13 +19,13 @@ import javax.net.ssl.SSLSession
 /**
  * Created by Webonise on 24/06/16.
  */
-abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
+@Slf4j
+abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> implements DockerRemoteInterface {
+//<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     final Instance instance;
 
     final Host host;
-
-    final String baseUrl;
 
     final OkHttpClient httpClient
 
@@ -35,31 +33,19 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     final Gson gson = new Gson()
 
-    final Class aClass
-
-    final String protocol
-
     final UnixSocketUtils utils = new UnixSocketUtils()
 
-    protected String pathUrl
+    final StringBuilder actionStringBuilder;
+
+    protected String pathSegment
 
     public DockerRemoteAPI(Instance instance, Host host) {
 
         this.host = host
         this.instance = instance
-        //construct the baseURL
-
-        /*
-
-        Need to remove the setting of the baseUrl.instead use derieve hostUrl
-         */
-        if (host.dockerPort) {
-            this.baseUrl = "$protocol://$host.ip:$host.dockerPort"
-        }
 
         //initialise the OkHTTPCLient
         this.httpClient = initialiseOkHTTPClient()
-        this.aClass = DOCKER_REMOTE_RESPONSE_CLASS.class
         this.doSynchonousHTTPCall = scrubResponse << apiCallClosure
     }
 
@@ -104,9 +90,20 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
         return okClient
     }
 
+    protected <DOCKER_REMOTE_RESPONSE_CLASS> DOCKER_REMOTE_RESPONSE_CLASS doInternalWork() {
+        this.preHook()
+        DOCKER_REMOTE_RESPONSE_CLASS result = doSynchonousHTTPCall.call()
+        this.postHook()
+        return result
+    }
 
-    public <DOCKER_REMOTE_RESPONSE_CLASS> DOCKER_REMOTE_RESPONSE_CLASS doWork() {
-        doSynchonousHTTPCall.call()
+
+    protected void preHook() {
+
+    }
+
+    protected void postHook() {
+
     }
 
 
@@ -132,14 +129,16 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
     }
 
     protected <DOCKER_REMOTE_RESPONSE_CLASS> DOCKER_REMOTE_RESPONSE_CLASS parseResponseJson(Response response) {
-        def value = response.body().string()
-        println(value)
-        //first try to attempt to parse the json into the known class.If it throws an exception wrap the response as a string into a genric ok response and send it back
-        try {
-            return gson.fromJson(value, DOCKER_REMOTE_RESPONSE_CLASS.class);
-        } catch (Exception e) {
-            println("Something went wrong in the parsing of the response.Going to return a Generic response with actual response wrapped in")
-            return new DockerRemoteGenericOKResponse(value)
+        response.body().withCloseable { ResponseBody body ->
+            String value = body.string()
+            //first try to attempt to parse the json into the known class.If it throws an exception wrap the response as a string into a genric ok response and send it back
+            try {
+                return gson.fromJson(body.string(), DOCKER_REMOTE_RESPONSE_CLASS.class);
+            } catch (Exception e) {
+                log.warn("Something went wrong in the parsing of the response.Going to return a Generic response with actual response wrapped in a Generic Response")
+                return new DockerRemoteGenericNoContentResponse(value)
+            }
+
         }
     }
 
@@ -159,12 +158,11 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     protected String getCanonicalURL(String path) {
 
-
         if (this.host.hostType == HostType.TCP || this.host.hostType == null) {
             return getDecodedUrl(new HttpUrl.Builder()
                     .scheme(this.host.protocol)
                     .host(this.host.ip)
-                    .port(this.host.dockerPort)
+                    .port(this.host.dockerPort as int)
                     .addPathSegment(path).build())
         } else if (this.host.hostType == HostType.UNIX) {
             return getDecodedUrl(new HttpUrl.Builder()

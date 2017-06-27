@@ -1,6 +1,6 @@
 package org.kaddiya.grorchestrator.guice.factory;
 
-import org.kaddiya.grorchestrator.managers.interfaces.DockerVersionManager;
+import org.kaddiya.grorchestrator.managers.DockerRemoteAPI;
 import org.kaddiya.grorchestrator.models.core.latest.Host;
 import org.kaddiya.grorchestrator.models.core.latest.Instance;
 
@@ -9,5 +9,5 @@ import org.kaddiya.grorchestrator.models.core.latest.Instance;
  */
 public interface DockerVersionManagerFactory {
 
-    public DockerVersionManager create(Instance instance, Host host);
+    public DockerRemoteAPI create(Instance instance, Host host);
 }

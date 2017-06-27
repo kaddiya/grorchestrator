@@ -7,7 +7,7 @@ import groovy.transform.Canonical
  */
 @Canonical
 //unfortunately Docker APIs have word case conventions so i need to have the same:(
-class DockerContainerCreationResponse {
+class DockerContainerCreationResponse extends AbstractDockerInteractionResponse {
     String Id
     String Warnings
 }

@@ -6,11 +6,14 @@ import com.google.inject.assistedinject.FactoryModuleBuilder
 import com.google.inject.name.Names
 import groovy.transform.CompileStatic
 import org.kaddiya.grorchestrator.guice.factory.DockerContainerActionFactory
+import org.kaddiya.grorchestrator.guice.factory.DockerRemoteAPIActionAggregatorFactory
 import org.kaddiya.grorchestrator.guice.factory.DockerhubAuthCredetialsBuilderFactory
 import org.kaddiya.grorchestrator.guice.factory.InstanceListerFactory
 import org.kaddiya.grorchestrator.managers.impl.*
+import org.kaddiya.grorchestrator.managers.impl.aggregators.RedeployContainerImpl
 import org.kaddiya.grorchestrator.managers.impl.monitoringactions.InstanceListerImpl
 import org.kaddiya.grorchestrator.managers.interfaces.DockerRemoteInterface
+import org.kaddiya.grorchestrator.managers.interfaces.aggregators.DockerRemoteAPIActionsAggregator
 import org.kaddiya.grorchestrator.managers.interfaces.monitoringactions.InstancesLister
 
 /**
@@ -35,8 +38,12 @@ class DockerRemoteAPIModule extends AbstractModule {
                 .implement(Key.get(DockerRemoteInterface.class, Names.named("Killer")), KillContainerImpl.class)
                 .implement(Key.get(DockerRemoteInterface.class, Names.named("Remover")), RemoveContainerImpl.class)
                 .implement(Key.get(DockerRemoteInterface.class, Names.named("Inspector")), InspectContainerImpl.class)
+
                 .build(DockerContainerActionFactory.class))
 
-
+        this.install(new FactoryModuleBuilder()
+                .implement(Key.get(DockerRemoteAPIActionsAggregator.class,Names.named("Redeployer")),RedeployContainerImpl.class)
+                .build(DockerRemoteAPIActionAggregatorFactory.class)
+        )
     }
 }

@@ -5,9 +5,6 @@ import org.kaddiya.grorchestrator.managers.interfaces.DockerRemoteInterface;
 import org.kaddiya.grorchestrator.models.core.latest.Host;
 import org.kaddiya.grorchestrator.models.core.latest.Instance;
 
-/**
- * Created by Webonise on 28/02/17.
- */
 public interface DockerContainerActionFactory {
     @Named("Creator")
     public DockerRemoteInterface getContainerCreator(Instance instance, Host host);
@@ -26,6 +23,8 @@ public interface DockerContainerActionFactory {
 
     @Named("Inspector")
     public DockerRemoteInterface getContainerInspector(Instance instance, Host host);
+
+
 
 
 }

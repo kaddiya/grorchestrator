@@ -24,6 +24,15 @@ class InspectContainerImpl extends DockerRemoteAPI<DockerContainerInspectionResp
         this.pathSegment = "/containers/$instance.name/json"
     }
 
+    @Override
+    protected void preHook() {
+
+    }
+
+    @Override
+    protected void postHook() {
+
+    }
 
     @Override
     Request constructRequest() {

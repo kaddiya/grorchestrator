@@ -16,12 +16,9 @@ import org.kaddiya.grorchestrator.unix.UnixSocketUtils
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLSession
 
-/**
- * Created by Webonise on 24/06/16.
- */
+
 @Slf4j
 abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> implements DockerRemoteInterface {
-//<DOCKER_REMOTE_RESPONSE_CLASS> {
 
     final Instance instance;
 
@@ -98,13 +95,9 @@ abstract class DockerRemoteAPI<DOCKER_REMOTE_RESPONSE_CLASS> implements DockerRe
     }
 
 
-    protected void preHook() {
+    protected abstract void preHook()
 
-    }
-
-    protected void postHook() {
-
-    }
+    protected abstract void postHook()
 
 
     def apiCallClosure = {

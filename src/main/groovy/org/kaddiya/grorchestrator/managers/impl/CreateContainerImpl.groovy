@@ -18,9 +18,7 @@ import org.kaddiya.grorchestrator.models.remotedocker.requests.DockerContainerCr
 import org.kaddiya.grorchestrator.models.remotedocker.responses.AbstractDockerInteractionResponse
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerContainerCreationResponse
 
-/**
- * Created by Webonise on 05/07/16.
- */
+
 @CompileStatic
 @Log4j
 class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationResponse> {
@@ -36,6 +34,16 @@ class CreateContainerImpl extends DockerRemoteAPI<DockerContainerCreationRespons
         this.containerCreationRequestBuilder = containerCreationRequestBuilder
         this.pullImageImpl = actionFactory.getImagePuller(instance, host)
         this.pathSegment = "containers/create?name=$instance.name"
+    }
+
+    @Override
+    protected void preHook() {
+
+    }
+
+    @Override
+    protected void postHook() {
+
     }
 
     @Override

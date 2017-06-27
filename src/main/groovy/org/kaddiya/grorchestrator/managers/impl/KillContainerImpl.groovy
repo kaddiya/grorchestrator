@@ -15,9 +15,7 @@ import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.AbstractDockerInteractionResponse
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericNoContentResponse
 
-/**
- * Created by Webonise on 12/07/16.
- */
+
 @CompileStatic
 @Slf4j
 class KillContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResponse> {

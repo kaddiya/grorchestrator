@@ -21,6 +21,15 @@ class DockerVersionManagerImpl extends DockerRemoteAPI<VersionResponse> {
         this.pathSegment = "version"
     }
 
+    @Override
+    protected void preHook() {
+
+    }
+
+    @Override
+    protected void postHook() {
+
+    }
 
     @Override
     protected Request constructRequest() {

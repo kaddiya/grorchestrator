@@ -14,9 +14,6 @@ import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.remotedocker.responses.AbstractDockerInteractionResponse
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericOKResponse
 
-/**
- * Created by Webonise on 24/06/16.
- */
 @CompileStatic
 @Slf4j
 class PullImageImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> {
@@ -33,6 +30,15 @@ class PullImageImpl extends DockerRemoteAPI<DockerRemoteGenericOKResponse> {
 
     }
 
+    @Override
+    protected void preHook() {
+
+    }
+
+    @Override
+    protected void postHook() {
+
+    }
 
     @Override
     Request constructRequest() {

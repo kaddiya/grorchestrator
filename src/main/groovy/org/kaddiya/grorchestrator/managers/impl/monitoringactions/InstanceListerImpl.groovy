@@ -10,9 +10,7 @@ import org.kaddiya.grorchestrator.models.core.latest.Host
 import org.kaddiya.grorchestrator.models.core.latest.Instance
 import org.kaddiya.grorchestrator.models.monitoringactions.InstanceSummary
 
-/**
- * Created by Webonise on 13/01/17.
- */
+
 @CompileStatic
 class InstanceListerImpl implements InstancesLister {
 

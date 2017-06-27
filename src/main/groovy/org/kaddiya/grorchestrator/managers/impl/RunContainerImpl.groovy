@@ -17,9 +17,7 @@ import org.kaddiya.grorchestrator.models.remotedocker.requests.HostConfig
 import org.kaddiya.grorchestrator.models.remotedocker.responses.AbstractDockerInteractionResponse
 import org.kaddiya.grorchestrator.models.remotedocker.responses.DockerRemoteGenericNoContentResponse
 
-/**
- * Created by Webonise on 11/07/16.
- */
+
 @CompileStatic
 class RunContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentResponse> {
 
@@ -40,6 +38,11 @@ class RunContainerImpl extends DockerRemoteAPI<DockerRemoteGenericNoContentRespo
     @Override
     void preHook() {
         containerCreatorImpl.doWork()
+    }
+
+    @Override
+    protected void postHook() {
+
     }
 
     @Override
